@@ -59,7 +59,7 @@ const addToCart = () => {
 
     <!-- ================= HERO ================= -->
     <section
-      class=" from-indigo-600 via-indigo-700 to-purple-700 text-white"
+      class="bg-blue-700 from-indigo-600 via-indigo-700 to-purple-700 text-white"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
@@ -138,7 +138,7 @@ const addToCart = () => {
 
 
         <!-- Hero Books -->
-        <div class="hidden lg:flex justify-center relative">
+        <div class=" hidden lg:flex justify-center relative">
 
           <div
             class="absolute w-72 h-72 bg-purple-400/30
@@ -174,7 +174,7 @@ const addToCart = () => {
     <!-- ================= CATEGORIES ================= -->
     <section id="categories" class="py-16">
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex justify-between items-end mb-8">
 
@@ -405,7 +405,7 @@ const addToCart = () => {
     <section class="py-16">
 
       <div
-        class="max-w-5xl  bg-indigo-600
+        class="mx-60 max-w-5xl  bg-indigo-600
                rounded-3xl px-6 py-12
                text-center text-white"
       >

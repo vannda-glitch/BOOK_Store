@@ -1,0 +1,70 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Nike: Better is Temporary",
+      "author": "Sam Grawe",
+      "genre": "Design",
+      "format": "Hardcover",
+      "price": 110,
+      "originalPrice": 150,
+      "isNew": false,
+      "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": 2,
+      "title": "Adidas: The Book of Sneakers",
+      "author": "Kith Unveil",
+      "genre": "Design",
+      "format": "Hardcover",
+      "price": 130,
+      "originalPrice": null,
+      "isNew": true,
+      "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Reebok Classic Stories",
+      "author": "Nylon Magic",
+      "genre": "Fiction",
+      "format": "Paperback",
+      "price": 90,
+      "originalPrice": 110,
+      "isNew": false,
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": 4,
+      "title": "Calvin Klein: Minimalism",
+      "author": "NMD City Sock",
+      "genre": "Non-Fiction",
+      "format": "Hardcover",
+      "price": 85,
+      "originalPrice": null,
+      "isNew": false,
+      "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": 5,
+      "title": "Balenciaga Archives",
+      "author": "Roshe One Essential",
+      "genre": "Design",
+      "format": "Hardcover",
+      "price": 150,
+      "originalPrice": 180,
+      "isNew": true,
+      "image": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": 6,
+      "title": "Design Systems & Culture",
+      "author": "Classic Magic",
+      "genre": "Sci-Fi",
+      "format": "Paperback",
+      "price": 45,
+      "originalPrice": null,
+      "isNew": false,
+      "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&auto=format&fit=crop&q=80"
+    }
+  ]
+}

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const categories = [
   { name: 'Fiction', icon: '📖' },
   { name: 'Technology', icon: '💻' },
@@ -554,4 +553,6 @@ const addToCart = () => {
     </footer>
 
   </div>
+>>>>>>> origin/dev
 </template>
+>>>>>>> fa2143573278a782bc38cb18585cb1463f0555b2

@@ -16,7 +16,7 @@ const books = [
     author: 'Morgan Housel',
     price: 18.99,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=500&q=80'git
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 2,
@@ -59,7 +59,7 @@ const addToCart = () => {
 
     <!-- ================= HERO ================= -->
     <section
-      class="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white"
+      class=" from-indigo-600 via-indigo-700 to-purple-700 text-white"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
@@ -405,7 +405,7 @@ const addToCart = () => {
     <section class="py-16">
 
       <div
-        class="max-w-5xl mx-auto mx-4 bg-indigo-600
+        class="max-w-5xl  bg-indigo-600
                rounded-3xl px-6 py-12
                text-center text-white"
       >

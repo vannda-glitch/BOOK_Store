@@ -49,26 +49,32 @@
           <!-- Navigation -->
           <div class="flex items-center gap-5">
 
-            <a
-              href="#"
+            <NuxtLink
+              active-class="text-indigo-600" to="/"
               class="hidden lg:block text-sm font-medium hover:text-indigo-600"
             >
               Home
-            </a>
+            </NuxtLink>
 
-            <a
-              href="#books"
+            <NuxtLink 
+              active-class="text-indigo-600" to="/product"
               class="hidden lg:block text-sm font-medium hover:text-indigo-600"
             >
               Books
-            </a>
+            </NuxtLink>
 
-            <a
-              href="#categories"
+            <NuxtLink
+              active-class="text-indigo-600" to="/contact"
               class="hidden lg:block text-sm font-medium hover:text-indigo-600"
             >
-              Categories
-            </a>
+              Contact
+            </NuxtLink>
+             <NuxtLink
+               active-class="text-indigo-600" to="/about"
+              class="hidden lg:block text-sm font-medium hover:text-indigo-600"
+            >
+              About Us
+            </NuxtLink>
 
             <!-- Cart -->
             <button
@@ -88,8 +94,8 @@
 
             <!-- User -->
             <button
-              class="hidden sm:block bg-gray-100 px-4 py-2 rounded-lg
-                     text-sm font-medium hover:bg-gray-200"
+              class="hidden sm:block bg-indigo-600 px-4 py-2 rounded-lg text-white
+                     text-sm font-medium hover:bg-indigo-500 hover:text-white"
             >
               Login
             </button>

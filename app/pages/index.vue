@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<template>
-    <!-- <p>This is my Project</p> -->
-=======
 <script setup lang="ts">
-
 const categories = [
   { name: 'Fiction', icon: '📖' },
   { name: 'Technology', icon: '💻' },

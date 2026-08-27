@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 <template>
   <div class="min-h-screen bg-[#f7f6f5] text-slate-900 font-sans flex flex-col">
     <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 md:px-10 sticky top-0 z-30">

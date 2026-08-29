@@ -59,10 +59,9 @@ const emit = defineEmits<{
         </span>
       </div>
       <button
-        @click="emit('add-to-cart', product)"
-        class="mt-5 w-full rounded-xl bg-blue-700 py-3 font-semibold text-white transition hover:bg-gray-800"
-      >
-        Add to Cart
+        @click="navigateTo(`/productDetail?id=${product.id}`)"
+        class="mt-5 w-full rounded-xl bg-blue-700 py-3 font-semibold text-white transition hover:bg-gray-800">
+        View Details
       </button>
     </div>
   </div>

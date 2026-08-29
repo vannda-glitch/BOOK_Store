@@ -2,58 +2,58 @@
   "products": [
     {
       "id": 1,
-      "title": "Nike: Better is Temporary",
+      "title": "WE DO NOT PAST",
       "author": "Sam Grawe",
       "genre": "Design",
       "format": "Hardcover",
       "price": 110,
       "originalPrice": 150,
       "isNew": false,
-      "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80"
+      "image": "https://static01.nyt.com/images/2025/02/28/books/review/28we-do-not-part-han-kang-book-club-cover-2/28we-do-not-part-han-kang-book-club-cover-2-articleLarge.jpg?quality=75&auto=webp&disable=upscale"
     },
     {
       "id": 2,
-      "title": "Adidas: The Book of Sneakers",
+      "title": "THE ARTWORK OF BERSERK",
       "author": "Kith Unveil",
       "genre": "Design",
       "format": "Hardcover",
       "price": 130,
       "originalPrice": null,
       "isNew": true,
-      "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop&q=80"
+      "image": "https://i0.wp.com/halcyonrealms.com/blogpics/berserkartab30.jpg?resize=750%2C500&ssl=1"
     },
     {
       "id": 3,
-      "title": "Reebok Classic Stories",
+      "title": "THE CLASSIC STORIES",
       "author": "Nylon Magic",
       "genre": "Fiction",
       "format": "Paperback",
       "price": 90,
       "originalPrice": 110,
       "isNew": false,
-      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&auto=format&fit=crop&q=80"
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTGF-2bNVYrQCzEOg7CGSfbvaHZS2oIzTAUOV9p1qAwg&s=10"
     },
     {
       "id": 4,
-      "title": "Calvin Klein: Minimalism",
+      "title": "Road Trip France",
       "author": "NMD City Sock",
       "genre": "Non-Fiction",
       "format": "Hardcover",
       "price": 85,
       "originalPrice": null,
       "isNew": false,
-      "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&auto=format&fit=crop&q=80"
+      "image": "https://nofusstravelguides.com/cdn/shop/files/166570cc-Road-Trip-France-Robbie-Roams-Guidbook-1-Optimised.jpg?v=1781087105"
     },
     {
       "id": 5,
-      "title": "Balenciaga Archives",
+      "title": "The Happiness",
       "author": "Roshe One Essential",
       "genre": "Design",
       "format": "Hardcover",
       "price": 150,
       "originalPrice": 180,
       "isNew": true,
-      "image": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&auto=format&fit=crop&q=80"
+      "image": "https://images.ctfassets.net/9htf9uzhsn4z/51ynRwyfYI3iCsHLT7n9ew/0987e51e30a65974ac6adc97c84c84ed/lulu-products-product-types-print-books-2x.jpg?w=2880&h=960&fm=webp"
     },
     {
       "id": 6,
@@ -64,7 +64,40 @@
       "price": 45,
       "originalPrice": null,
       "isNew": false,
-      "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&auto=format&fit=crop&q=80"
+      "image": "https://archive.smashing.media/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/beee7aa8-482e-4404-9844-82fa92e0b00f/design-systems-book-800w-opt.jpg"
+    },
+    {
+      "id": 7,
+      "title": "The hobbit",
+      "author": "J.R.R. Tolkien",
+      "genre": "Fantasy",
+      "format": "Hardcover",
+      "price": 70,
+      "originalPrice": null,
+      "isNew": false,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThb2-aAORTNapkA-lZ83YXu-QH2zlDi7QODAuZIV-R3N7B_-DmP4dWiVY&s=10"
+    },
+    {
+      "id": 8,
+      "title": "Harry Potter and the Sorcerer's Stone",
+      "author": "J.K Rowling",
+      "genre": "Young Adult Fantasy",
+      "format": "Paperback",
+      "price": 89,
+      "originalPrice": null,
+      "isNew": false,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmtd3R3Kb4l-jBHwxfGqi2268HlnozvvNSESscwsvIegDm5oDrBm6gI1U&s=10"
+    },
+    {
+      "id": 9,
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "genre": "Classic Romance",
+      "format": "E-Book",
+      "price": 55,
+      "originalPrice": null,
+      "isNew": false,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUGp3lnTKGt-2PxQWxKG8RRhyfmw9IYJa5ddO_AvIcfg81VPF6S7-T2z0&s=10"
     }
   ]
 }

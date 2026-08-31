@@ -141,4 +141,3 @@ const addToCart = (book: Product) => {
 cartCount.value++
 }
 </script>
->>>>>>> 8e69a4e36e519d50726325892b0ef30d32233711

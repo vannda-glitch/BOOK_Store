@@ -1,366 +1,112 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-
-    <!-- Hero Section -->
-    <section class="bg-indigo-600 text-white  max-w-7xl mx-auto mt-2 rounded-2xl">
-      <div class="max-w-7xl mx-auto px-6 py-10 text-center">
-        <div class="text-5xl mb-5">📚</div>
-
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          Get in Touch With Us
-        </h1>
-
-        <p class="max-w-2xl mx-auto text-indigo-100 text-lg">
-          Have a question about our books, orders, or delivery?
-          We are here to help.
-        </p>
+  <div class="min-h-screen bg-amber-50">
+    <!-- Header -->
+    <section class="bg-gradient-to-br from-yellow-800 to-yellow-700 text-white py-20 px-5 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h1 class="text-5xl font-bold mb-4 tracking-wide">Get In Touch</h1>
+        <p class="text-lg font-light opacity-95">Have questions about our books? We're here to help!</p>
       </div>
     </section>
 
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-5 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <!-- Contact Methods -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-9 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div class="text-5xl mb-4">📞</div>
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Call Us</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">+1 (555) 123-4567</p>
+            <p class="mt-2 text-xs text-gray-600 leading-relaxed">Mon-Fri: 9AM - 6PM EST<br>Sat: 10AM - 4PM EST<br>Sun: Closed</p>
+          </div>
 
-    <!-- Contact Section -->
-    <section class="max-w-7xl mx-auto px-6 py-16">
+          <div class="bg-white p-9 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div class="text-5xl mb-4">📧</div>
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Email Us</h3>
+            <p class="text-sm text-gray-600 leading-relaxed"><a href="mailto:support@bookstore.com" class="text-yellow-800 font-semibold hover:text-yellow-700 hover:underline">support@bookstore.com</a></p>
+            <p class="mt-2 text-xs text-gray-600 leading-relaxed">Orders: orders@bookstore.com<br>Returns: returns@bookstore.com</p>
+          </div>
 
-      <div class="grid lg:grid-cols-3 gap-8">
+          <div class="bg-white p-9 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div class="text-5xl mb-4">📍</div>
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Visit Us</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">123 Book Lane<br>Reading City, RC 12345</p>
+            <p class="mt-2 text-xs text-gray-600 leading-relaxed">Store Hours:<br>Mon-Sat: 9AM - 9PM<br>Sun: 11AM - 6PM</p>
+          </div>
 
-        <!-- Contact Information -->
-        <div class="lg:col-span-1">
-
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Contact Information
-          </h2>
-
-          <div class="space-y-5">
-
-            <!-- Address -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
-              <div class="text-2xl">📍</div>
-
-              <div>
-                <h3 class="font-semibold text-gray-900">
-                  Address
-                </h3>
-
-                <p class="text-gray-500 mt-1">
-                  Phnom Penh, Cambodia
-                </p>
-              </div>
-            </div>
-
-
-            <!-- Phone -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
-              <div class="text-2xl">📞</div>
-
-              <div>
-                <h3 class="font-semibold text-gray-900">
-                  Phone
-                </h3>
-
-                <p class="text-gray-500 mt-1">
-                  +855 12 345 678
-                </p>
-              </div>
-            </div>
-
-
-            <!-- Email -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
-              <div class="text-2xl">📧</div>
-
-              <div>
-                <h3 class="font-semibold text-gray-900">
-                  Email
-                </h3>
-
-                <p class="text-gray-500 mt-1">
-                  support@booknest.com
-                </p>
-              </div>
-            </div>
-
-
-            <!-- Opening Hours -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
-              <div class="text-2xl">🕐</div>
-
-              <div>
-                <h3 class="font-semibold text-gray-900">
-                  Opening Hours
-                </h3>
-
-                <p class="text-gray-500 mt-1">
-                  Mon - Fri: 8:00 AM - 8:00 PM
-                </p>
-
-                <p class="text-gray-500">
-                  Sat - Sun: 9:00 AM - 6:00 PM
-                </p>
-              </div>
-            </div>
-
+          <div class="bg-white p-9 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">
+            <div class="text-5xl mb-4">💬</div>
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Live Chat</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Chat with our team instantly</p>
+            <button class="mt-3 px-6 py-2 bg-yellow-800 text-white rounded hover:bg-yellow-700 hover:-translate-y-0.5 transition-all font-semibold text-sm">Start Chat</button>
           </div>
         </div>
 
-
         <!-- Contact Form -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm p-8">
-
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">
-            Send Us a Message
-          </h2>
-
-          <p class="text-gray-500 mb-8">
-            Fill out the form below and our team will get back to you.
-          </p>
-
-
-          <form @submit.prevent="submitForm">
-
-            <!-- Name + Email -->
-            <div class="grid md:grid-cols-2 gap-6">
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name
-                </label>
-
-                <input
-                  v-model="form.name"
-                  type="text"
-                  placeholder="Enter your name"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        <div class="bg-white p-10 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b-4 border-yellow-800">Send us a Message</h2>
+          <form @submit.prevent="submitForm" class="flex flex-col gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="flex flex-col gap-2">
+                <label for="name" class="text-sm font-semibold text-gray-800">Full Name</label>
+                <input 
+                  id="name"
+                  v-model="form.name" 
+                  type="text" 
+                  placeholder="John Doe"
+                  class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-800 focus:bg-amber-50 transition-all"
                   required
                 />
               </div>
-
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-
-                <input
-                  v-model="form.email"
-                  type="email"
-                  placeholder="Enter your email"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              <div class="flex flex-col gap-2">
+                <label for="email" class="text-sm font-semibold text-gray-800">Email</label>
+                <input 
+                  id="email"
+                  v-model="form.email" 
+                  type="email" 
+                  placeholder="you@example.com"
+                  class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-800 focus:bg-amber-50 transition-all"
                   required
                 />
               </div>
-
             </div>
 
-
-            <!-- Phone + Subject -->
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Phone
-                </label>
-
-                <input
-                  v-model="form.phone"
-                  type="tel"
-                  placeholder="+855 12 345 678"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Subject
-                </label>
-
-                <select
-                  v-model="form.subject"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="">Select a subject</option>
-                  <option value="order">Order Question</option>
-                  <option value="book">Book Availability</option>
-                  <option value="delivery">Delivery</option>
-                  <option value="payment">Payment</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-            </div>
-
-
-            <!-- Message -->
-            <div class="mt-6">
-
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Message
-              </label>
-
-              <textarea
-                v-model="form.message"
-                rows="6"
-                placeholder="Write your message..."
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            <div class="flex flex-col gap-2">
+              <label for="message" class="text-sm font-semibold text-gray-800">Message</label>
+              <textarea 
+                id="message"
+                v-model="form.message" 
+                placeholder="Tell us how we can help..."
+                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-800 focus:bg-amber-50 transition-all resize-vertical min-h-40"
                 required
               ></textarea>
-
             </div>
 
-
-            <!-- Submit Button -->
-            <button
-              type="submit"
-              class="mt-6 bg-indigo-600 text-white px-7 py-3 rounded-lg
-                     font-semibold hover:bg-indigo-700 transition"
-            >
-              Send Message →
-            </button>
-
+            <button type="submit" class="px-10 py-3 bg-yellow-800 text-white rounded-lg font-bold mt-2 tracking-wide hover:bg-yellow-700 hover:-translate-y-0.5 transition-all active:translate-y-0 self-center">Send Message</button>
           </form>
-
         </div>
-
       </div>
-
-    </section>
-
-
-    <!-- FAQ Section -->
-    <section class="bg-white py-16">
-
-      <div class="max-w-4xl mx-auto px-6">
-
-        <div class="text-center mb-10">
-
-          <p class="text-indigo-600 font-semibold">
-            FAQ
-          </p>
-
-          <h2 class="text-3xl font-bold text-gray-900 mt-2">
-            Frequently Asked Questions
-          </h2>
-
-        </div>
-
-
-        <div class="space-y-4">
-
-          <details class="border border-gray-200 rounded-xl p-5">
-            <summary class="font-semibold cursor-pointer">
-              How can I order a book?
-            </summary>
-
-            <p class="text-gray-500 mt-3">
-              Browse our books, select the book you want, add it to your
-              cart, and complete the checkout process.
-            </p>
-          </details>
-
-
-          <details class="border border-gray-200 rounded-xl p-5">
-            <summary class="font-semibold cursor-pointer">
-              How long does delivery take?
-            </summary>
-
-            <p class="text-gray-500 mt-3">
-              Delivery usually takes between 1-3 business days depending
-              on your location.
-            </p>
-          </details>
-
-
-          <details class="border border-gray-200 rounded-xl p-5">
-            <summary class="font-semibold cursor-pointer">
-              Can I return a book?
-            </summary>
-
-            <p class="text-gray-500 mt-3">
-              Yes. Please contact our support team if you receive a damaged
-              or incorrect book.
-            </p>
-          </details>
-
-
-          <details class="border border-gray-200 rounded-xl p-5">
-            <summary class="font-semibold cursor-pointer">
-              What payment methods do you accept?
-            </summary>
-
-            <p class="text-gray-500 mt-3">
-              We support several convenient payment methods including
-              online payments and cash on delivery.
-            </p>
-          </details>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CTA -->
-    <section class="bg-indigo-600 text-white">
-
-      <div class="max-w-4xl mx-auto px-6 py-16 text-center">
-
-        <div class="text-4xl mb-4">
-          📖
-        </div>
-
-        <h2 class="text-3xl font-bold mb-4">
-          Looking for Your Next Book?
-        </h2>
-
-        <p class="text-indigo-100 mb-7">
-          Explore our collection and discover your next favorite book.
-        </p>
-
-        <NuxtLink
-          to="/books"
-          class="inline-block bg-white text-indigo-600 px-7 py-3
-                 rounded-lg font-semibold hover:bg-gray-100 transition"
-        >
-          Browse Books →
-        </NuxtLink>
-
-      </div>
-
-    </section>
-
+    </div>
   </div>
 </template>
 
-
 <script setup>
+import { ref } from 'vue'
 
-import { reactive } from 'vue'
-
-const form = reactive({
+const form = ref({
   name: '',
   email: '',
-  phone: '',
-  subject: '',
   message: ''
 })
 
 const submitForm = () => {
-  console.log('Contact Form:', form)
-
-  alert('Thank you! Your message has been sent.')
-
-  // Reset form
-  form.name = ''
-  form.email = ''
-  form.phone = ''
-  form.subject = ''
-  form.message = ''
+  console.log('Form submitted:', form.value)
+  alert('Thank you for contacting us! We will respond within 24 hours.')
+  form.value = {
+    name: '',
+    email: '',
+    message: ''
+  }
 }
-
 </script>
+

@@ -1,27 +1,18 @@
 
 <template>
-  <div class="min-h-screen bg-[#f7f6f5] text-slate-900 font-sans flex flex-col">
-    <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 md:px-10 sticky top-0 z-30">
-      <div class="flex items-center space-x-6">
-        <button class="p-2 text-slate-700 hover:text-black transition-colors focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h12"/>
-          </svg>
-        </button>
-      </div>
-    </header>
+  <div class="min-h-screen bg-white text-slate-800 font-sans flex flex-col">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col md:flex-row">
-      <aside class="w-full md:w-64 bg-[#f2f0ed] p-6 border-r border-slate-200/80 space-y-8 flex-shrink-0">
-        <nav class="text-xs font-semibold text-slate-400 space-x-1">
+      <aside class=" md:w-64 bg-blue-500 p-6 space-y-8">
+        <nav class="text-2xl font-semibold space-x-1 ">
           <span>home</span>
-          <span>&gt;</span>
+          <span class="text-yellow-400">&gt;</span>
           <span class="text-slate-800">books</span>
         </nav>
         <div class="space-y-2">
-          <h2 class="text-xs font-black uppercase tracking-wider text-slate-400">Sort</h2>
+          <h2 class="text-xs font-black uppercase tracking-wider text-slate-900">Sort</h2>
           <div class="relative">
             <select 
-             v-model="selectedSort" 
+             v-model="selectedSort"
               class="w-full bg-white text-slate-800 text-sm font-semibold rounded-lg px-4 py-3 appearance-none shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer pr-8"
             >
               <option value="newest">What's new</option>
@@ -35,7 +26,7 @@
           </div>
         </div>
         <div class="space-y-3">
-          <h2 class="text-xs font-black uppercase tracking-wider text-slate-400">Filter</h2>
+          <h2 class="text-xs font-black uppercase tracking-wider text-slate-900">Filter</h2>
           <div class="relative">
             <select 
               v-model="selectedGenre"
@@ -65,22 +56,25 @@
             <select class="w-full bg-white text-slate-700 text-sm font-medium rounded-lg px-4 py-3 appearance-none shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer pr-8">
               <option value="all">Language</option>
               <option value="en">English</option>
-              <option value="fr">French</option>
+              <option value="fr">Khmer</option>
             </select>
             <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▼</div>
           </div>
           <div class="relative">
             <select class="w-full bg-white text-slate-700 text-sm font-medium rounded-lg px-4 py-3 appearance-none shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer pr-8">
               <option value="all">Author</option>
-              <option value="a1">Popular Authors</option>
+              <option value="a1">Agatha Christie</option>
+              <option value="a1">Mark Twain</option>
+              <option value="a1">Leo Tolstoy</option>
+              <option value="a1">Jane Austen</option>
             </select>
             <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▼</div>
           </div>
           <div class="relative">
             <select class="w-full bg-white text-slate-700 text-sm font-medium rounded-lg px-4 py-3 appearance-none shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer pr-8">
               <option value="all">Price range</option>
-              <option value="under20">Under $20</option>
-              <option value="20-50">$20 - $50</option>
+              <option value="under20">Under $150</option>
+              <option value="20-50">$45 - $150</option>
             </select>
             <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▼</div>
           </div>

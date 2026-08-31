@@ -60,6 +60,8 @@ const addToCart = () => {
     <section
       class="bg-blue-700 from-indigo-600 via-indigo-700 to-purple-700 text-white"
     >
+
+    
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
                py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center"

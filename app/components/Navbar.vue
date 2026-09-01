@@ -1,108 +1,219 @@
 <script setup lang="ts">
-            const search = ref('')
-            const cartCount = ref(0)
+const route = useRoute()
 
+const { cartCount } = useCart()
+
+const isActive = (path: string) => {
+  return route.path === path
+}
+
+const goToBrowse = () => {
+  navigateTo('/browse')
+}
+
+const goToCart = () => {
+  navigateTo('/cart')
+}
 </script>
+
 <template>
-    <header class="bg-white border-b sticky top-0 z-50">
-      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <div
+      class="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-6 lg:px-12"
+    >
 
-        <div class="h-20 flex items-center justify-between gap-6">
+      <!-- Logo -->
+      <NuxtLink
+        to="/"
+        class="font-serif text-2xl font-bold tracking-tight text-gray-950"
+      >
+        Lumina Books
+      </NuxtLink>
 
-          <!-- Logo -->
-          <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-2xl"
-            >
-              📚
-            </div>
+      <!-- Navigation -->
+      <nav class="hidden items-center gap-9 md:flex">
 
-            <div>
-              <h1 class="font-bold text-xl text-gray-900">
-                Book<span class="text-indigo-600">Nest</span>
-              </h1>
-              <p class="text-xs text-gray-400">
-                Your reading world
-              </p>
-            </div>
-          </div>
+        <!-- Home -->
+        <NuxtLink
+          to="/"
+          class="relative py-2 text-sm transition"
+          :class="
+            isActive('/')
+              ? 'font-bold text-gray-950'
+              : 'text-gray-600 hover:text-gray-950'
+          "
+        >
+          Home
 
-          <!-- Search -->
-          <div class="hidden md:flex flex-1 max-w-xl relative">
-            <input
-              v-model="search"
-              type="text"
-              placeholder="Search books, authors..."
-              class="w-full bg-gray-100 border border-transparent rounded-xl
-                     py-3 pl-12 pr-4 outline-none
-                     focus:bg-white focus:border-indigo-500
-                     transition"
+          <!-- Active underline -->
+          <span
+            v-if="isActive('/')"
+            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+          ></span>
+        </NuxtLink>
+
+        <!-- Browse -->
+        <NuxtLink
+          to="/browse"
+          class="relative py-2 text-sm transition"
+          :class="
+            isActive('/browse')
+              ? 'font-bold text-gray-950'
+              : 'text-gray-600 hover:text-gray-950'
+          "
+        >
+          Browse
+
+          <!-- Active underline -->
+          <span
+            v-if="isActive('/browse')"
+            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+          ></span>
+        </NuxtLink>
+
+        <!-- Collections -->
+        <NuxtLink
+          to="/collection"
+          class="relative py-2 text-sm transition"
+          :class="
+            isActive('/collection')
+              ? 'font-bold text-gray-950'
+              : 'text-gray-600 hover:text-gray-950'
+          "
+        >
+          Collections
+
+          <!-- Active underline -->
+          <span
+            v-if="isActive('/collection')"
+            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+          ></span>
+        </NuxtLink>
+
+        <!-- Rare Finds -->
+        <NuxtLink
+          to="/rare-finds"
+          class="relative py-2 text-sm transition"
+          :class="
+            isActive('/rare-finds')
+              ? 'font-bold text-gray-950'
+              : 'text-gray-600 hover:text-gray-950'
+          "
+        >
+          Rare Finds
+
+          <!-- Active underline -->
+          <span
+            v-if="isActive('/rare-finds')"
+            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+          ></span>
+        </NuxtLink>
+
+        <!-- About -->
+        <NuxtLink
+          to="/about"
+          class="relative py-2 text-sm transition"
+          :class="
+            isActive('/about')
+              ? 'font-bold text-gray-950'
+              : 'text-gray-600 hover:text-gray-950'
+          "
+        >
+          About
+
+          <!-- Active underline -->
+          <span
+            v-if="isActive('/about')"
+            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+          ></span>
+        </NuxtLink>
+
+      </nav>
+
+      <!-- Right Icons -->
+      <div class="flex items-center gap-5">
+
+        <!-- Search -->
+        <button
+          aria-label="Search"
+          class="text-gray-700 transition hover:text-black"
+          @click="goToBrowse"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.6"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
+            />
+          </svg>
+        </button>
+
+        <!-- Cart -->
+        <button
+          aria-label="Shopping cart"
+          class="relative text-gray-700 transition hover:text-black"
+          @click="goToCart"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.6"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 1.98 1.72h8.9a2 2 0 0 0 1.96-1.6L20.5 7H5.2"
             />
 
-            <span
-              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-            >
-              🔍
-            </span>
-          </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 20.25h.01M17 20.25h.01"
+            />
+          </svg>
 
-          <!-- Navigation -->
-          <div class="flex items-center gap-5">
+          <!-- Cart Badge -->
+          <span
+            v-if="cartCount > 0"
+            class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white"
+          >
+            {{ cartCount }}
+          </span>
+        </button>
 
-            <NuxtLink
-              active-class="text-indigo-600" to="/"
-              class="hidden lg:block text-sm font-medium hover:text-indigo-600"
-            >
-              Home
-            </NuxtLink>
+        <!-- Account -->
+        <button
+          aria-label="Account"
+          class="text-gray-700 transition hover:text-black"
+          @click="navigateTo('/account')"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.6"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.8 20.25a7.2 7.2 0 0 1 14.4 0"
+            />
+          </svg>
+        </button>
 
-            <NuxtLink 
-              active-class="text-indigo-600" to="/product"
-              class="hidden lg:block text-sm font-medium hover:text-indigo-600"
-            >
-              Books
-            </NuxtLink>
-
-            <NuxtLink
-              active-class="text-indigo-600" to="/contact"
-              class="hidden lg:block text-sm font-medium hover:text-indigo-600"
-            >
-              Contact
-            </NuxtLink>
-             <NuxtLink
-               active-class="text-indigo-600" to="/about"
-              class="hidden lg:block text-sm font-medium hover:text-indigo-600"
-            >
-              About Us
-            </NuxtLink>
-
-            <!-- Cart -->
-            <button
-              class="relative text-xl hover:text-indigo-600"
-            >
-              🛒
-
-              <span
-                v-if="cartCount > 0"
-                class="absolute -top-2 -right-2 bg-indigo-600
-                       text-white text-xs w-5 h-5 rounded-full
-                       flex items-center justify-center"
-              >
-                {{ cartCount }}
-              </span>
-            </button>
-
-            <!-- User -->
-            <button
-              class="hidden sm:block bg-indigo-600 px-4 py-2 rounded-lg text-white
-                     text-sm font-medium hover:bg-indigo-500 hover:text-white"
-            >
-              Login
-            </button>
-
-          </div>
-        </div>
-      </nav>
-    </header>
-
+      </div>
+    </div>
+  </header>
 </template>

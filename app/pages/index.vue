@@ -1,456 +1,1308 @@
-<script setup lang="ts">
-const categories = [
-  { name: 'Fiction', icon: '📖' },
-  { name: 'Technology', icon: '💻' },
-  { name: 'Business', icon: '💼' },
-  { name: 'Science', icon: '🔬' },
-  { name: 'History', icon: '🏛️' },
-  { name: 'Self Development', icon: '🌱' }
-]
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+
+/* =========================================================
+   BOOK DATA
+   Same structure used by Browse + Collections + Cart
+========================================================= */
 
 const books = [
   {
     id: 1,
-    title: 'The Psychology of Money',
-    author: 'Morgan Housel',
-    price: 18.99,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=500&q=80'
+    title: 'The Elements of Typographic Style',
+    author: 'Robert Bringhurst',
+    price: 45,
+    rating: 5,
+    reviews: 128,
+    format: 'Hardcover',
+    collection: 'design',
+    image:
+      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 2,
-    title: 'Atomic Habits',
-    author: 'James Clear',
-    price: 21.50,
-    rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
+    title: 'Grid Systems in Graphic Design',
+    author: 'Josef Müller-Brockmann',
+    price: 65,
+    rating: 5,
+    reviews: 342,
+    format: 'Hardcover',
+    collection: 'design',
+    image:
+      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 3,
-    title: 'Clean Code',
-    author: 'Robert C. Martin',
-    price: 25.99,
-    rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=500&q=80'
+    title: 'The Visual Display of Quantitative Information',
+    author: 'Edward R. Tufte',
+    price: 52,
+    rating: 5,
+    reviews: 89,
+    format: 'Paperback',
+    collection: 'design',
+    image:
+      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 4,
-    title: 'The Alchemist',
-    author: 'Paulo Coelho',
-    price: 16.99,
-    rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
+    title: 'Thinking with Type',
+    author: 'Ellen Lupton',
+    price: 38,
+    rating: 4,
+    reviews: 215,
+    format: 'Paperback',
+    collection: 'design',
+    image:
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80'
+  },
+  {
+    id: 5,
+    title: 'Ways of Seeing',
+    author: 'John Berger',
+    price: 35,
+    rating: 5,
+    reviews: 176,
+    format: 'Paperback',
+    collection: 'art',
+    image:
+      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=700&q=80'
+  },
+  {
+    id: 6,
+    title: 'The Story of Art',
+    author: 'E. H. Gombrich',
+    price: 58,
+    rating: 5,
+    reviews: 304,
+    format: 'Hardcover',
+    collection: 'art',
+    image:
+      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
+  },
+  {
+    id: 7,
+    title: 'The Design of Everyday Things',
+    author: 'Don Norman',
+    price: 42,
+    rating: 5,
+    reviews: 421,
+    format: 'Paperback',
+    collection: 'creators',
+    image:
+      'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=700&q=80'
+  },
+  {
+    id: 8,
+    title: 'Steal Like an Artist',
+    author: 'Austin Kleon',
+    price: 25,
+    rating: 4,
+    reviews: 512,
+    format: 'Paperback',
+    collection: 'creators',
+    image:
+      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80'
   }
 ]
 
-const search = ref('')
-const cartCount = ref(0)
+/* =========================================================
+   COLLECTIONS
+========================================================= */
 
-const addToCart = () => {
-  cartCount.value++
+const collections = [
+  {
+    id: 1,
+    name: 'Design & Creativity',
+    description:
+      'Typography, visual thinking, branding, and creative practice.',
+    image:
+      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    id: 2,
+    name: 'Art & Architecture',
+    description:
+      'Explore art history, architecture, photography, and visual culture.',
+    image:
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    id: 3,
+    name: 'Books for Creators',
+    description:
+      'Ideas and inspiration for designers, writers, developers, and makers.',
+    image:
+      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1000&q=80'
+  }
+]
+
+/* =========================================================
+   CART
+========================================================= */
+
+const cart = ref([])
+const showCartMessage = ref(false)
+
+/* =========================================================
+   CART COUNT
+========================================================= */
+
+const cartCount = computed(() => {
+  return cart.value.reduce(
+    (total, item) => total + item.quantity,
+    0
+  )
+})
+
+/* =========================================================
+   LOAD CART
+========================================================= */
+
+onMounted(() => {
+  const savedCart = localStorage.getItem('lumina-cart')
+
+  if (savedCart) {
+    try {
+      cart.value = JSON.parse(savedCart)
+    } catch (error) {
+      console.error('Could not load cart:', error)
+      cart.value = []
+    }
+  }
+})
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+function addToCart(book) {
+  const existingBook = cart.value.find(
+    item => item.id === book.id
+  )
+
+  if (existingBook) {
+    existingBook.quantity++
+  } else {
+    cart.value.push({
+      ...book,
+      quantity: 1
+    })
+  }
+
+  localStorage.setItem(
+    'lumina-cart',
+    JSON.stringify(cart.value)
+  )
+
+  showCartMessage.value = true
+
+  setTimeout(() => {
+    showCartMessage.value = false
+  }, 2000)
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goToBrowse() {
+  navigateTo('/browse')
+}
+
+function goToCart() {
+  navigateTo('/cart')
+}
+
+function viewBook(book) {
+  navigateTo(`/product/${book.id}`)
 }
 </script>
-    <template>
-  <div class="min-h-screen bg-gray-50 text-gray-900">
 
-    <!-- ================= NAVBAR ================= -->
+
+<template>
+
+  <div
+    class="min-h-screen bg-[#f8f9fc] text-[#111827]"
+  >
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
     
 
-    <!-- ================= HERO ================= -->
-    <section
-      class="bg-blue-700 from-indigo-600 via-indigo-700 to-purple-700 text-white"
-    >
 
-    
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-               py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center"
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+      <section
+        class="mx-auto max-w-[1600px] px-6 pt-6 lg:px-12 lg:pt-8"
       >
 
-        <!-- Hero Text -->
-        <div>
-
-          <span
-            class="inline-block bg-white/10 border border-white/20
-                   px-4 py-2 rounded-full text-sm mb-6"
-          >
-            📚 Discover your next favorite book
-          </span>
-
-          <h2
-            class="text-4xl sm:text-5xl lg:text-6xl
-                   font-bold leading-tight"
-          >
-            Stories that
-            <span class="text-yellow-300">
-              inspire
-            </span>
-            you.
-          </h2>
-
-          <p class="mt-6 text-indigo-100 text-lg max-w-xl">
-            Explore thousands of books from your favorite authors.
-            Find knowledge, inspiration, and stories waiting for you.
-          </p>
-
-          <div class="mt-8 flex flex-wrap gap-4">
-
-            <a
-              href="#books"
-              class="bg-white text-indigo-700 px-6 py-3
-                     rounded-xl font-semibold
-                     hover:bg-gray-100 transition"
-            >
-              Explore Books →
-            </a>
-
-            <a
-              href="#categories"
-              class="border border-white/40 px-6 py-3
-                     rounded-xl font-semibold
-                     hover:bg-white/10 transition"
-            >
-              Browse Categories
-            </a>
-
-          </div>
-
-          <!-- Statistics -->
-          <div class="mt-10 flex gap-8">
-
-            <div>
-              <p class="text-2xl font-bold">10K+</p>
-              <p class="text-indigo-200 text-sm">Books</p>
-            </div>
-
-            <div>
-              <p class="text-2xl font-bold">5K+</p>
-              <p class="text-indigo-200 text-sm">Authors</p>
-            </div>
-
-            <div>
-              <p class="text-2xl font-bold">20K+</p>
-              <p class="text-indigo-200 text-sm">Readers</p>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- Hero Books -->
-        <div class=" hidden lg:flex justify-center relative">
-
-          <div
-            class="absolute w-72 h-72 bg-purple-400/30
-                   rounded-full blur-3xl"
-          ></div>
-
-          <div
-            class="relative bg-white p-3 rounded-2xl shadow-2xl
-                   rotate-[-8deg] w-52"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80"
-              class="rounded-xl h-72 w-full object-cover"
-            />
-          </div>
-
-          <div
-            class="relative bg-white p-3 rounded-2xl shadow-2xl
-                   rotate-[8deg] w-52 -ml-10 mt-16"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80"
-              class="rounded-xl h-72 w-full object-cover"
-            />
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ================= CATEGORIES ================= -->
-    <section id="categories" class="py-16">
-
-      <div class=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div class="flex justify-between items-end mb-8">
-
-          <div>
-            <p class="text-indigo-600 font-semibold text-sm">
-              EXPLORE
-            </p>
-
-            <h2 class="text-3xl font-bold mt-2">
-              Browse Categories
-            </h2>
-          </div>
-
-          <a
-            href="#"
-            class="text-indigo-600 font-medium hover:underline"
-          >
-            View all →
-          </a>
-
-        </div>
-
-
         <div
-          class="grid grid-cols-2 sm:grid-cols-3
-                 lg:grid-cols-6 gap-4"
+          class="grid overflow-hidden bg-[#e9edf5] lg:grid-cols-2"
         >
 
+          <!-- Hero Text -->
+
           <div
-            v-for="category in categories"
-            :key="category.name"
-            class="bg-white border rounded-2xl p-6
-                   text-center hover:-translate-y-1
-                   hover:shadow-lg hover:border-indigo-200
-                   transition cursor-pointer"
+            class="flex flex-col justify-center px-8 py-16 sm:px-12 lg:px-20 lg:py-24"
           >
 
-            <div class="text-4xl">
-              {{ category.icon }}
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500"
+            >
+              Lumina Books
+            </p>
+
+
+            <h1
+              class="mt-5 max-w-2xl font-serif text-5xl font-bold leading-[1.02] tracking-tight text-gray-950 sm:text-6xl lg:text-7xl"
+            >
+              Books for
+              <br />
+              curious minds.
+            </h1>
+
+
+            <p
+              class="mt-7 max-w-xl text-base leading-7 text-gray-600 sm:text-lg"
+            >
+              Discover carefully selected books about
+              design, art, architecture, creativity, and
+              ideas worth exploring.
+            </p>
+
+
+            <!-- Hero Buttons -->
+
+            <div
+              class="mt-9 flex flex-col gap-3 sm:flex-row"
+            >
+
+              <button
+                class="bg-black px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-gray-800"
+                @click="goToBrowse"
+              >
+                Browse Books
+              </button>
+
+
+              <NuxtLink
+                to="/collections"
+                class="border border-gray-300 bg-white px-7 py-3.5 text-center text-sm font-semibold text-gray-900 transition hover:border-black"
+              >
+                Explore Collections
+              </NuxtLink>
+
             </div>
 
-            <h3 class="font-semibold mt-4 text-sm">
-              {{ category.name }}
+          </div>
+
+
+          <!-- Hero Image -->
+
+          <div
+            class="relative min-h-[420px] lg:min-h-[600px]"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1400&q=85"
+              alt="Lumina Books collection"
+              class="h-full w-full object-cover"
+            />
+
+
+            <!-- Hero Label -->
+
+            <div
+              class="absolute bottom-6 left-6 bg-white px-5 py-4 shadow-sm sm:bottom-8 sm:left-8"
+            >
+
+              <p
+                class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400"
+              >
+                Curated Reading
+              </p>
+
+              <p
+                class="mt-1 font-serif text-lg font-bold text-gray-950"
+              >
+                Discover your next book
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           QUICK CATEGORIES
+      ====================================================== -->
+
+      <section
+        class="mx-auto max-w-[1600px] px-6 py-16 lg:px-12"
+      >
+
+        <div
+          class="grid border-y border-gray-200 sm:grid-cols-2 lg:grid-cols-4"
+        >
+
+          <NuxtLink
+            to="/browse?genre=design"
+            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white sm:border-r lg:border-b-0"
+          >
+
+            <span
+              class="text-xs uppercase tracking-[0.15em] text-gray-400"
+            >
+              01
+            </span>
+
+            <h3
+              class="mt-3 font-serif text-2xl font-bold"
+            >
+              Design
             </h3>
 
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= BOOKS ================= -->
-    <section id="books" class="py-16 bg-white">
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- Section Header -->
-        <div class="flex justify-between items-end mb-8">
-
-          <div>
-            <p class="text-indigo-600 font-semibold text-sm">
-              OUR COLLECTION
+            <p
+              class="mt-2 text-sm text-gray-500"
+            >
+              Typography, systems & visual thinking
             </p>
 
-            <h2 class="text-3xl font-bold mt-2">
-              Featured Books
+            <span
+              class="mt-5 block text-sm font-medium transition-transform group-hover:translate-x-1"
+            >
+              Explore →
+            </span>
+
+          </NuxtLink>
+
+
+          <NuxtLink
+            to="/browse?genre=art"
+            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white lg:border-b-0 lg:border-r"
+          >
+
+            <span
+              class="text-xs uppercase tracking-[0.15em] text-gray-400"
+            >
+              02
+            </span>
+
+            <h3
+              class="mt-3 font-serif text-2xl font-bold"
+            >
+              Art
+            </h3>
+
+            <p
+              class="mt-2 text-sm text-gray-500"
+            >
+              Art history, photography & culture
+            </p>
+
+            <span
+              class="mt-5 block text-sm font-medium transition-transform group-hover:translate-x-1"
+            >
+              Explore →
+            </span>
+
+          </NuxtLink>
+
+
+          <NuxtLink
+            to="/collections"
+            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white sm:border-r lg:border-b-0"
+          >
+
+            <span
+              class="text-xs uppercase tracking-[0.15em] text-gray-400"
+            >
+              03
+            </span>
+
+            <h3
+              class="mt-3 font-serif text-2xl font-bold"
+            >
+              Collections
+            </h3>
+
+            <p
+              class="mt-2 text-sm text-gray-500"
+            >
+              Curated books around ideas
+            </p>
+
+            <span
+              class="mt-5 block text-sm font-medium transition-transform group-hover:translate-x-1"
+            >
+              Explore →
+            </span>
+
+          </NuxtLink>
+
+
+          <NuxtLink
+            to="/rare-finds"
+            class="group px-6 py-7 transition hover:bg-white"
+          >
+
+            <span
+              class="text-xs uppercase tracking-[0.15em] text-gray-400"
+            >
+              04
+            </span>
+
+            <h3
+              class="mt-3 font-serif text-2xl font-bold"
+            >
+              Rare Finds
+            </h3>
+
+            <p
+              class="mt-2 text-sm text-gray-500"
+            >
+              Limited & collectible editions
+            </p>
+
+            <span
+              class="mt-5 block text-sm font-medium transition-transform group-hover:translate-x-1"
+            >
+              Explore →
+            </span>
+
+          </NuxtLink>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           POPULAR BOOKS
+      ====================================================== -->
+
+      <section
+        class="mx-auto max-w-[1600px] px-6 pb-20 lg:px-12"
+      >
+
+        <!-- Heading -->
+
+        <div
+          class="mb-10 flex items-end justify-between"
+        >
+
+          <div>
+
+            <p
+              class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500"
+            >
+              Reader Favorites
+            </p>
+
+            <h2
+              class="font-serif text-4xl font-bold tracking-tight text-gray-950"
+            >
+              Popular Books
             </h2>
+
           </div>
 
-          <a
-            href="#"
-            class="text-indigo-600 font-medium hover:underline"
+
+          <NuxtLink
+            to="/browse"
+            class="hidden border-b border-gray-950 pb-1 text-sm font-medium md:block"
           >
-            View all →
-          </a>
+            View all books →
+          </NuxtLink>
 
         </div>
 
 
-        <!-- Book Grid -->
+        <!-- Books -->
+
         <div
-          class="grid grid-cols-1 sm:grid-cols-2
-                 lg:grid-cols-4 gap-6"
+          class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4"
         >
 
-          <div
-            v-for="book in books"
+          <article
+            v-for="book in books.slice(0, 4)"
             :key="book.id"
-            class="group bg-gray-50 rounded-2xl
-                   overflow-hidden border
-                   hover:shadow-xl transition"
+            class="group"
           >
 
-            <!-- Book Image -->
-            <div class="relative overflow-hidden">
+            <!-- Image -->
+
+            <div
+              class="relative aspect-[3/4] overflow-hidden bg-[#edf1f7]"
+            >
 
               <img
                 :src="book.image"
                 :alt="book.title"
-                class="w-full h-72 object-cover
-                       group-hover:scale-105 transition duration-500"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               />
 
-              <!-- Wishlist -->
+
+              <!-- View -->
+
               <button
-                class="absolute top-4 right-4
-                       bg-white/90 w-10 h-10
-                       rounded-full shadow
-                       hover:text-red-500"
+                class="absolute bottom-4 left-4 right-4 bg-white py-3 text-sm font-semibold opacity-0 shadow-sm transition group-hover:opacity-100"
+                @click="viewBook(book)"
               >
-                ♡
+                View Details
               </button>
 
             </div>
 
 
-            <!-- Book Info -->
-            <div class="p-5">
+            <!-- Info -->
 
-              <p class="text-xs text-gray-500">
-                {{ book.author }}
-              </p>
+            <div class="pt-5">
 
-              <h3
-                class="font-bold text-lg mt-1
-                       line-clamp-1"
-              >
-                {{ book.title }}
-              </h3>
-
-
-              <!-- Rating -->
-              <div class="flex items-center gap-2 mt-3">
-
-                <div class="text-yellow-400">
-                  ★★★★★
-                </div>
-
-                <span class="text-sm text-gray-500">
-                  {{ book.rating }}
-                </span>
-
-              </div>
-
-
-              <!-- Price -->
               <div
-                class="flex items-center justify-between
-                       mt-5"
+                class="flex items-start justify-between gap-3"
               >
 
-                <span class="text-xl font-bold text-indigo-600">
+                <h3
+                  class="font-serif text-xl font-bold leading-tight"
+                >
+                  {{ book.title }}
+                </h3>
+
+                <span
+                  class="shrink-0 text-sm font-semibold"
+                >
                   ${{ book.price }}
                 </span>
 
-                <button
-                  @click="addToCart"
-                  class="bg-indigo-600 text-white
-                         px-4 py-2 rounded-lg
-                         text-sm font-medium
-                         hover:bg-indigo-700 transition"
+              </div>
+
+
+              <p
+                class="mt-2 text-sm text-gray-500"
+              >
+                {{ book.author }}
+              </p>
+
+
+              <!-- Rating -->
+
+              <div
+                class="mt-3 flex items-center gap-2"
+              >
+
+                <div class="flex">
+
+                  <span
+                    v-for="star in 5"
+                    :key="star"
+                    class="text-sm"
+                    :class="star <= book.rating
+                      ? 'text-[#b36b00]'
+                      : 'text-gray-300'"
+                  >
+                    ★
+                  </span>
+
+                </div>
+
+                <span
+                  class="text-xs text-gray-500"
                 >
-                  + Cart
-                </button>
+                  ({{ book.reviews }})
+                </span>
 
               </div>
 
+
+              <!-- Add Cart -->
+
+              <button
+                class="mt-5 w-full bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+                @click="addToCart(book)"
+              >
+                Add to Cart
+              </button>
+
             </div>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           COLLECTIONS
+      ====================================================== -->
+
+      <section
+        class="border-y border-gray-200 bg-white"
+      >
+
+        <div
+          class="mx-auto max-w-[1600px] px-6 py-20 lg:px-12"
+        >
+
+          <div
+            class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end"
+          >
+
+            <div>
+
+              <p
+                class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500"
+              >
+                Explore
+              </p>
+
+              <h2
+                class="font-serif text-4xl font-bold tracking-tight"
+              >
+                Curated Collections
+              </h2>
+
+            </div>
+
+
+            <NuxtLink
+              to="/collections"
+              class="text-sm font-medium underline underline-offset-4"
+            >
+              View all collections
+            </NuxtLink>
+
+          </div>
+
+
+          <!-- Collection Cards -->
+
+          <div
+            class="grid gap-5 lg:grid-cols-3"
+          >
+
+            <NuxtLink
+              v-for="collection in collections"
+              :key="collection.id"
+              to="/collections"
+              class="group"
+            >
+
+              <div
+                class="relative aspect-[4/3] overflow-hidden bg-gray-100"
+              >
+
+                <img
+                  :src="collection.image"
+                  :alt="collection.name"
+                  class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                />
+
+
+                <div
+                  class="absolute inset-0 bg-black/10"
+                />
+
+              </div>
+
+
+              <div class="pt-5">
+
+                <div
+                  class="flex items-center justify-between"
+                >
+
+                  <h3
+                    class="font-serif text-2xl font-bold"
+                  >
+                    {{ collection.name }}
+                  </h3>
+
+                  <span
+                    class="text-xl transition-transform group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+
+                </div>
+
+
+                <p
+                  class="mt-2 text-sm leading-6 text-gray-500"
+                >
+                  {{ collection.description }}
+                </p>
+
+              </div>
+
+            </NuxtLink>
 
           </div>
 
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- ================= BENEFITS ================= -->
-    <section class="py-16">
+      <!-- =====================================================
+           BOOK OF THE MONTH
+      ====================================================== -->
 
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-               grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      <section
+        class="mx-auto max-w-[1600px] px-6 py-20 lg:px-12"
       >
-
-        <div class="bg-white p-6 rounded-2xl border">
-          <div class="text-3xl">🚚</div>
-          <h3 class="font-bold mt-4">Fast Delivery</h3>
-          <p class="text-gray-500 text-sm mt-2">
-            Get your books delivered quickly to your door.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border">
-          <div class="text-3xl">🔒</div>
-          <h3 class="font-bold mt-4">Secure Payment</h3>
-          <p class="text-gray-500 text-sm mt-2">
-            Your payments are safe and protected.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border">
-          <div class="text-3xl">↩️</div>
-          <h3 class="font-bold mt-4">Easy Returns</h3>
-          <p class="text-gray-500 text-sm mt-2">
-            Simple and flexible return policy.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border">
-          <div class="text-3xl">💬</div>
-          <h3 class="font-bold mt-4">24/7 Support</h3>
-          <p class="text-gray-500 text-sm mt-2">
-            Our support team is always ready to help.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= NEWSLETTER ================= -->
-    <section class="py-16">
-
-      <div
-        class="mx-60 max-w-5xl  bg-indigo-600
-               rounded-3xl px-6 py-12
-               text-center text-white"
-      >
-
-        <p class="text-indigo-200 font-medium">
-          STAY UPDATED
-        </p>
-
-        <h2 class="text-3xl font-bold mt-2">
-          Get book recommendations
-        </h2>
-
-        <p class="text-indigo-100 mt-3">
-          Subscribe and discover new books every week.
-        </p>
 
         <div
-          class="max-w-md mx-auto mt-6 flex
-                 bg-white rounded-xl p-1"
+          class="grid overflow-hidden bg-[#e9edf5] lg:grid-cols-2"
         >
 
-          <input
-            type="email"
-            placeholder="Enter your email"
-            class="flex-1 px-4 py-3 text-gray-900
-                   outline-none rounded-lg"
-          />
+          <!-- Book Image -->
 
-          <button
-            class="bg-indigo-600 text-white
-                   px-5 py-3 rounded-lg
-                   font-semibold"
+          <div
+            class="relative min-h-[450px] lg:min-h-[550px]"
           >
-            Subscribe
-          </button>
+
+            <img
+              src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=1200&q=85"
+              alt="Book of the Month"
+              class="h-full w-full object-cover"
+            />
+
+          </div>
+
+
+          <!-- Content -->
+
+          <div
+            class="flex flex-col justify-center px-8 py-14 sm:px-12 lg:px-20"
+          >
+
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+            >
+              Book of the Month
+            </p>
+
+
+            <h2
+              class="mt-5 font-serif text-4xl font-bold leading-tight text-gray-950 sm:text-5xl"
+            >
+              The Elements of
+              <br />
+              Typographic Style
+            </h2>
+
+
+            <p
+              class="mt-3 text-sm text-gray-500"
+            >
+              Robert Bringhurst
+            </p>
+
+
+            <div
+              class="mt-5 flex items-center gap-2"
+            >
+
+              <div class="flex">
+
+                <span
+                  v-for="star in 5"
+                  :key="star"
+                  class="text-sm text-[#b36b00]"
+                >
+                  ★
+                </span>
+
+              </div>
+
+              <span
+                class="text-xs text-gray-500"
+              >
+                128 reviews
+              </span>
+
+            </div>
+
+
+            <p
+              class="mt-6 max-w-lg text-base leading-7 text-gray-600"
+            >
+              A classic guide to typography and the art
+              of setting type. A thoughtful choice for
+              designers, writers, and anyone interested in
+              visual communication.
+            </p>
+
+
+            <div
+              class="mt-8 flex items-center gap-5"
+            >
+
+              <span
+                class="font-serif text-2xl font-bold"
+              >
+                $45.00
+              </span>
+
+
+              <button
+                class="bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+                @click="addToCart(books[0])"
+              >
+                Add to Cart
+              </button>
+
+            </div>
+
+
+            <button
+              class="mt-5 w-fit text-sm font-medium underline underline-offset-4"
+              @click="viewBook(books[0])"
+            >
+              View Book Details
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           NEW ARRIVALS
+      ====================================================== -->
+
+      <section
+        class="mx-auto max-w-[1600px] px-6 pb-20 lg:px-12"
+      >
+
+        <div
+          class="mb-10 flex items-end justify-between"
+        >
+
+          <div>
+
+            <p
+              class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500"
+            >
+              Fresh Arrivals
+            </p>
+
+            <h2
+              class="font-serif text-4xl font-bold tracking-tight"
+            >
+              New Arrivals
+            </h2>
+
+          </div>
+
+
+          <NuxtLink
+            to="/browse"
+            class="hidden text-sm font-medium underline underline-offset-4 md:block"
+          >
+            Discover more →
+          </NuxtLink>
+
+        </div>
+
+
+        <div
+          class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
+
+          <article
+            v-for="book in books.slice(4, 8)"
+            :key="book.id"
+            class="group cursor-pointer"
+            @click="viewBook(book)"
+          >
+
+            <div
+              class="aspect-[3/4] overflow-hidden bg-[#edf1f7]"
+            >
+
+              <img
+                :src="book.image"
+                :alt="book.title"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+              />
+
+            </div>
+
+
+            <div class="pt-5">
+
+              <div
+                class="flex items-start justify-between gap-3"
+              >
+
+                <h3
+                  class="font-serif text-xl font-bold leading-tight"
+                >
+                  {{ book.title }}
+                </h3>
+
+                <span
+                  class="shrink-0 text-sm font-semibold"
+                >
+                  ${{ book.price }}
+                </span>
+
+              </div>
+
+
+              <p
+                class="mt-2 text-sm text-gray-500"
+              >
+                {{ book.author }}
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           RARE FINDS
+      ====================================================== -->
+
+      <section
+        class="bg-black text-white"
+      >
+
+        <div
+          class="mx-auto grid max-w-[1600px] lg:grid-cols-2"
+        >
+
+          <div
+            class="flex flex-col justify-center px-8 py-20 sm:px-12 lg:px-20"
+          >
+
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400"
+            >
+              Rare Finds
+            </p>
+
+
+            <h2
+              class="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl"
+            >
+              Books with a story
+              <br />
+              of their own.
+            </h2>
+
+
+            <p
+              class="mt-6 max-w-lg text-sm leading-7 text-gray-300"
+            >
+              Discover signed copies, limited editions,
+              first editions, and other special books
+              selected for collectors and passionate
+              readers.
+            </p>
+
+
+            <div class="mt-8">
+
+              <NuxtLink
+                to="/rare-finds"
+                class="inline-flex items-center gap-3 bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-gray-200"
+              >
+                Explore Rare Finds
+                <span>→</span>
+              </NuxtLink>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="min-h-[400px]"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1526243741027-444d633d7365?auto=format&fit=crop&w=1200&q=85"
+              alt="Rare books"
+              class="h-full w-full object-cover"
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           NEWSLETTER
+      ====================================================== -->
+
+      <section
+        class="bg-[#e9edf5]"
+      >
+
+        <div
+          class="mx-auto max-w-3xl px-6 py-20 text-center"
+        >
+
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+          >
+            Stay Curious
+          </p>
+
+
+          <h2
+            class="mt-4 font-serif text-4xl font-bold text-gray-950"
+          >
+            Discover something worth reading.
+          </h2>
+
+
+          <p
+            class="mx-auto mt-4 max-w-xl text-sm leading-6 text-gray-600"
+          >
+            Join the Lumina Books newsletter for new
+            arrivals, curated collections, rare finds,
+            and thoughtful recommendations.
+          </p>
+
+
+          <div
+            class="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row"
+          >
+
+            <input
+              type="email"
+              placeholder="Your email address"
+              class="h-12 flex-1 border border-gray-300 bg-white px-4 text-sm outline-none focus:border-black"
+            />
+
+
+            <button
+              class="h-12 bg-black px-7 text-sm font-semibold text-white transition hover:bg-gray-800"
+            >
+              Subscribe
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer
+      class="border-t border-gray-200 bg-white"
+    >
+
+      <div
+        class="mx-auto max-w-[1600px] px-6 py-12 lg:px-12"
+      >
+
+        <div
+          class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
+        >
+
+          <!-- Brand -->
+
+          <div>
+
+            <h3
+              class="font-serif text-2xl font-bold text-gray-950"
+            >
+              Lumina Books
+            </h3>
+
+            <p
+              class="mt-4 max-w-xs text-sm leading-6 text-gray-500"
+            >
+              A carefully curated bookstore for
+              curious minds and creative people.
+            </p>
+
+          </div>
+
+
+          <!-- Shop -->
+
+          <div>
+
+            <h4
+              class="text-xs font-semibold uppercase tracking-wider text-gray-950"
+            >
+              Shop
+            </h4>
+
+            <div
+              class="mt-4 space-y-3 text-sm text-gray-500"
+            >
+
+              <NuxtLink
+                to="/browse"
+                class="block hover:text-black"
+              >
+                Browse Books
+              </NuxtLink>
+
+              <NuxtLink
+                to="/collections"
+                class="block hover:text-black"
+              >
+                Collections
+              </NuxtLink>
+
+              <NuxtLink
+                to="/rare-finds"
+                class="block hover:text-black"
+              >
+                Rare Finds
+              </NuxtLink>
+
+            </div>
+
+          </div>
+
+
+          <!-- Help -->
+
+          <div>
+
+            <h4
+              class="text-xs font-semibold uppercase tracking-wider text-gray-950"
+            >
+              Information
+            </h4>
+
+            <div
+              class="mt-4 space-y-3 text-sm text-gray-500"
+            >
+
+              <NuxtLink
+                to="/about"
+                class="block hover:text-black"
+              >
+                About
+              </NuxtLink>
+
+              <NuxtLink
+                to="/account"
+                class="block hover:text-black"
+              >
+                My Account
+              </NuxtLink>
+
+              <NuxtLink
+                to="/cart"
+                class="block hover:text-black"
+              >
+                Shopping Cart
+              </NuxtLink>
+
+            </div>
+
+          </div>
+
+
+          <!-- Contact -->
+
+          <div>
+
+            <h4
+              class="text-xs font-semibold uppercase tracking-wider text-gray-950"
+            >
+              Lumina
+            </h4>
+
+            <p
+              class="mt-4 text-sm leading-6 text-gray-500"
+            >
+              Thoughtful books.
+              <br />
+              Curious readers.
+              <br />
+              Endless ideas.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="mt-12 border-t border-gray-200 pt-6"
+        >
+
+          <p
+            class="text-xs text-gray-400"
+          >
+            © 2026 Lumina Books. All rights reserved.
+          </p>
 
         </div>
 
       </div>
 
-    </section>
+    </footer>
 
+
+    <!-- =====================================================
+         CART SUCCESS MESSAGE
+    ====================================================== -->
+
+    <Transition
+      enter-active-class="transition duration-300"
+      enter-from-class="translate-y-4 opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition duration-300"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="translate-y-4 opacity-0"
+    >
+
+      <div
+        v-if="showCartMessage"
+        class="fixed bottom-6 right-6 z-[100] flex items-center gap-3 bg-black px-5 py-4 text-sm font-medium text-white shadow-xl"
+      >
+
+        <span
+          class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
+        >
+          ✓
+        </span>
+
+        Added to your cart
+
+      </div>
+
+    </Transition>
 
   </div>
 
 </template>
-

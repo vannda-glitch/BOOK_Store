@@ -1,198 +1,473 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import userApi from '~/src/api/userapi.json'
+<script setup>
+import { ref, computed } from 'vue'
 
 const route = useRoute()
-type Product = (typeof userApi.products)[number]
 
-const product = computed<Product | undefined>(() => {
-  const productId = Number(route.query.id)
-  return userApi.products.find(item => item.id === productId)
+const count = ref(1)
+const addedMessage = ref(false)
+
+const books = [
+  {
+    id: 1,
+    title: 'The Elements of Typographic Style',
+    author: 'Robert Bringhurst',
+    price: 45,
+    rating: 5,
+    reviews: 128,
+    genre: 'Typography',
+    format: 'Hardcover',
+    image:
+      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80',
+    description:
+      'The Elements of Typographic Style is a classic guide to typography. It combines practical advice with historical knowledge to help designers create beautiful and readable text.',
+    pages: 352,
+    publisher: 'Hartley & Marks',
+    language: 'English',
+    year: 2013
+  },
+
+  {
+    id: 2,
+    title: 'Grid Systems in Graphic Design',
+    author: 'Josef Müller-Brockmann',
+    price: 65,
+    rating: 5,
+    reviews: 342,
+    genre: 'Design',
+    format: 'Paperback',
+    image:
+      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=800&q=80',
+    description:
+      'A practical and influential guide to grid systems and graphic design. Perfect for students and professional designers.',
+    pages: 176,
+    publisher: 'Niggli',
+    language: 'English',
+    year: 2018
+  },
+
+  {
+    id: 3,
+    title: 'The Visual Display of Quantitative Information',
+    author: 'Edward R. Tufte',
+    price: 52,
+    rating: 4,
+    reviews: 89,
+    genre: 'Design',
+    format: 'Hardcover',
+    image:
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80',
+    description:
+      'A detailed exploration of how information can be presented visually through charts, graphs and data design.',
+    pages: 200,
+    publisher: 'Graphics Press',
+    language: 'English',
+    year: 2001
+  },
+
+  {
+    id: 4,
+    title: 'Thinking with Type',
+    author: 'Ellen Lupton',
+    price: 38,
+    rating: 5,
+    reviews: 215,
+    genre: 'Typography',
+    format: 'Paperback',
+    image:
+      'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Thinking with Type is a practical guide to typography for designers, writers, editors and students.',
+    pages: 224,
+    publisher: 'Princeton Architectural Press',
+    language: 'English',
+    year: 2010
+  },
+
+  {
+    id: 5,
+    title: 'The Story of Art',
+    author: 'E. H. Gombrich',
+    price: 72,
+    rating: 5,
+    reviews: 421,
+    genre: 'Art History',
+    format: 'Hardcover',
+    image:
+      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=800&q=80',
+    description:
+      'A beautifully written introduction to the history of art, covering major artists, movements and works.',
+    pages: 688,
+    publisher: 'Phaidon',
+    language: 'English',
+    year: 2016
+  },
+
+  {
+    id: 6,
+    title: 'Architectural Drawing',
+    author: 'David Dernie',
+    price: 105,
+    rating: 4,
+    reviews: 74,
+    genre: 'Architecture',
+    format: 'Special Edition',
+    image:
+      'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=800&q=80',
+    description:
+      'A comprehensive guide to architectural drawing techniques, visual communication and presentation.',
+    pages: 224,
+    publisher: 'Laurence King',
+    language: 'English',
+    year: 2014
+  }
+]
+
+const book = computed(() => {
+  return books.find((item) => item.id === Number(route.params.id))
 })
 
-const quantity = ref(1)
+const totalPrice = computed(() => {
+  if (!book.value) return 0
+  return book.value.price * count.value
+})
 
 const increaseQuantity = () => {
-  quantity.value++
+  count.value++
 }
 
 const decreaseQuantity = () => {
-  if (quantity.value > 1) {
-    quantity.value--
+  if (count.value > 1) {
+    count.value--
   }
+}
+
+const addToCart = () => {
+  addedMessage.value = true
+
+  setTimeout(() => {
+    addedMessage.value = false
+  }, 2000)
 }
 </script>
 
 <template>
-  <div v-if="product" class="min-h-screen bg-gray-100 py-10">
-    <div class="mx-auto max-w-6xl px-4">
+  <div v-if="book" class="min-h-screen bg-white">
 
-      <!-- Product Detail -->
-      <div class="grid gap-10 rounded-2xl bg-white p-6 shadow-lg md:grid-cols-2 md:p-10">
+    <!-- Breadcrumb -->
+    <div class="mx-auto max-w-7xl px-6 pt-8 lg:px-8">
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+        <NuxtLink to="/" class="hover:text-black">
+          Home
+        </NuxtLink>
 
-        <!-- LEFT: Image -->
-        <div class="relative">
-          <div class="overflow-hidden rounded-2xl bg-gray-200">
+        <span>/</span>
+
+        <NuxtLink to="/books" class="hover:text-black">
+          Books
+        </NuxtLink>
+
+        <span>/</span>
+
+        <span class="text-gray-900">
+          {{ book.shortTitle || book.title }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Product Detail -->
+    <main class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+
+        <!-- ================= IMAGE ================= -->
+        <div>
+          <div
+            class="flex min-h-[550px] items-center justify-center overflow-hidden bg-[#edf1f8] p-10"
+          >
             <img
-              :src="product.image"
-              :alt="product.title"
-              class="h-[500px] w-full object-cover transition duration-300 hover:scale-105"
+              :src="book.image"
+              :alt="book.title"
+              class="h-[500px] w-full object-contain transition duration-500 hover:scale-105"
             />
           </div>
 
-          <!-- New Badge -->
-          <span
-            v-if="product.isNew"
-            class="absolute left-4 top-4 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white"
-          >
-            NEW
-          </span>
+          <!-- Small image info -->
+          <div class="mt-4 grid grid-cols-3 gap-3">
+
+            <div
+              class="flex h-24 items-center justify-center bg-[#edf1f8]"
+            >
+              <img
+                :src="book.image"
+                :alt="book.title"
+                class="h-full w-full object-contain p-2"
+              />
+            </div>
+
+            <div
+              class="flex h-24 items-center justify-center border border-gray-200"
+            >
+              <span class="text-xs text-gray-500">
+                {{ book.format }}
+              </span>
+            </div>
+
+            <div
+              class="flex h-24 items-center justify-center border border-gray-200"
+            >
+              <span class="text-xs text-gray-500">
+                {{ book.genre }}
+              </span>
+            </div>
+
+          </div>
         </div>
 
-        <!-- RIGHT: Product Information -->
+        <!-- ================= INFORMATION ================= -->
         <div class="flex flex-col justify-center">
 
           <!-- Genre -->
-          <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-gray-500">
-            {{ product.genre }}
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+          >
+            {{ book.genre }}
           </p>
 
           <!-- Title -->
-          <h1 class="text-3xl font-bold text-gray-900 md:text-5xl">
-            {{ product.title }}
+          <h1
+            class="mt-3 font-serif text-4xl font-bold leading-tight text-gray-950 md:text-5xl"
+          >
+            {{ book.title }}
           </h1>
 
           <!-- Author -->
-          <p class="mt-4 text-lg text-gray-600">
-            By
-            <span class="font-semibold text-black">
-              {{ product.author }}
+          <p class="mt-4 text-base text-gray-500">
+            by
+            <span class="font-medium text-gray-900">
+              {{ book.author }}
             </span>
           </p>
 
-          <!-- Price -->
-          <div class="mt-6 flex items-center gap-4">
+          <!-- Rating -->
+          <div class="mt-5 flex items-center gap-3">
 
-            <span class="text-3xl font-bold text-black">
-              ${{ product.price }}
+            <div class="text-sm text-yellow-700">
+              <span
+                v-for="star in 5"
+                :key="star"
+              >
+                {{ star <= book.rating ? '★' : '☆' }}
+              </span>
+            </div>
+
+            <span class="text-sm text-gray-500">
+              {{ book.rating }} / 5
             </span>
 
-            <span
-              v-if="product.originalPrice"
-              class="text-lg text-gray-400 line-through"
-            >
-              ${{ product.originalPrice }}
-            </span>
-
-            <span
-              v-if="product.originalPrice"
-              class="rounded-md bg-red-100 px-3 py-1 text-sm font-semibold text-red-600"
-            >
-              SALE
+            <span class="text-sm text-gray-400">
+              ({{ book.reviews }} reviews)
             </span>
 
           </div>
 
+          <!-- Price -->
+          <div class="mt-7">
+            <span class="text-3xl font-bold text-gray-950">
+              ${{ book.price.toFixed(2) }}
+            </span>
+          </div>
+
           <!-- Description -->
-          <p class="mt-6 leading-7 text-gray-600">
-            Explore this amazing book and discover interesting ideas,
-            stories, and inspiration. This book is perfect for readers
-            who enjoy {{ product.genre }}.
+          <p class="mt-7 max-w-xl text-sm leading-7 text-gray-600">
+            {{ book.description }}
           </p>
 
-          <!-- Product Details -->
-          <div class="mt-8 border-y border-gray-200 py-5">
+          <!-- Divider -->
+          <div class="my-7 border-t border-gray-200"></div>
 
-            <div class="flex items-center justify-between py-3">
-              <span class="text-gray-500">
-                Genre
-              </span>
+          <!-- Format -->
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-gray-700">
+              Format
+            </span>
 
-              <span class="font-semibold text-gray-800">
-                {{ product.genre }}
-              </span>
-            </div>
-
-            <div class="flex items-center justify-between py-3">
-              <span class="text-gray-500">
-                Format
-              </span>
-
-              <span class="font-semibold text-gray-800">
-                {{ product.format }}
-              </span>
-            </div>
-
-            <div class="flex items-center justify-between py-3">
-              <span class="text-gray-500">
-                Status
-              </span>
-
-              <span class="font-semibold text-green-600">
-                In Stock
-              </span>
-            </div>
-
+            <span class="text-sm text-gray-900">
+              {{ book.format }}
+            </span>
           </div>
 
           <!-- Quantity -->
           <div class="mt-6">
 
-            <p class="mb-3 font-semibold text-gray-800">
+            <p class="mb-3 text-sm font-medium text-gray-700">
               Quantity
             </p>
 
-            <div class="flex w-fit items-center rounded-lg border border-gray-300">
+            <div
+              class="flex w-fit items-center border border-gray-300"
+            >
 
               <button
                 @click="decreaseQuantity"
-                class="px-4 py-2 text-xl hover:bg-gray-100"
+                class="flex h-11 w-11 items-center justify-center text-xl text-gray-600 hover:bg-gray-100"
               >
                 −
               </button>
 
-              <span class="w-12 text-center font-semibold">
-                {{ quantity }}
+              <span
+                class="flex h-11 w-12 items-center justify-center border-x border-gray-300 text-sm font-semibold"
+              >
+                {{ count }}
               </span>
 
               <button
                 @click="increaseQuantity"
-                class="px-4 py-2 text-xl hover:bg-gray-100"
+                class="flex h-11 w-11 items-center justify-center text-xl text-gray-600 hover:bg-gray-100"
               >
                 +
               </button>
 
             </div>
-
           </div>
 
-          <!-- Buttons -->
-          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <!-- Add Cart -->
+          <button
+            @click="addToCart"
+            class="mt-6 flex w-full items-center justify-center gap-3 rounded-sm bg-black px-6 py-4 text-sm font-medium text-white transition hover:bg-gray-800"
+          >
 
-            <button
-              class="flex-1 rounded-xl bg-black py-4 font-semibold text-white transition hover:bg-gray-800"
+            <!-- Cart Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.8"
+              stroke="currentColor"
+              class="h-5 w-5"
             >
-              Add to Cart
-            </button>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 2 1.72h8.95a2 2 0 0 0 1.95-1.55L20.75 7H5.3"
+              />
 
-            <button
-              class="flex-1 rounded-xl border-2 border-black py-4 font-semibold text-black transition hover:bg-black hover:text-white"
-            >
-              Buy Now
-            </button>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 20.25h.01M18 20.25h.01"
+              />
+            </svg>
+
+            Add to Cart
+
+            <span>
+              — ${{ totalPrice.toFixed(2) }}
+            </span>
+
+          </button>
+
+          <!-- Success Message -->
+          <div
+            v-if="addedMessage"
+            class="mt-4 border border-green-200 bg-green-50 px-4 py-3 text-center text-sm text-green-700"
+          >
+            ✓ {{ count }} item(s) added to your cart
+          </div>
+
+          <!-- Product Details -->
+          <div class="mt-8 grid grid-cols-2 gap-4 border-t border-gray-200 pt-6">
+
+            <div>
+              <p class="text-xs text-gray-400">
+                Pages
+              </p>
+
+              <p class="mt-1 text-sm font-medium">
+                {{ book.pages }}
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs text-gray-400">
+                Language
+              </p>
+
+              <p class="mt-1 text-sm font-medium">
+                {{ book.language }}
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs text-gray-400">
+                Publisher
+              </p>
+
+              <p class="mt-1 text-sm font-medium">
+                {{ book.publisher }}
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs text-gray-400">
+                Published
+              </p>
+
+              <p class="mt-1 text-sm font-medium">
+                {{ book.year }}
+              </p>
+            </div>
 
           </div>
 
         </div>
-
       </div>
 
-    </div>
+      <!-- ================= DESCRIPTION ================= -->
+      <section class="mt-20 border-t border-gray-200 pt-12">
+
+        <div class="max-w-3xl">
+
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+          >
+            About this book
+          </p>
+
+          <h2
+            class="mt-3 font-serif text-3xl font-bold text-gray-950"
+          >
+            {{ book.title }}
+          </h2>
+
+          <p class="mt-5 text-sm leading-8 text-gray-600">
+            {{ book.description }}
+          </p>
+
+        </div>
+
+      </section>
+
+    </main>
   </div>
-  <div v-else class="min-h-screen bg-gray-100 px-4 py-20 text-center">
-    <h1 class="text-2xl font-bold text-gray-900">Product not found</h1>
-    <NuxtLink to="/product" class="mt-4 inline-block font-semibold text-blue-700 hover:underline">
-      Back to books
+
+  <!-- Book Not Found -->
+  <div
+    v-else
+    class="flex min-h-screen flex-col items-center justify-center"
+  >
+    <h1 class="text-3xl font-bold">
+      Book Not Found
+    </h1>
+
+    <p class="mt-3 text-gray-500">
+      The book you're looking for doesn't exist.
+    </p>
+
+    <NuxtLink
+      to="/books"
+      class="mt-6 bg-black px-6 py-3 text-sm text-white"
+    >
+      Back to Books
     </NuxtLink>
   </div>
 </template>

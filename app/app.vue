@@ -5,7 +5,7 @@
 
 
 <template>
-  <Navbar/>
+  <!-- <Navbar/> -->
   <NuxtPage/>
   <Footer/>
 </template>

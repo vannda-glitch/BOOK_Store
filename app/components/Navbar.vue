@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
 
+
 const route = useRoute()
 
 // ===============================
@@ -363,7 +364,7 @@ if (import.meta.client) {
           <!-- Register -->
 
           <NuxtLink
-            to="/register"
+            to="/auth/register"
             class="hidden rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 sm:block"
           >
             Register

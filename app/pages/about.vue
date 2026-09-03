@@ -16,7 +16,11 @@
 
             <div class="mt-8 flex flex-wrap gap-4">
               <NuxtLink
+<<<<<<< HEAD
                 to="/browse"
+=======
+                to="/product"
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
                 class="inline-flex items-center justify-center border border-white bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-gray-200"
               >
                 Explore Books
@@ -80,9 +84,56 @@
               </div>
             </li>
           </ul>
+<<<<<<< HEAD
         </div>
       </div>
     </section>
+    <section class="bg-black py-16 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-300">What We Believe</p>
+          <h2 class="mt-3 text-3xl font-black md:text-4xl">Our mission, vision, and promise</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <div v-for="item in missionValues" :key="item.number" class="border border-white/20 bg-white/5 p-7">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-gray-400">{{ item.number }}</p>
+            <h3 class="mt-5 text-2xl font-black">{{ item.title }}</h3>
+            <p class="mt-4 text-base leading-7 text-gray-300">{{ item.text }}</p>
+          </div>
+=======
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
+        </div>
+      </div>
+    </section>
+
+<<<<<<< HEAD
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-600">Why BookNest</p>
+        <h2 class="mt-3 text-3xl font-black md:text-4xl">Why readers choose us</h2>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div v-for="value in values" :key="value.title" class="border border-black bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center border border-black text-2xl">
+            {{ value.icon }}
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">{{ value.number }}</p>
+          <h3 class="mt-4 text-xl font-black text-black">{{ value.title }}</h3>
+          <p class="mt-3 text-sm leading-6 text-gray-600">{{ value.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gray-100 py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-8 text-center md:grid-cols-4">
+          <div v-for="stat in stats" :key="stat.label">
+            <h3 class="text-4xl font-black md:text-5xl">{{ stat.value }}</h3>
+            <p class="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-600">{{ stat.label }}</p>
+          </div>
+=======
     <section class="bg-black py-16 text-white">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mb-10 text-center">
@@ -114,10 +165,13 @@
           <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">{{ value.number }}</p>
           <h3 class="mt-4 text-xl font-black text-black">{{ value.title }}</h3>
           <p class="mt-3 text-sm leading-6 text-gray-600">{{ value.text }}</p>
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
         </div>
       </div>
     </section>
 
+<<<<<<< HEAD
+=======
     <section class="bg-gray-100 py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="grid gap-8 text-center md:grid-cols-4">
@@ -129,12 +183,17 @@
       </div>
     </section>
 
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
     <section class="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8">
       <div class="border border-black bg-[#f5f5f5] p-10">
         <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-600">Ready to start reading?</p>
         <h2 class="mt-4 text-3xl font-black text-black md:text-4xl">Discover books that fit your next chapter.</h2>
         <NuxtLink
+<<<<<<< HEAD
           to="/collection"
+=======
+          to="/product"
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
           class="mt-7 inline-flex items-center justify-center border border-black bg-black px-7 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
         >
           Browse Collection
@@ -145,10 +204,13 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 // definePageMeta({
 //     middleware: 'auth'
 // })
 
+=======
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
 const storyFeatures = [
   {
     title: 'Curated selection',
@@ -181,6 +243,10 @@ const missionValues = [
     text: 'To deliver a thoughtful, reliable, and enjoyable shopping experience built around reader satisfaction.'
   }
 ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279
 const values = [
   { number: '01', title: 'Large Collection', icon: '📚', text: 'Discover books across fiction, education, lifestyle, and more.' },
   { number: '02', title: 'Affordable Prices', icon: '💵', text: 'Enjoy meaningful reading without spending more than necessary.' },
@@ -194,4 +260,8 @@ const stats = [
   { value: '20+', label: 'Categories' },
   { value: '4.8/5', label: 'Customer Rating' }
 ]
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> 9133155c0c8ed64b7a6848a8a4fbfd23e5e61279

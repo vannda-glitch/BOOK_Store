@@ -384,7 +384,7 @@ function viewBook(book) {
           <!-- Image -->
           <div class="min-h-[350px] lg:min-h-[500px]">
             <img
-              src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1400&q=85"
+              src="https://www.pixartprinting.co.uk/blog/wp-content/uploads/2023/04/Copertina_non_ce_lhai.jpg"
               alt="Collection of books"
               class="h-full w-full object-cover"
             />

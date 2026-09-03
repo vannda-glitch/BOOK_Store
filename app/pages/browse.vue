@@ -8,9 +8,9 @@ const sortBy = ref('Relevance')
 const currentPage = ref(1)
 const countcard = ref(0);
 
-const addToCart = () =>{
-        countcard.value++;
-}
+// const addToCart = () =>{
+//         countcard.value++;
+// }
 
 const genres = [
   { name: 'Architecture', count: 12 },
@@ -31,127 +31,143 @@ const formats = [
   'Special Edition'
 ]
 
-const books = [
-  {
-    id: 1,
-    title: 'The Elements of Typographic Style',
-    shortTitle: 'The Elements of Typographic...',
-    author: 'Robert Bringhurst',
-    price: 45,
-    rating: 5,
-    reviews: 128,
-    genre: 'Typography',
-    format: 'Hardcover',
-    image:
-      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 2,
-    title: 'Grid Systems in Graphic Design',
-    shortTitle: 'Grid Systems in Graphic Design',
-    author: 'Josef Müller-Brockmann',
-    price: 65,
-    rating: 5,
-    reviews: 342,
-    genre: 'Design',
-    format: 'Paperback',
-    image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 3,
-    title: 'The Visual Display of Quantitative Information',
-    shortTitle: 'The Visual Display of...',
-    author: 'Edward R. Tufte',
-    price: 52,
-    rating: 4,
-    reviews: 89,
-    genre: 'Design',
-    format: 'Hardcover',
-    image:
-      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 4,
-    title: 'Thinking with Type',
-    shortTitle: 'Thinking with Type',
-    author: 'Ellen Lupton',
-    price: 38,
-    rating: 5,
-    reviews: 215,
-    genre: 'Typography',
-    format: 'Paperback',
-    image:
-      'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 5,
-    title: 'The Story of Art',
-    shortTitle: 'The Story of Art',
-    author: 'E. H. Gombrich',
-    price: 72,
-    rating: 5,
-    reviews: 421,
-    genre: 'Art History',
-    format: 'Hardcover',
-    image:
-      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 6,
-    title: 'Architectural Drawing',
-    shortTitle: 'Architectural Drawing',
-    author: 'David Dernie',
-    price: 105,
-    rating: 4,
-    reviews: 74,
-    genre: 'Architecture',
-    format: 'Special Edition',
-    image:
-      'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=500&q=80'
-  }, {
-    id: 1,
-    title: 'The Elements of Typographic Style',
-    shortTitle: 'The Elements of Typographic...',
-    author: 'Robert Bringhurst',
-    price: 45,
-    rating: 5,
-    reviews: 128,
-    genre: 'Typography',
-    format: 'Hardcover',
-    image:
-      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 2,
-    title: 'Grid Systems in Graphic Design',
-    shortTitle: 'Grid Systems in Graphic Design',
-    author: 'Josef Müller-Brockmann',
-    price: 65,
-    rating: 5,
-    reviews: 342,
-    genre: 'Design',
-    format: 'Paperback',
-    image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
-  },
-  {
-    id: 3,
-    title: 'The Visual Display of Quantitative Information',
-    shortTitle: 'The Visual Display of...',
-    author: 'Edward R. Tufte',
-    price: 52,
-    rating: 4,
-    reviews: 89,
-    genre: 'Design',
-    format: 'Hardcover',
-    image:
-      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
+// const books = [
+//   {
+//     id: 1,
+//     title: 'The Elements of Typographic Style',
+//     shortTitle: 'The Elements of Typographic...',
+//     author: 'Robert Bringhurst',
+//     price: 45,
+//     rating: 5,
+//     reviews: 128,
+//     genre: 'Typography',
+//     format: 'Hardcover',
+//     image:
+//       'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 2,
+//     title: 'Grid Systems in Graphic Design',
+//     shortTitle: 'Grid Systems in Graphic Design',
+//     author: 'Josef Müller-Brockmann',
+//     price: 65,
+//     rating: 5,
+//     reviews: 342,
+//     genre: 'Design',
+//     format: 'Paperback',
+//     image:
+//       'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 3,
+//     title: 'The Visual Display of Quantitative Information',
+//     shortTitle: 'The Visual Display of...',
+//     author: 'Edward R. Tufte',
+//     price: 52,
+//     rating: 4,
+//     reviews: 89,
+//     genre: 'Design',
+//     format: 'Hardcover',
+//     image:
+//       'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 4,
+//     title: 'Thinking with Type',
+//     shortTitle: 'Thinking with Type',
+//     author: 'Ellen Lupton',
+//     price: 38,
+//     rating: 5,
+//     reviews: 215,
+//     genre: 'Typography',
+//     format: 'Paperback',
+//     image:
+//       'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 5,
+//     title: 'The Story of Art',
+//     shortTitle: 'The Story of Art',
+//     author: 'E. H. Gombrich',
+//     price: 72,
+//     rating: 5,
+//     reviews: 421,
+//     genre: 'Art History',
+//     format: 'Hardcover',
+//     image:
+//       'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 6,
+//     title: 'Architectural Drawing',
+//     shortTitle: 'Architectural Drawing',
+//     author: 'David Dernie',
+//     price: 105,
+//     rating: 4,
+//     reviews: 74,
+//     genre: 'Architecture',
+//     format: 'Special Edition',
+//     image:
+//       'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=500&q=80'
+//   }, {
+//     id: 1,
+//     title: 'The Elements of Typographic Style',
+//     shortTitle: 'The Elements of Typographic...',
+//     author: 'Robert Bringhurst',
+//     price: 45,
+//     rating: 5,
+//     reviews: 128,
+//     genre: 'Typography',
+//     format: 'Hardcover',
+//     image:
+//       'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 2,
+//     title: 'Grid Systems in Graphic Design',
+//     shortTitle: 'Grid Systems in Graphic Design',
+//     author: 'Josef Müller-Brockmann',
+//     price: 65,
+//     rating: 5,
+//     reviews: 342,
+//     genre: 'Design',
+//     format: 'Paperback',
+//     image:
+//       'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
+//   },
+//   {
+//     id: 3,
+//     title: 'The Visual Display of Quantitative Information',
+//     shortTitle: 'The Visual Display of...',
+//     author: 'Edward R. Tufte',
+//     price: 52,
+//     rating: 4,
+//     reviews: 89,
+//     genre: 'Design',
+//     format: 'Hardcover',
+//     image:
+//       'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
+//   }
+// ]
+const books = ref([])
+
+const API_URL = 'http://localhost:8000'
+
+async function getAllBooks() {
+  try {
+    const res = await $fetch(`${API_URL}/books`)
+    books.value = res
+    
+  } catch (error) {
+    console.error('Error fetching books:', error)
   }
-]
+}
+onMounted(()=>{
+  getAllBooks()
+})
 
 const filteredBooks = computed(() => {
-  let result = books.filter((book) => {
+  let result = books.value?.filter((book) => {
     const genreMatch =
       selectedGenre.value === 'All' ||
       book.genre === selectedGenre.value
@@ -208,6 +224,66 @@ function selectFormat(format) {
 
   currentPage.value = 1
 }
+
+const cartCount = computed(() => {
+  return cart.value.reduce(
+    (total, item) => total + item.quantity,
+    0
+  )
+})
+
+
+const cart = ref([])
+const showCartMessage = ref(false)
+
+/* =========================================================
+   LOAD CART
+========================================================= */
+
+onMounted(() => {
+  const savedCart = localStorage.getItem('lumina-cart')
+
+  if (savedCart) {
+    try {
+      cart.value = JSON.parse(savedCart)
+    } catch (error) {
+      console.error('Could not load cart:', error)
+      cart.value = []
+    }
+  }
+})
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+function addToCart(book) {
+  const existingBook = cart.value.find(
+    item => item.id === book.id
+  )
+
+  if (existingBook) {
+    existingBook.quantity++
+  } else {
+    cart.value.push({
+      ...book,
+      quantity: 1
+    })
+  }
+
+  localStorage.setItem(
+    'lumina-cart',
+    JSON.stringify(cart.value)
+  )
+
+  showCartMessage.value = true
+
+  setTimeout(() => {
+    showCartMessage.value = false
+  }, 2000)
+}
+
+
 </script>
 
 <template>
@@ -660,53 +736,7 @@ function selectFormat(format) {
 
     </main>
 
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="mt-10 border-t border-gray-200 bg-[#edf2fc]">
-
-      <div
-        class="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-7 text-[10px] text-gray-700 md:flex-row md:items-center md:justify-between md:px-8"
-      >
-
-        <p>
-          © 2024 Lumina Books. Curated for the discerning reader.
-        </p>
-
-        <div class="flex flex-wrap gap-5">
-
-          <NuxtLink
-            to="/terms"
-            class="hover:text-black"
-          >
-            Terms of Service
-          </NuxtLink>
-
-          <NuxtLink
-            to="/privacy"
-            class="hover:text-black"
-          >
-            Privacy Policy
-          </NuxtLink>
-
-          <NuxtLink
-            to="/shipping"
-            class="hover:text-black"
-          >
-            Shipping
-          </NuxtLink>
-
-          <NuxtLink
-            to="/contact"
-            class="hover:text-black"
-          >
-            Contact Us
-          </NuxtLink>
-
-        </div>
-
-      </div>
-
-    </footer>
+   
 
   </div>
 </template>

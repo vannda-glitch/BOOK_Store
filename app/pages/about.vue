@@ -16,7 +16,7 @@
 
             <div class="mt-8 flex flex-wrap gap-4">
               <NuxtLink
-                to="/product"
+                to="/browse"
                 class="inline-flex items-center justify-center border border-white bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-gray-200"
               >
                 Explore Books
@@ -83,7 +83,6 @@
         </div>
       </div>
     </section>
-
     <section class="bg-black py-16 text-white">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mb-10 text-center">
@@ -135,7 +134,7 @@
         <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-600">Ready to start reading?</p>
         <h2 class="mt-4 text-3xl font-black text-black md:text-4xl">Discover books that fit your next chapter.</h2>
         <NuxtLink
-          to="/product"
+          to="/collection"
           class="mt-7 inline-flex items-center justify-center border border-black bg-black px-7 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
         >
           Browse Collection
@@ -192,4 +191,7 @@ const stats = [
   { value: '20+', label: 'Categories' },
   { value: '4.8/5', label: 'Customer Rating' }
 ]
+
 </script>
+
+

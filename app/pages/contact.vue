@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-amber-50">
     <!-- Header -->
-    <section class="bg-gradient-to-br from-blue-800 to-blue-700 text-white py-20 px-5 text-center">
+    <section class="bg-blue-700 py-20 px-5 text-center text-white">
       <div class="max-w-2xl mx-auto">
         <h1 class="text-5xl font-bold mb-4 tracking-wide">Get In Touch</h1>
         <p class="text-lg font-light opacity-95">Have questions about our books? We're here to help!</p>

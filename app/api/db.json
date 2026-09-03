@@ -1,0 +1,146 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "The Elements of Typographic Style",
+      "shortTitle": "The Elements of Typographic...",
+      "author": "Robert Bringhurst",
+      "price": 45,
+      "rating": 5,
+      "reviews": 128,
+      "genre": "Typography",
+      "format": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "2",
+      "title": "Grid Systems in Graphic Design",
+      "shortTitle": "Grid Systems in Graphic Design",
+      "author": "Josef Müller-Brockmann",
+      "price": 65,
+      "rating": 5,
+      "reviews": 342,
+      "genre": "Design",
+      "format": "Paperback",
+      "image": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "3",
+      "title": "The Visual Display of Quantitative Information",
+      "shortTitle": "The Visual Display of...",
+      "author": "Edward R. Tufte",
+      "price": 52,
+      "rating": 4,
+      "reviews": 89,
+      "genre": "Design",
+      "format": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "4",
+      "title": "Thinking with Type",
+      "shortTitle": "Thinking with Type",
+      "author": "Ellen Lupton",
+      "price": 38,
+      "rating": 5,
+      "reviews": 215,
+      "genre": "Typography",
+      "format": "Paperback",
+      "image": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "5",
+      "title": "The Story of Art",
+      "shortTitle": "The Story of Art",
+      "author": "E. H. Gombrich",
+      "price": 72,
+      "rating": 5,
+      "reviews": 421,
+      "genre": "Art History",
+      "format": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "6",
+      "title": "Architectural Drawing",
+      "shortTitle": "Architectural Drawing",
+      "author": "David Dernie",
+      "price": 105,
+      "rating": 4,
+      "reviews": 74,
+      "genre": "Architecture",
+      "format": "Special Edition",
+      "image": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "7",
+      "title": "The Elements of Typographic Style",
+      "shortTitle": "The Elements of Typographic...",
+      "author": "Robert Bringhurst",
+      "price": 45,
+      "rating": 5,
+      "reviews": 128,
+      "genre": "Typography",
+      "format": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "8",
+      "title": "Grid Systems in Graphic Design",
+      "shortTitle": "Grid Systems in Graphic Design",
+      "author": "Josef Müller-Brockmann",
+      "price": 65,
+      "rating": 5,
+      "reviews": 342,
+      "genre": "Design",
+      "format": "Paperback",
+      "image": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      "id": "9",
+      "title": "The Visual Display of Quantitative Information",
+      "shortTitle": "The Visual Display of...",
+      "author": "Edward R. Tufte",
+      "price": 52,
+      "rating": 4,
+      "reviews": 89,
+      "genre": "Design",
+      "format": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Programming",
+      "slug": "programming"
+    },
+    {
+      "id": "2",
+      "name": "Classic",
+      "slug": "classic"
+    },
+    {
+      "id": "3",
+      "name": "Finance",
+      "slug": "finance"
+    },
+    {
+      "id": "4",
+      "name": "Self Development",
+      "slug": "self-development"
+    }
+  ],
+  "cart": [],
+  "users": [
+    {
+      "name": "vannda",
+      "email": "vannda@gmail.com",
+      "password": "vannda1234",
+      "role": "úser",
+      "id": "EA7m4cJIDQM"
+    }
+  ],
+  "orders": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

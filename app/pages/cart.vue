@@ -164,36 +164,19 @@ function checkout() {
     ====================================================== -->
 
     <main
-      class="mx-auto max-w-[1600px] px-6 py-12 lg:px-12 lg:py-16"
+      class="mx-auto max-w-[1600px] px-6 py-12 lg:px-12 lg:py-5"
     >
 
       <!-- Breadcrumb -->
 
-      <div
-        class="mb-8 flex items-center gap-2 text-sm text-gray-500"
-      >
-
-        <NuxtLink
-          to="/"
-          class="transition hover:text-black"
-        >
-          Home
-        </NuxtLink>
-
-        <span>›</span>
-
-        <span class="text-gray-950">
-          Shopping Cart
-        </span>
-
-      </div>
+      
 
 
       <!-- ===================================================
            PAGE TITLE
       ==================================================== -->
 
-      <div class="mb-12">
+      <div class="mb-12 ">
 
         <p
           class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
@@ -208,7 +191,7 @@ function checkout() {
           <div>
 
             <h1
-              class="font-serif text-5xl font-bold tracking-tight text-gray-950 sm:text-6xl"
+              class="font-serif text-5xl font-bold tracking-tight text-gray-950 sm:text-6xl "
             >
               Shopping Cart
             </h1>

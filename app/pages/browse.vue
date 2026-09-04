@@ -1,742 +1,1327 @@
-<script setup>
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+
+const route = useRoute()
+
+// ========================================
+// API
+// ========================================
+
+const API_URL = 'http://localhost:8000'
+
+// ========================================
+// Books
+// ========================================
+
+const books = ref<any[]>([])
+
+// ========================================
+// Filter State
+// ========================================
 
 const selectedGenre = ref('All')
 const selectedPrice = ref('All')
 const selectedFormat = ref('All')
 const sortBy = ref('Relevance')
-const currentPage = ref(1)
-const countcard = ref(0);
 
-// const addToCart = () =>{
-//         countcard.value++;
-// }
+// ========================================
+// Search
+// ========================================
+
+const searchQuery = ref('')
+
+// ========================================
+// Cart
+// ========================================
+
+const { addToCart } = useCart()
+
+// ========================================
+// Filter Options
+// ========================================
 
 const genres = [
-  { name: 'Architecture', count: 12 },
-  { name: 'Design', count: 10 },
-  { name: 'Art History', count: 8 },
-  { name: 'Typography', count: 15 }
+  {
+    name: 'All',
+    count: 0
+  },
+  {
+    name: 'Fiction',
+    count: 0
+  },
+  {
+    name: 'Typography',
+    count: 0
+  },
+  {
+    name: 'Design',
+    count: 0
+  },
+  {
+    name: 'Business',
+    count: 0
+  },
+  {
+    name: 'Technology',
+    count: 0
+  }
 ]
 
 const priceRanges = [
+  'All',
   'Under $50',
   '$50 - $100',
   'Over $100'
 ]
 
 const formats = [
+  'All',
   'Hardcover',
   'Paperback',
-  'Special Edition'
+  'Digital'
 ]
 
-// const books = [
-//   {
-//     id: 1,
-//     title: 'The Elements of Typographic Style',
-//     shortTitle: 'The Elements of Typographic...',
-//     author: 'Robert Bringhurst',
-//     price: 45,
-//     rating: 5,
-//     reviews: 128,
-//     genre: 'Typography',
-//     format: 'Hardcover',
-//     image:
-//       'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 2,
-//     title: 'Grid Systems in Graphic Design',
-//     shortTitle: 'Grid Systems in Graphic Design',
-//     author: 'Josef Müller-Brockmann',
-//     price: 65,
-//     rating: 5,
-//     reviews: 342,
-//     genre: 'Design',
-//     format: 'Paperback',
-//     image:
-//       'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 3,
-//     title: 'The Visual Display of Quantitative Information',
-//     shortTitle: 'The Visual Display of...',
-//     author: 'Edward R. Tufte',
-//     price: 52,
-//     rating: 4,
-//     reviews: 89,
-//     genre: 'Design',
-//     format: 'Hardcover',
-//     image:
-//       'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 4,
-//     title: 'Thinking with Type',
-//     shortTitle: 'Thinking with Type',
-//     author: 'Ellen Lupton',
-//     price: 38,
-//     rating: 5,
-//     reviews: 215,
-//     genre: 'Typography',
-//     format: 'Paperback',
-//     image:
-//       'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 5,
-//     title: 'The Story of Art',
-//     shortTitle: 'The Story of Art',
-//     author: 'E. H. Gombrich',
-//     price: 72,
-//     rating: 5,
-//     reviews: 421,
-//     genre: 'Art History',
-//     format: 'Hardcover',
-//     image:
-//       'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 6,
-//     title: 'Architectural Drawing',
-//     shortTitle: 'Architectural Drawing',
-//     author: 'David Dernie',
-//     price: 105,
-//     rating: 4,
-//     reviews: 74,
-//     genre: 'Architecture',
-//     format: 'Special Edition',
-//     image:
-//       'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=500&q=80'
-//   }, {
-//     id: 1,
-//     title: 'The Elements of Typographic Style',
-//     shortTitle: 'The Elements of Typographic...',
-//     author: 'Robert Bringhurst',
-//     price: 45,
-//     rating: 5,
-//     reviews: 128,
-//     genre: 'Typography',
-//     format: 'Hardcover',
-//     image:
-//       'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 2,
-//     title: 'Grid Systems in Graphic Design',
-//     shortTitle: 'Grid Systems in Graphic Design',
-//     author: 'Josef Müller-Brockmann',
-//     price: 65,
-//     rating: 5,
-//     reviews: 342,
-//     genre: 'Design',
-//     format: 'Paperback',
-//     image:
-//       'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80'
-//   },
-//   {
-//     id: 3,
-//     title: 'The Visual Display of Quantitative Information',
-//     shortTitle: 'The Visual Display of...',
-//     author: 'Edward R. Tufte',
-//     price: 52,
-//     rating: 4,
-//     reviews: 89,
-//     genre: 'Design',
-//     format: 'Hardcover',
-//     image:
-//       'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80'
-//   }
-// ]
-const books = ref([])
+// ========================================
+// Get Books
+// ========================================
 
-const API_URL = 'http://localhost:8000'
+const getAllBooks = async () => {
 
-async function getAllBooks() {
   try {
-    const res = await $fetch(`${API_URL}/books`)
-    books.value = res
-    
+
+    const response = await $fetch<any[]>(
+      `${API_URL}/books`
+    )
+
+    books.value = response
+
   } catch (error) {
-    console.error('Error fetching books:', error)
+
+    console.error(
+      'Failed to fetch books:',
+      error
+    )
+
   }
+
 }
-onMounted(()=>{
-  getAllBooks()
-})
+
+// ========================================
+// Search From Navbar
+// ========================================
+
+watch(
+  () => route.query.search,
+
+  (value) => {
+
+    searchQuery.value =
+      String(value || '')
+
+  },
+
+  {
+    immediate: true
+  }
+)
+
+// ========================================
+// FILTER BOOKS
+// ========================================
 
 const filteredBooks = computed(() => {
-  let result = books.value?.filter((book) => {
-    const genreMatch =
+
+  let result = books.value.filter((book) => {
+
+    // ====================================
+    // SEARCH
+    // ====================================
+
+    const keyword =
+      searchQuery.value
+        .trim()
+        .toLowerCase()
+
+    const matchesSearch =
+      keyword === '' ||
+      String(book.title || '')
+        .toLowerCase()
+        .includes(keyword) ||
+      String(book.author || '')
+        .toLowerCase()
+        .includes(keyword) ||
+      String(book.genre || '')
+        .toLowerCase()
+        .includes(keyword)
+
+
+    // ====================================
+    // GENRE
+    // ====================================
+
+    const matchesGenre =
       selectedGenre.value === 'All' ||
-      book.genre === selectedGenre.value
+      String(book.genre || '').toLowerCase() ===
+        selectedGenre.value.toLowerCase()
 
-    let priceMatch = true
 
-    if (selectedPrice.value === 'Under $50') {
-      priceMatch = book.price < 50
-    } else if (selectedPrice.value === '$50 - $100') {
-      priceMatch = book.price >= 50 && book.price <= 100
-    } else if (selectedPrice.value === 'Over $100') {
-      priceMatch = book.price > 100
+    // ====================================
+    // PRICE
+    // ====================================
+
+    const price =
+      Number(book.price)
+
+    let matchesPrice = true
+
+    if (
+      selectedPrice.value === 'Under $50'
+    ) {
+
+      matchesPrice =
+        price < 50
+
     }
 
-    const formatMatch =
-      selectedFormat.value === 'All' ||
-      book.format === selectedFormat.value
+    else if (
+      selectedPrice.value === '$50 - $100'
+    ) {
 
-    return genreMatch && priceMatch && formatMatch
+      matchesPrice =
+        price >= 50 &&
+        price <= 100
+
+    }
+
+    else if (
+      selectedPrice.value === 'Over $100'
+    ) {
+
+      matchesPrice =
+        price > 100
+
+    }
+
+
+    // ====================================
+    // FORMAT
+    // ====================================
+
+    const matchesFormat =
+      selectedFormat.value === 'All' ||
+      String(book.format || '').toLowerCase() ===
+        selectedFormat.value.toLowerCase()
+
+
+    // ====================================
+    // RETURN
+    // ====================================
+
+    return (
+      matchesSearch &&
+      matchesGenre &&
+      matchesPrice &&
+      matchesFormat
+    )
+
   })
 
-  if (sortBy.value === 'Price: Low to High') {
-    result.sort((a, b) => a.price - b.price)
+
+  // ====================================
+  // SORT
+  // ====================================
+
+  if (
+    sortBy.value === 'Price: Low to High'
+  ) {
+
+    result.sort(
+      (a, b) =>
+        Number(a.price) -
+        Number(b.price)
+    )
+
   }
 
-  if (sortBy.value === 'Price: High to Low') {
-    result.sort((a, b) => b.price - a.price)
+  else if (
+    sortBy.value === 'Price: High to Low'
+  ) {
+
+    result.sort(
+      (a, b) =>
+        Number(b.price) -
+        Number(a.price)
+    )
+
   }
 
-  if (sortBy.value === 'Rating') {
-    result.sort((a, b) => b.rating - a.rating)
+  else if (
+    sortBy.value === 'Rating'
+  ) {
+
+    result.sort(
+      (a, b) =>
+        Number(b.rating) -
+        Number(a.rating)
+    )
+
   }
 
   return result
+
 })
 
-function selectGenre(genre) {
-  selectedGenre.value =
-    selectedGenre.value === genre ? 'All' : genre
+// ========================================
+// Select Genre
+// ========================================
 
-  currentPage.value = 1
+const selectGenre = (genre: string) => {
+
+  selectedGenre.value = genre
+
 }
 
-function selectPrice(price) {
-  selectedPrice.value =
-    selectedPrice.value === price ? 'All' : price
+// ========================================
+// Select Price
+// ========================================
 
-  currentPage.value = 1
+const selectPrice = (price: string) => {
+
+  selectedPrice.value = price
+
 }
 
-function selectFormat(format) {
-  selectedFormat.value =
-    selectedFormat.value === format ? 'All' : format
+// ========================================
+// Select Format
+// ========================================
 
-  currentPage.value = 1
+const selectFormat = (format: string) => {
+
+  selectedFormat.value = format
+
 }
 
-const cartCount = computed(() => {
-  return cart.value.reduce(
-    (total, item) => total + item.quantity,
-    0
-  )
-})
+// ========================================
+// Reset Filters
+// ========================================
 
+const resetFilters = () => {
 
-const cart = ref([])
-const showCartMessage = ref(false)
+  selectedGenre.value = 'All'
 
-/* =========================================================
-   LOAD CART
-========================================================= */
+  selectedPrice.value = 'All'
+
+  selectedFormat.value = 'All'
+
+  sortBy.value = 'Relevance'
+
+  searchQuery.value = ''
+
+  navigateTo('/browse')
+
+}
+
+// ========================================
+// Load
+// ========================================
 
 onMounted(() => {
-  const savedCart = localStorage.getItem('lumina-cart')
 
-  if (savedCart) {
-    try {
-      cart.value = JSON.parse(savedCart)
-    } catch (error) {
-      console.error('Could not load cart:', error)
-      cart.value = []
-    }
-  }
+  getAllBooks()
+
 })
-
-/* =========================================================
-   ADD TO CART
-========================================================= */
-
-function addToCart(book) {
-  const existingBook = cart.value.find(
-    item => item.id === book.id
-  )
-
-  if (existingBook) {
-    existingBook.quantity++
-  } else {
-    cart.value.push({
-      ...book,
-      quantity: 1
-    })
-  }
-
-  localStorage.setItem(
-    'lumina-cart',
-    JSON.stringify(cart.value)
-  )
-
-  showCartMessage.value = true
-
-  setTimeout(() => {
-    showCartMessage.value = false
-  }, 2000)
-}
-
 
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f8f9fc] text-[#111827]">
- 
-    <!-- ================= MAIN ================= -->
-    <main class="mx-auto max-w-[1400px] px-5 py-8 md:px-8 lg:py-10">
-
-      <!-- Breadcrumb -->
-      <div class="mb-5 flex items-center gap-2 text-[11px] text-gray-500">
-        <NuxtLink to="/" class="hover:text-black">
-          Home
-        </NuxtLink>
-
-        <span>›</span>
-
-        <NuxtLink to="/search" class="hover:text-black">
-          Browse
-        </NuxtLink>
-
-        <span>›</span>
-
-        <span class="font-medium text-gray-800">
-          Search Results
-        </span>
-      </div>
+  <div class="min-h-screen bg-[#fafafa] text-gray-900">
 
 
-      <!-- Title + Sort -->
-      <div
-        class="mb-7 flex flex-col gap-5 md:flex-row md:items-end md:justify-between"
-      >
-
-        <div>
-          <h1
-            class="font-serif text-4xl font-bold tracking-tight text-gray-950 md:text-5xl"
-          >
-            Search Results
-          </h1>
-
-          <p class="mt-1 text-sm text-gray-500">
-            Showing {{ filteredBooks.length }} results for
-            <span class="text-gray-700">"Design Systems"</span>
-          </p>
-        </div>
-
-        <!-- Sort -->
-        <div class="flex items-center gap-2">
-          <label
-            for="sort"
-            class="hidden text-xs text-gray-500 sm:block"
-          >
-            Sort by:
-          </label>
-
-          <select
-            id="sort"
-            v-model="sortBy"
-            class="h-9 min-w-[145px] rounded-sm border border-gray-300 bg-white px-3 text-xs outline-none focus:border-black"
-          >
-            <option>Relevance</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Rating</option>
-          </select>
-        </div>
-
-      </div>
-
-
-     <!-- ================= CONTENT ================= -->
-<div class="grid grid-cols-1 gap-10 lg:grid-cols-[180px_minmax(0,1fr)]">
-
-  <!-- ================= SIDEBAR ================= -->
-  <aside
-    class="h-fit w-full self-start lg:sticky lg:top-20 lg:w-[180px]"
-  >
-
-    <!-- GENRE -->
-    <section class="mb-7">
-
-      <h2
-        class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-900"
-      >
-        Genre
-      </h2>
-
-      <div class="space-y-3">
-
-        <button
-          v-for="genre in genres"
-          :key="genre.name"
-          type="button"
-          @click="selectGenre(genre.name)"
-          class="group flex w-full items-center justify-between text-left"
-        >
-
-          <div class="flex items-center gap-2">
-
-            <!-- Checkbox -->
-            <span
-              class="flex h-3.5 w-3.5 items-center justify-center border border-gray-400"
-              :class="{
-                'border-black bg-black':
-                  selectedGenre === genre.name
-              }"
-            >
-
-              <svg
-                v-if="selectedGenre === genre.name"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                stroke-width="4"
-                class="h-2.5 w-2.5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m5 12 4 4L19 6"
-                />
-              </svg>
-
-            </span>
-
-            <span
-              class="text-xs"
-              :class="
-                selectedGenre === genre.name
-                  ? 'font-medium text-black'
-                  : 'text-gray-500 group-hover:text-black'
-              "
-            >
-              {{ genre.name }}
-            </span>
-
-          </div>
-
-          <span class="text-[10px] text-gray-400">
-            ({{ genre.count }})
-          </span>
-
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- DIVIDER -->
-    <div class="mb-7 border-t border-gray-200"></div>
-
-
-    <!-- PRICE RANGE -->
-    <section class="mb-7">
-
-      <h2
-        class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-900"
-      >
-        Price Range
-      </h2>
-
-      <div class="space-y-3">
-
-        <button
-          v-for="price in priceRanges"
-          :key="price"
-          type="button"
-          @click="selectPrice(price)"
-          class="flex items-center gap-2 text-xs"
-        >
-
-          <!-- Radio -->
-          <span
-            class="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-400"
-          >
-
-            <span
-              v-if="selectedPrice === price"
-              class="h-1.5 w-1.5 rounded-full bg-black"
-            ></span>
-
-          </span>
-
-          <span
-            :class="
-              selectedPrice === price
-                ? 'font-medium text-black'
-                : 'text-gray-500 hover:text-black'
-            "
-          >
-            {{ price }}
-          </span>
-
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- DIVIDER -->
-    <div class="mb-7 border-t border-gray-200"></div>
-
-
-    <!-- FORMAT -->
-    <section>
-
-      <h2
-        class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-900"
-      >
-        Format
-      </h2>
-
-      <div class="flex flex-col items-start gap-2">
-
-        <button
-          v-for="format in formats"
-          :key="format"
-          type="button"
-          @click="selectFormat(format)"
-          class="rounded-full border px-3 py-1 text-[10px] transition"
-          :class="
-            selectedFormat === format
-              ? 'border-gray-300 bg-[#dce6f8] text-gray-900'
-              : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500'
-          "
-        >
-          {{ format }}
-        </button>
-
-      </div>
-
-    </section>
-
-  </aside>
-
-
-  <!-- ================= BOOK AREA ================= -->
-  <section class="min-w-0">
-
-    <div
-      v-if="filteredBooks.length"
-      class="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-3"
+    <main
+      class="mx-auto max-w-[1400px] px-5 py-8 md:px-8 lg:px-10 lg:py-12"
     >
 
-      <!-- BOOK CARD -->
-      <article
-        v-for="book in filteredBooks"
-        :key="book.id"
-        class="group flex min-w-0 flex-col"
+
+      <!-- ===================================================== -->
+      <!-- SEARCH / SORT TOOLBAR -->
+      <!-- ===================================================== -->
+
+      <div
+        class="mb-8 flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between"
       >
 
-        <!-- IMAGE -->
-        <NuxtLink
-          :to="`/books/${book.id}`"
-          class="block overflow-hidden bg-[#edf1f8]"
+        <!-- Search Information -->
+
+        <div
+          class="flex min-w-0 items-center gap-3"
         >
 
           <div
-            class="flex h-[280px] items-center justify-center p-5"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100"
           >
 
-            <img
-              :src="book.image"
-              :alt="book.title"
-              class="h-full w-full object-contain transition duration-500 group-hover:scale-105"
-            />
-
-          </div>
-
-        </NuxtLink>
-
-
-        <!-- BOOK INFO -->
-        <div class="flex flex-1 flex-col pt-4">
-
-          <!-- TITLE + PRICE -->
-          <div class="flex items-start justify-between gap-3">
-
-            <NuxtLink
-              :to="`/books/${book.id}`"
-              class="font-serif text-[17px] font-bold leading-tight text-gray-950 transition hover:text-gray-600"
-            >
-              {{ book.shortTitle }}
-            </NuxtLink>
-
-            <span
-              class="shrink-0 text-xs font-semibold text-gray-800"
-            >
-              ${{ book.price.toFixed(2) }}
-            </span>
-
-          </div>
-
-
-          <!-- AUTHOR -->
-          <p class="mt-2 text-[11px] text-gray-500">
-            {{ book.author }}
-          </p>
-
-
-          <!-- RATING -->
-          <div class="mt-2 flex items-center gap-1">
-
-            <div class="text-[11px] text-yellow-700">
-
-              <span
-                v-for="star in 5"
-                :key="star"
-              >
-                {{ star <= book.rating ? '★' : '☆' }}
-              </span>
-
-            </div>
-
-            <span class="text-[10px] text-gray-500">
-              ({{ book.reviews }})
-            </span>
-
-          </div>
-
-
-          <!-- ADD TO CART -->
-          <button
-            type="button"
-            @click="addToCart(book)"
-            class="mt-4 flex w-full items-center justify-center gap-2 rounded-sm bg-black px-4 py-2.5 text-xs font-medium text-white transition hover:bg-gray-800 active:scale-[0.98]"
-          >
-
-            <!-- Cart Icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.8"
+              stroke-width="1.6"
               stroke="currentColor"
-              class="h-4 w-4"
+              class="h-5 w-5 text-gray-600"
             >
 
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 2 1.72h8.95a2 2 0 0 0 1.95-1.55L20.75 7H5.3"
-              />
-
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 20.25h.01M18 20.25h.01"
+                d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
               />
 
             </svg>
 
-            Add to Cart
+          </div>
 
-          </button>
+
+          <div class="min-w-0">
+
+            <p
+              class="text-[10px] font-semibold uppercase tracking-wider text-gray-400"
+            >
+              Search
+            </p>
+
+            <p
+              v-if="searchQuery"
+              class="truncate text-sm font-medium text-gray-950"
+            >
+              "{{ searchQuery }}"
+            </p>
+
+            <p
+              v-else
+              class="text-sm font-medium text-gray-700"
+            >
+              All books
+            </p>
+
+          </div>
 
         </div>
 
-      </article>
 
-    </div>
+        <!-- Sort -->
+
+        <div
+          class="flex items-center gap-3"
+        >
+
+          <label
+            for="sort"
+            class="shrink-0 text-xs font-medium text-gray-500"
+          >
+            Sort by
+          </label>
 
 
-    <!-- NO RESULTS -->
-    <div
-      v-else
-      class="flex min-h-[350px] items-center justify-center border border-dashed border-gray-300 bg-white"
-    >
+          <div class="relative">
 
-      <div class="text-center">
+            <select
+              id="sort"
+              v-model="sortBy"
+              class="h-10  appearance-none rounded-xl border border-gray-200 bg-gray-50 px-4 pr-10 text-xs font-medium text-gray-800 outline-none transition focus:border-black focus:bg-white"
+            >
 
-        <h3 class="font-serif text-xl font-bold">
-          No books found
-        </h3>
+              <option value="Relevance">
+                Relevance
+              </option>
 
-        <p class="mt-2 text-sm text-gray-500">
-          Try changing your filters.
-        </p>
+              <option value="Price: Low to High">
+                Price: Low to High
+              </option>
+
+              <option value="Price: High to Low">
+                Price: High to Low
+              </option>
+
+              <option value="Rating">
+                Rating
+              </option>
+
+            </select>
+
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.7"
+              stroke="currentColor"
+              class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+            >
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m6 9 6 6 6-6"
+              />
+
+            </svg>
+
+          </div>
+
+        </div>
 
       </div>
 
-    </div>
 
+      <!-- ===================================================== -->
+      <!-- ACTIVE FILTERS -->
+      <!-- ===================================================== -->
 
-    <!-- PAGINATION -->
-    <div
-      class="mt-12 flex items-center justify-center gap-7 border-t border-gray-200 pt-6"
-    >
-
-      <button
-        type="button"
-        class="text-gray-400 hover:text-black"
-        :disabled="currentPage === 1"
-        @click="currentPage > 1 && currentPage--"
+      <div
+        v-if="
+          selectedGenre !== 'All' ||
+          selectedPrice !== 'All' ||
+          selectedFormat !== 'All' ||
+          searchQuery
+        "
+        class="mb-8 flex flex-wrap items-center gap-2"
       >
-        ‹
-      </button>
 
-      <button
-        type="button"
-        class="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-[11px] text-white"
+        <span
+          class="mr-1 text-xs font-medium text-gray-400"
+        >
+          Active filters:
+        </span>
+
+
+        <!-- Search -->
+
+        <button
+          v-if="searchQuery"
+          type="button"
+          class="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-medium text-gray-700 shadow-sm"
+          @click="
+            searchQuery = '';
+            navigateTo('/browse')
+          "
+        >
+
+          Search:
+          <span class="font-semibold text-gray-950">
+            {{ searchQuery }}
+          </span>
+
+          <span
+            class="text-gray-400 group-hover:text-black"
+          >
+            ×
+          </span>
+
+        </button>
+
+
+        <!-- Genre -->
+
+        <button
+          v-if="selectedGenre !== 'All'"
+          type="button"
+          class="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-medium text-gray-700 shadow-sm"
+          @click="selectedGenre = 'All'"
+        >
+
+          {{ selectedGenre }}
+
+          <span
+            class="text-gray-400 group-hover:text-black"
+          >
+            ×
+          </span>
+
+        </button>
+
+
+        <!-- Price -->
+
+        <button
+          v-if="selectedPrice !== 'All'"
+          type="button"
+          class="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-medium text-gray-700 shadow-sm"
+          @click="selectedPrice = 'All'"
+        >
+
+          {{ selectedPrice }}
+
+          <span
+            class="text-gray-400 group-hover:text-black"
+          >
+            ×
+          </span>
+
+        </button>
+
+
+        <!-- Format -->
+
+        <button
+          v-if="selectedFormat !== 'All'"
+          type="button"
+          class="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-medium text-gray-700 shadow-sm"
+          @click="selectedFormat = 'All'"
+        >
+
+          {{ selectedFormat }}
+
+          <span
+            class="text-gray-400 group-hover:text-black"
+          >
+            ×
+          </span>
+
+        </button>
+
+
+        <!-- Reset -->
+
+        <button
+          type="button"
+          class="ml-1 text-[10px] font-semibold text-gray-500 underline underline-offset-4 transition hover:text-black"
+          @click="resetFilters"
+        >
+          Clear all
+        </button>
+
+      </div>
+
+
+      <!-- ===================================================== -->
+      <!-- CONTENT -->
+      <!-- ===================================================== -->
+
+      <div
+        class="grid grid-cols-1 gap-10 lg:grid-cols-[240px_minmax(0,1fr)]"
       >
-        1
-      </button>
 
-      <button
-        type="button"
-        class="text-[11px] text-gray-600 hover:text-black"
-        @click="currentPage = 2"
-      >
-        2
-      </button>
 
-      <button
-        type="button"
-        class="text-[11px] text-gray-600 hover:text-black"
-        @click="currentPage = 3"
-      >
-        3
-      </button>
+        <!-- =================================================== -->
+        <!-- SIDEBAR -->
+        <!-- =================================================== -->
 
-      <span class="text-[11px] text-gray-400">
-        ...
-      </span>
+        <aside
+          class="h-fit rounded-2xl border border-gray-200 bg-white p-5 shadow-sm lg:sticky lg:top-24"
+        >
 
-      <button
-        type="button"
-        class="text-[11px] text-gray-600 hover:text-black"
-        @click="currentPage = 8"
-      >
-        8
-      </button>
+          <!-- Sidebar Header -->
 
-      <button
-        type="button"
-        class="text-gray-700 hover:text-black"
-        @click="currentPage++"
-      >
-        ›
-      </button>
+          <div
+            class="mb-6 flex items-center justify-between"
+          >
 
-    </div>
+            <div>
 
-  </section>
+              <p
+                class="text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400"
+              >
+                Refine
+              </p>
 
-</div>
+              <h2
+                class="mt-1 font-serif text-xl font-bold text-gray-950"
+              >
+                Filters
+              </h2>
+
+            </div>
+
+
+            <button
+              v-if="
+                selectedGenre !== 'All' ||
+                selectedPrice !== 'All' ||
+                selectedFormat !== 'All'
+              "
+              type="button"
+              class="text-[10px] font-medium text-gray-400 underline underline-offset-4 hover:text-black"
+              @click="resetFilters"
+            >
+              Reset
+            </button>
+
+          </div>
+
+
+          <!-- ================================================= -->
+          <!-- GENRE -->
+          <!-- ================================================= -->
+
+          <section>
+
+            <h3
+              class="mb-3 text-xs font-semibold text-gray-950"
+            >
+              Genre
+            </h3>
+
+
+            <div class="space-y-1">
+
+              <button
+                v-for="genre in genres"
+                :key="genre.name"
+                type="button"
+                class="group flex w-full items-center justify-between rounded-lg px-2 py-2.5 text-left transition"
+                :class="
+                  selectedGenre === genre.name
+                    ? 'bg-gray-100'
+                    : 'hover:bg-gray-50'
+                "
+                @click="selectGenre(genre.name)"
+              >
+
+                <div
+                  class="flex items-center gap-3"
+                >
+
+                  <!-- Checkbox -->
+
+                  <span
+                    class="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition"
+                    :class="
+                      selectedGenre === genre.name
+                        ? 'border-black bg-black'
+                        : 'border-gray-300 bg-white group-hover:border-gray-500'
+                    "
+                  >
+
+                    <svg
+                      v-if="selectedGenre === genre.name"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      stroke-width="3"
+                      class="h-2.5 w-2.5"
+                    >
+
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m5 12 4 4L19 6"
+                      />
+
+                    </svg>
+
+                  </span>
+
+
+                  <span
+                    class="text-xs"
+                    :class="
+                      selectedGenre === genre.name
+                        ? 'font-semibold text-gray-950'
+                        : 'text-gray-500 group-hover:text-gray-900'
+                    "
+                  >
+                    {{ genre.name }}
+                  </span>
+
+                </div>
+
+
+                <!-- Count -->
+
+                <span
+                  v-if="genre.name !== 'All'"
+                  class="text-[10px] text-gray-400"
+                >
+                  {{ genre.count }}
+                </span>
+
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <!-- ================================================= -->
+          <!-- DIVIDER -->
+          <!-- ================================================= -->
+
+          <div
+            class="my-6 border-t border-gray-100"
+          />
+
+
+          <!-- ================================================= -->
+          <!-- PRICE -->
+          <!-- ================================================= -->
+
+          <section>
+
+            <h3
+              class="mb-3 text-xs font-semibold text-gray-950"
+            >
+              Price Range
+            </h3>
+
+
+            <div class="space-y-1">
+
+              <button
+                v-for="price in priceRanges"
+                :key="price"
+                type="button"
+                class="group flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left transition hover:bg-gray-50"
+                @click="selectPrice(price)"
+              >
+
+                <!-- Radio -->
+
+                <span
+                  class="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition"
+                  :class="
+                    selectedPrice === price
+                      ? 'border-black'
+                      : 'border-gray-300 group-hover:border-gray-500'
+                  "
+                >
+
+                  <span
+                    v-if="selectedPrice === price"
+                    class="h-2 w-2 rounded-full bg-black"
+                  />
+
+                </span>
+
+
+                <span
+                  class="text-xs"
+                  :class="
+                    selectedPrice === price
+                      ? 'font-semibold text-gray-950'
+                      : 'text-gray-500 group-hover:text-gray-900'
+                  "
+                >
+                  {{ price }}
+                </span>
+
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <!-- ================================================= -->
+          <!-- DIVIDER -->
+          <!-- ================================================= -->
+
+          <div
+            class="my-6 border-t border-gray-100"
+          />
+
+
+          <!-- ================================================= -->
+          <!-- FORMAT -->
+          <!-- ================================================= -->
+
+          <section>
+
+            <h3
+              class="mb-3 text-xs font-semibold text-gray-950"
+            >
+              Format
+            </h3>
+
+
+            <div class="flex flex-wrap gap-2">
+
+              <button
+                v-for="format in formats"
+                :key="format"
+                type="button"
+                class="rounded-full border px-3 py-2 text-[10px] font-medium transition"
+                :class="
+                  selectedFormat === format
+                    ? 'border-black bg-black text-white'
+                    : 'border-gray-200 bg-white text-gray-500 hover:border-gray-400 hover:text-gray-900'
+                "
+                @click="selectFormat(format)"
+              >
+                {{ format }}
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <!-- ================================================= -->
+          <!-- FILTER SUMMARY -->
+          <!-- ================================================= -->
+
+          <div
+            class="mt-7 rounded-xl bg-gray-50 p-4"
+          >
+
+            <div
+              class="flex items-center justify-between"
+            >
+
+              <span
+                class="text-[10px] uppercase tracking-wider text-gray-400"
+              >
+                Results
+              </span>
+
+              <span
+                class="text-sm font-bold text-gray-950"
+              >
+                {{ filteredBooks.length }}
+              </span>
+
+            </div>
+
+
+            <p
+              class="mt-2 text-[10px] leading-5 text-gray-400"
+            >
+              Use the filters above to narrow down
+              your book collection.
+            </p>
+
+          </div>
+
+        </aside>
+
+
+        <!-- =================================================== -->
+        <!-- BOOKS -->
+        <!-- =================================================== -->
+
+        <section class="min-w-0">
+
+
+          <!-- ================================================= -->
+          <!-- BOOK GRID -->
+          <!-- ================================================= -->
+
+          <div
+            v-if="filteredBooks.length > 0"
+            class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3"
+          >
+
+            <!-- ================================================= -->
+            <!-- BOOK CARD -->
+            <!-- ================================================= -->
+
+            <article
+              v-for="book in filteredBooks"
+              :key="book.id"
+              class="group min-w-0"
+            >
+
+              <!-- IMAGE CONTAINER -->
+
+              <div
+                class="relative overflow-hidden rounded-2xl border border-gray-100 bg-[#f1f2f5] shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg"
+              >
+
+                <!-- Highly Rated -->
+
+                <span
+                  v-if="Number(book.rating) >= 4.8"
+                  class="absolute left-3 top-3 z-10 rounded-full bg-white/95 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-gray-800 shadow-sm backdrop-blur"
+                >
+                  Highly Rated
+                </span>
+
+
+                <!-- Book -->
+
+                <NuxtLink
+                  :to="`/books/${book.id}`"
+                  class="block"
+                >
+
+                  <div
+                    class="flex h-[340px] items-center justify-center overflow-hidden p-7"
+                  >
+
+                    <img
+                      :src="book.image"
+                      :alt="book.title"
+                      loading="lazy"
+                      class="h-full w-full object-contain transition duration-500 ease-out group-hover:scale-105"
+                    />
+
+                  </div>
+
+                </NuxtLink>
+
+
+                <!-- View Details -->
+
+                <NuxtLink
+                  :to="`/books/${book.id}`"
+                  class="absolute bottom-4 left-1/2 flex -translate-x-1/2 translate-y-4 items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[10px] font-semibold text-gray-900 opacity-0 shadow-lg backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                >
+
+                  View Details
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    class="h-3.5 w-3.5"
+                  >
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5 12h14m-6-6 6 6-6 6"
+                    />
+
+                  </svg>
+
+                </NuxtLink>
+
+              </div>
+
+
+              <!-- ================================================= -->
+              <!-- BOOK INFO -->
+              <!-- ================================================= -->
+
+              <div class="pt-4">
+
+
+                <!-- Title + Price -->
+
+                <div
+                  class="flex items-start justify-between gap-4"
+                >
+
+                  <div class="min-w-0">
+
+                    <NuxtLink
+                      :to="`/books/${book.id}`"
+                    >
+
+                      <h2
+                        class="font-serif text-lg font-bold leading-tight text-gray-950 transition group-hover:text-gray-600"
+                      >
+                        {{ book.shortTitle || book.title }}
+                      </h2>
+
+                    </NuxtLink>
+
+                    <p
+                      class="mt-1.5 text-xs text-gray-500"
+                    >
+                      {{ book.author }}
+                    </p>
+
+                  </div>
+
+
+                  <!-- Price -->
+
+                  <span
+                    class="shrink-0 text-sm font-bold text-gray-950"
+                  >
+                    ${{ Number(book.price).toFixed(2) }}
+                  </span>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- RATING -->
+                <!-- ================================================= -->
+
+                <div
+                  class="mt-3 flex items-center gap-2"
+                >
+
+                  <div
+                    class="flex items-center text-[12px] leading-none"
+                  >
+
+                    <span
+                      v-for="star in 5"
+                      :key="star"
+                      :class="
+                        star <= Math.round(Number(book.rating))
+                          ? 'text-gray-900'
+                          : 'text-gray-300'
+                      "
+                    >
+                      ★
+                    </span>
+
+                  </div>
+
+
+                  <span
+                    class="text-[10px] text-gray-400"
+                  >
+                    {{ book.rating }}
+                  </span>
+
+                  <span
+                    class="text-[10px] text-gray-300"
+                  >
+                    •
+                  </span>
+
+                  <span
+                    class="text-[10px] text-gray-400"
+                  >
+                    {{ book.reviews }} reviews
+                  </span>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- TAGS -->
+                <!-- ================================================= -->
+
+                <div
+                  class="mt-3 flex flex-wrap gap-2"
+                >
+
+                  <span
+                    v-if="book.genre"
+                    class="rounded-full bg-gray-100 px-2.5 py-1 text-[9px] font-medium text-gray-600"
+                  >
+                    {{ book.genre }}
+                  </span>
+
+
+                  <span
+                    v-if="book.format"
+                    class="rounded-full bg-gray-100 px-2.5 py-1 text-[9px] font-medium text-gray-600"
+                  >
+                    {{ book.format }}
+                  </span>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- ADD TO CART -->
+                <!-- ================================================= -->
+
+                <button
+                  type="button"
+                  class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]"
+                  @click="addToCart(book)"
+                >
+
+                  <!-- Cart Icon -->
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke="currentColor"
+                    class="h-4 w-4"
+                  >
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 1.98 1.72h8.9a2 2 0 0 0 1.96-1.6L20.5 7H5.2"
+                    />
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 20.25h.01M17 20.25h.01"
+                    />
+
+                  </svg>
+
+                  Add to Cart
+
+                </button>
+
+              </div>
+
+            </article>
+
+          </div>
+
+
+          <!-- ================================================= -->
+          <!-- EMPTY RESULT -->
+          <!-- ================================================= -->
+
+          <div
+            v-else
+            class="flex min-h-[500px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white"
+          >
+
+            <div
+              class="max-w-md px-6 text-center"
+            >
+
+              <!-- Icon -->
+
+              <div
+                class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100"
+              >
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-7 w-7 text-gray-400"
+                >
+
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
+                  />
+
+                </svg>
+
+              </div>
+
+
+              <h2
+                class="mt-5 font-serif text-2xl font-bold text-gray-950"
+              >
+                No books found
+              </h2>
+
+
+              <p
+                class="mt-2 text-sm leading-6 text-gray-500"
+              >
+                We couldn't find any books matching
+                your current filters.
+              </p>
+
+
+              <!-- Current Filters -->
+
+              <div
+                class="mt-5 flex flex-wrap justify-center gap-2"
+              >
+
+                <span
+                  v-if="selectedGenre !== 'All'"
+                  class="rounded-full bg-gray-100 px-3 py-1 text-[10px] text-gray-600"
+                >
+                  {{ selectedGenre }}
+                </span>
+
+                <span
+                  v-if="selectedPrice !== 'All'"
+                  class="rounded-full bg-gray-100 px-3 py-1 text-[10px] text-gray-600"
+                >
+                  {{ selectedPrice }}
+                </span>
+
+                <span
+                  v-if="selectedFormat !== 'All'"
+                  class="rounded-full bg-gray-100 px-3 py-1 text-[10px] text-gray-600"
+                >
+                  {{ selectedFormat }}
+                </span>
+
+              </div>
+
+
+              <!-- Reset -->
+
+              <button
+                type="button"
+                class="mt-6 rounded-xl bg-black px-6 py-3 text-xs font-semibold text-white transition hover:bg-gray-800"
+                @click="resetFilters"
+              >
+                Clear Filters
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================================================= -->
+          <!-- FOOTER RESULT -->
+          <!-- ================================================= -->
+
+          <div
+            v-if="filteredBooks.length > 0"
+            class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 sm:flex-row"
+          >
+
+            <p
+              class="text-xs text-gray-400"
+            >
+
+              Showing
+
+              <span
+                class="font-semibold text-gray-700"
+              >
+                {{ filteredBooks.length }}
+              </span>
+
+              books
+
+            </p>
+
+
+            <!-- Back to top -->
+
+            <button
+              type="button"
+              class="flex items-center gap-2 text-xs font-medium text-gray-500 transition hover:text-black"
+              @click="
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                })
+              "
+            >
+
+              Back to top
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.7"
+                stroke="currentColor"
+                class="h-4 w-4"
+              >
+
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m5 15 7-7 7 7"
+                />
+
+              </svg>
+
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
 
     </main>
-
-   
 
   </div>
 </template>

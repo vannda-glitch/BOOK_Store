@@ -1,21 +1,22 @@
-
 <script setup lang="ts">
 
+// ========================================
+// Router
+// ========================================
 
 const route = useRoute()
 
-// ===============================
-// Active navigation
-// ===============================
+// ========================================
+// Active Navigation
+// ========================================
 
 const isActive = (path: string) => {
   return route.path === path
 }
 
-
-// ===============================
+// ========================================
 // Navigation
-// ===============================
+// ========================================
 
 const goToBrowse = () => {
   navigateTo('/browse')
@@ -25,52 +26,75 @@ const goToCart = () => {
   navigateTo('/cart')
 }
 
-
-// ===============================
+// ========================================
 // Cart
-// ===============================
+// ========================================
 
-const { cartCount } = useCart()
+const {
+  cartCount,
+  loadCart
+} = useCart()
 
+// ========================================
+// Search
+// ========================================
 
-// ===============================
+const searchText = ref('')
+
+const showSearch = ref(false)
+
+const searchBooks = () => {
+
+  const keyword = searchText.value.trim()
+
+  if (!keyword) {
+    navigateTo('/browse')
+    return
+  }
+
+  navigateTo({
+    path: '/browse',
+    query: {
+      search: keyword
+    }
+  })
+
+  showSearch.value = false
+}
+
+// ========================================
 // Authentication
-// ===============================
+// ========================================
 
 const user = ref<any>(null)
 
+// ========================================
+// Load User
+// ========================================
 
-// Get logged-in user
 const loadUser = () => {
 
-  if (import.meta.client) {
+  if (!import.meta.client) return
 
-    const savedUser =
-      localStorage.getItem('user')
+  const savedUser = localStorage.getItem('user')
 
-    if (savedUser) {
+  if (savedUser) {
 
-      try {
-
-        user.value =
-          JSON.parse(savedUser)
-
-      } catch {
-
-        user.value = null
-
-      }
-
-    } else {
-
+    try {
+      user.value = JSON.parse(savedUser)
+    } catch {
       user.value = null
-
     }
+
+  } else {
+    user.value = null
   }
 }
 
-
+// ========================================
 // Logout
+// ========================================
+
 const logout = () => {
 
   localStorage.removeItem('user')
@@ -80,24 +104,47 @@ const logout = () => {
   navigateTo('/auth/login')
 }
 
+// ========================================
+// Storage Event
+// ========================================
 
-// Check user when page loads
+const handleStorage = () => {
+  loadUser()
+}
+
+// ========================================
+// Mounted
+// ========================================
+
 onMounted(() => {
 
   loadUser()
 
-})
-
-
-// Update navbar if localStorage changes
-if (import.meta.client) {
+  // Load cart from localStorage
+  loadCart()
 
   window.addEventListener(
     'storage',
-    loadUser
+    handleStorage
   )
+})
 
-}
+// ========================================
+// Cleanup
+// ========================================
+
+onBeforeUnmount(() => {
+
+  if (import.meta.client) {
+
+    window.removeEventListener(
+      'storage',
+      handleStorage
+    )
+
+  }
+
+})
 
 </script>
 
@@ -242,18 +289,14 @@ if (import.meta.client) {
         </NuxtLink>
 
 
-        <!-- ================================= -->
-        <!-- Admin Link -->
-        <!-- ================================= -->
+        <!-- Admin -->
 
         <NuxtLink
           v-if="user?.role === 'admin'"
           to="/admin"
           class="relative py-2 text-sm font-semibold text-gray-700 transition hover:text-black"
         >
-
           Admin
-
         </NuxtLink>
 
       </nav>
@@ -263,45 +306,71 @@ if (import.meta.client) {
       <!-- Right Side -->
       <!-- ================================= -->
 
-      <div class="flex items-center gap-5">
-
+      <div
+        class="flex items-center gap-5"
+      >
 
         <!-- ================================= -->
         <!-- Search -->
         <!-- ================================= -->
 
-        <button
-          aria-label="Search"
-          class="text-gray-700 transition hover:text-black"
-          @click="goToBrowse"
+        <div
+          class="relative flex items-center"
         >
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.6"
-            stroke="currentColor"
-            class="h-6 w-6"
+          <!-- Search Input -->
+
+          <input
+            v-if="showSearch"
+            v-model="searchText"
+            type="text"
+            placeholder="Search books..."
+            class="w-40 border-b border-gray-400 bg-transparent px-2 py-1 text-sm outline-none transition focus:border-black sm:w-52"
+            @keyup.enter="searchBooks"
+          />
+
+
+          <!-- Search Button -->
+
+          <button
+            type="button"
+            aria-label="Search"
+            class="text-gray-700 transition hover:text-black"
+            @click="
+              showSearch
+                ? searchBooks()
+                : showSearch = true
+            "
           >
 
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.6"
+              stroke="currentColor"
+              class="h-6 w-6"
+            >
 
-          </svg>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
+              />
 
-        </button>
+            </svg>
+
+          </button>
+
+        </div>
 
 
         <!-- ================================= -->
         <!-- Cart -->
         <!-- ================================= -->
 
-        <NuxtLink
-          to="/cart"
+        <button
+          type="button"
           aria-label="Shopping cart"
           class="relative text-gray-700 transition hover:text-black"
           @click="goToCart"
@@ -331,18 +400,18 @@ if (import.meta.client) {
           </svg>
 
 
+          <!-- ================================= -->
           <!-- Cart Badge -->
+          <!-- ================================= -->
 
           <span
             v-if="cartCount > 0"
             class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white"
           >
-
             {{ cartCount }}
-
           </span>
 
-        </NuxtLink>
+        </button>
 
 
         <!-- ================================= -->
@@ -351,8 +420,6 @@ if (import.meta.client) {
 
         <template v-if="!user">
 
-          <!-- Login -->
-
           <NuxtLink
             to="/auth/login"
             class="hidden text-sm font-medium text-gray-700 transition hover:text-black sm:block"
@@ -360,8 +427,6 @@ if (import.meta.client) {
             Login
           </NuxtLink>
 
-
-          <!-- Register -->
 
           <NuxtLink
             to="/auth/register"
@@ -378,8 +443,6 @@ if (import.meta.client) {
         <!-- ================================= -->
 
         <template v-else>
-
-          <!-- User -->
 
           <NuxtLink
             to="/account"
@@ -420,6 +483,7 @@ if (import.meta.client) {
           <!-- Logout -->
 
           <button
+            type="button"
             class="hidden text-sm font-medium text-gray-500 transition hover:text-red-600 sm:block"
             @click="logout"
           >

@@ -32,7 +32,8 @@ const goToCart = () => {
 
 const {
   cartCount,
-  loadCart
+  loadCart,
+  
 } = useCart()
 
 // ========================================
@@ -195,7 +196,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/')"
-            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
           />
 
         </NuxtLink>
@@ -217,7 +218,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/browse')"
-            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
           />
 
         </NuxtLink>
@@ -239,7 +240,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/collection')"
-            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
           />
 
         </NuxtLink>
@@ -248,10 +249,10 @@ onBeforeUnmount(() => {
         <!-- Rare Finds -->
 
         <NuxtLink
-          to="/rare-finds"
+          to="/collection"
           class="relative py-2 text-sm transition"
           :class="
-            isActive('/rare-finds')
+            isActive('/collection')
               ? 'font-bold text-gray-950'
               : 'text-gray-600 hover:text-gray-950'
           "
@@ -260,8 +261,8 @@ onBeforeUnmount(() => {
           Rare Finds
 
           <span
-            v-if="isActive('/rare-finds')"
-            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+            v-if="isActive('/collection')"
+            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
           />
 
         </NuxtLink>
@@ -283,7 +284,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/about')"
-            class="absolute bottom-0 left-0 h-[1px] w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
           />
 
         </NuxtLink>
@@ -408,7 +409,7 @@ onBeforeUnmount(() => {
             v-if="cartCount > 0"
             class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white"
           >
-            {{ cartCount }}
+            {{cartCount}}
           </span>
 
         </button>
@@ -445,7 +446,7 @@ onBeforeUnmount(() => {
         <template v-else>
 
           <NuxtLink
-            to="/account"
+            to="/"
             class="flex items-center gap-2 text-gray-700 transition hover:text-black"
           >
 
@@ -472,7 +473,7 @@ onBeforeUnmount(() => {
             <!-- User Name -->
 
             <span
-              class="hidden max-w-[100px] truncate text-sm font-medium sm:block"
+              class="hidden max-w-25 truncate text-sm font-medium sm:block"
             >
               {{ user.name }}
             </span>

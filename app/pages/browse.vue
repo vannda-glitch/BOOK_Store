@@ -330,6 +330,23 @@ onMounted(() => {
 
 })
 
+// ========================================
+// Scroll to Top
+// ========================================
+
+const scrollToTop = () => {
+
+  if (import.meta.client) {
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+
+  }
+
+}
+
 </script>
 
 <template>
@@ -337,7 +354,7 @@ onMounted(() => {
 
 
     <main
-      class="mx-auto max-w-[1400px] px-5 py-8 md:px-8 lg:px-10 lg:py-12"
+      class="mx-auto max-w-300 px-5 py-4 md:px-8 lg:px-10 lg:py-2"
     >
 
 
@@ -938,12 +955,12 @@ onMounted(() => {
                 <!-- Book -->
 
                 <NuxtLink
-                  :to="`/books/${book.id}`"
+                  :to="`/productDetail/${book.id}`"
                   class="block"
                 >
 
                   <div
-                    class="flex h-[340px] items-center justify-center overflow-hidden p-7"
+                    class="flex h-85 items-center justify-center overflow-hidden p-7"
                   >
 
                     <img
@@ -961,7 +978,7 @@ onMounted(() => {
                 <!-- View Details -->
 
                 <NuxtLink
-                  :to="`/books/${book.id}`"
+                  :to="`/productDetail/${book.id}`"
                   class="absolute bottom-4 left-1/2 flex -translate-x-1/2 translate-y-4 items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[10px] font-semibold text-gray-900 opacity-0 shadow-lg backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
                 >
 
@@ -1005,7 +1022,7 @@ onMounted(() => {
                   <div class="min-w-0">
 
                     <NuxtLink
-                      :to="`/books/${book.id}`"
+                      :to="`/productDetail/${book.id}`"
                     >
 
                       <h2
@@ -1117,7 +1134,7 @@ onMounted(() => {
                 <button
                   type="button"
                   class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]"
-                  @click="addToCart(book)"
+                  @click.prevent="addToCart(book)"
                 >
 
                   <!-- Cart Icon -->
@@ -1162,7 +1179,7 @@ onMounted(() => {
 
           <div
             v-else
-            class="flex min-h-[500px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white"
+            class="flex min-h-125 items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white"
           >
 
             <div
@@ -1287,10 +1304,7 @@ onMounted(() => {
               type="button"
               class="flex items-center gap-2 text-xs font-medium text-gray-500 transition hover:text-black"
               @click="
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth'
-                })
+                scrollToTop()
               "
             >
 

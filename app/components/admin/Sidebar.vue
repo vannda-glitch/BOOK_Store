@@ -59,7 +59,7 @@ const logout = async () => {
 
   localStorage.removeItem('user')
 
-  await navigateTo('/login')
+  await navigateTo('/auth/login')
 
 }
 

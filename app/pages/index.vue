@@ -1,39 +1,37 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
 
-/* =========================================================
-   BOOK DATA
-   Same structure used by Browse + Collections + Cart
-========================================================= */
+// =========================================================
+// BOOK DATA
+// =========================================================
 
 const books = [
   {
     id: 1,
-    title: 'The Elements of Typographic Style',
-    author: 'Robert Bringhurst',
+    title: ' គ្មាននរណាកើតមកក្រទេ',
+    author: ' វេជ្ជបណ្ឌិត គួច ម៉េងលី ',
     price: 45,
     rating: 5,
     reviews: 128,
     format: 'Hardcover',
     collection: 'design',
     image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
+      'https://khbookshop.com/wp-content/uploads/2021/09/Untitled-1.jpg'
   },
   {
     id: 2,
-    title: 'Grid Systems in Graphic Design',
-    author: 'Josef Müller-Brockmann',
+    title: 'Donald J. Trump',
+    author: 'Donald J. Trump',
     price: 65,
     rating: 5,
     reviews: 342,
     format: 'Hardcover',
     collection: 'design',
     image:
-      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80'
+      'https://khbookshop.com/wp-content/uploads/2022/01/%E1%9E%80%E1%9E%B6%E1%9E%9A%E1%9E%94%E1%9E%BB%E1%9E%B7%E1%9E%93%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%9F%E1%9E%94%E1%9F%8B%E1%9E%92%E1%9F%92%E1%9E%9C%E1%9E%BE%E1%9E%94%E1%9E%91%E1%9E%94%E1%9E%84%E1%9F%92%E1%9E%A0%E1%9E%B6%E1%9E%89%E1%9E%94%E1%9F%82%E1%9E%94-Steve-Jobs.jpg'
   },
   {
     id: 3,
-    title: 'The Visual Display of Quantitative Information',
+    title: '7 យុទ្ធសាស្ត្រ',
     author: 'Edward R. Tufte',
     price: 52,
     rating: 5,
@@ -41,73 +39,25 @@ const books = [
     format: 'Paperback',
     collection: 'design',
     image:
-      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=80'
+      'https://khbookshop.com/wp-content/uploads/2022/12/152.jpg'
   },
   {
     id: 4,
-    title: 'Thinking with Type',
-    author: 'Ellen Lupton',
+    title: 'អំណាច',
+    author: 'អំណាច',
     price: 38,
     rating: 4,
     reviews: 215,
     format: 'Paperback',
     collection: 'design',
     image:
-      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80'
+      'https://khbookshop.com/wp-content/uploads/2022/12/%E1%9F%A2-1.jpg'
   },
-  {
-    id: 5,
-    title: 'Ways of Seeing',
-    author: 'John Berger',
-    price: 35,
-    rating: 5,
-    reviews: 176,
-    format: 'Paperback',
-    collection: 'art',
-    image:
-      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=700&q=80'
-  },
-  {
-    id: 6,
-    title: 'The Story of Art',
-    author: 'E. H. Gombrich',
-    price: 58,
-    rating: 5,
-    reviews: 304,
-    format: 'Hardcover',
-    collection: 'art',
-    image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
-  },
-  {
-    id: 7,
-    title: 'The Design of Everyday Things',
-    author: 'Don Norman',
-    price: 42,
-    rating: 5,
-    reviews: 421,
-    format: 'Paperback',
-    collection: 'creators',
-    image:
-      'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=700&q=80'
-  },
-  {
-    id: 8,
-    title: 'Steal Like an Artist',
-    author: 'Austin Kleon',
-    price: 25,
-    rating: 4,
-    reviews: 512,
-    format: 'Paperback',
-    collection: 'creators',
-    image:
-      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80'
-  }
 ]
 
-/* =========================================================
-   COLLECTIONS
-========================================================= */
+// =========================================================
+// COLLECTIONS
+// =========================================================
 
 const collections = [
   {
@@ -136,64 +86,28 @@ const collections = [
   }
 ]
 
-/* =========================================================
-   CART
-========================================================= */
+// =========================================================
+// CART - Using shared composable
+// =========================================================
 
-const cart = ref([])
+const { addToCart, loadCart, cartCount } = useCart()
+
 const showCartMessage = ref(false)
 
-/* =========================================================
-   CART COUNT
-========================================================= */
-
-const cartCount = computed(() => {
-  return cart.value.reduce(
-    (total, item) => total + item.quantity,
-    0
-  )
-})
-
-/* =========================================================
-   LOAD CART
-========================================================= */
+// =========================================================
+// LOAD CART
+// =========================================================
 
 onMounted(() => {
-  const savedCart = localStorage.getItem('lumina-cart')
-
-  if (savedCart) {
-    try {
-      cart.value = JSON.parse(savedCart)
-    } catch (error) {
-      console.error('Could not load cart:', error)
-      cart.value = []
-    }
-  }
+  loadCart()
 })
 
-/* =========================================================
-   ADD TO CART
-========================================================= */
+// =========================================================
+// ADD TO CART
+// =========================================================
 
-function addToCart(book) {
-  const existingBook = cart.value.find(
-    item => item.id === book.id
-  )
-
-  if (existingBook) {
-    existingBook.quantity++
-  } else {
-    cart.value.push({
-      ...book,
-      quantity: 1
-    })
-  }
-
-  localStorage.setItem(
-    'lumina-cart',
-    JSON.stringify(cart.value)
-  )
-
+function handleAddToCart(book) {
+  addToCart(book)
   showCartMessage.value = true
 
   setTimeout(() => {
@@ -201,20 +115,16 @@ function addToCart(book) {
   }, 2000)
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+// =========================================================
+// NAVIGATION
+// =========================================================
 
 function goToBrowse() {
   navigateTo('/browse')
 }
 
-function goToCart() {
-  navigateTo('/cart')
-}
-
 function viewBook(book) {
-  navigateTo(`/product/${book.id}`)
+  navigateTo(`/productDetail/${book.id}`)
 }
 </script>
 
@@ -292,7 +202,7 @@ function viewBook(book) {
 
 
               <NuxtLink
-                to="/collections"
+                to="/collection"
                 class="border border-gray-300 bg-white px-7 py-3.5 text-center text-sm font-semibold text-gray-900 transition hover:border-black"
               >
                 Explore Collections
@@ -420,7 +330,7 @@ function viewBook(book) {
 
 
           <NuxtLink
-            to="/collections"
+            to="/collection"
             class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white sm:border-r lg:border-b-0"
           >
 
@@ -452,7 +362,7 @@ function viewBook(book) {
 
 
           <NuxtLink
-            to="/rare-finds"
+            to="/collection"
             class="group px-6 py-7 transition hover:bg-white"
           >
 
@@ -628,8 +538,9 @@ function viewBook(book) {
               <!-- Add Cart -->
 
               <button
+                type="button"
                 class="mt-5 w-full bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click="addToCart(book)"
+                @click.prevent="handleAddToCart(book)"
               >
                 Add to Cart
               </button>
@@ -695,7 +606,7 @@ function viewBook(book) {
             <NuxtLink
               v-for="collection in collections"
               :key="collection.id"
-              to="/collections"
+              to="/collection"
               class="group"
             >
 
@@ -858,8 +769,9 @@ function viewBook(book) {
 
 
               <button
+                type="button"
                 class="bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click="addToCart(books[0])"
+                @click.prevent="handleAddToCart(books[0])"
               >
                 Add to Cart
               </button>
@@ -1025,7 +937,7 @@ function viewBook(book) {
             <div class="mt-8">
 
               <NuxtLink
-                to="/rare-finds"
+                to="/collection"
                 class="inline-flex items-center gap-3 bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-gray-200"
               >
                 Explore Rare Finds

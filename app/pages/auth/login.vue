@@ -310,7 +310,7 @@ const handleLogin = async () => {
         <div class="text-right">
 
           <NuxtLink
-            to="/forgot-password"
+            to="/contact"
             class="text-sm text-gray-500 hover:text-black hover:underline"
           >
             Forgot password?
@@ -351,7 +351,7 @@ const handleLogin = async () => {
         Don't have an account?
 
         <NuxtLink
-          to="/register"
+          to="/auth/register"
           class="ml-1 font-semibold text-black hover:underline"
         >
           Create Account

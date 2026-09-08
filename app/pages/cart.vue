@@ -1,72 +1,51 @@
-<script setup>
-import { ref, computed, onMounted } from 'vue'
+<script setup lang="ts">
 
-/* =========================================================
-   CART
-========================================================= */
+import { computed, onMounted, ref } from 'vue'
 
-const cart = ref([])
+// =========================================================
+// CART
+// =========================================================
+
+const {
+  cart,
+  cartCount,
+  increaseQuantity,
+  decreaseQuantity,
+  removeFromCart,
+  clearCart,
+  loadCart
+} = useCart()
+
 const isLoaded = ref(false)
 
-/* =========================================================
-   LOAD CART FROM LOCAL STORAGE
-========================================================= */
+// =========================================================
+// LOAD CART
+// =========================================================
 
 onMounted(() => {
-  const savedCart = localStorage.getItem('lumina-cart')
-
-  if (savedCart) {
-    try {
-      cart.value = JSON.parse(savedCart)
-    } catch (error) {
-      console.error('Failed to load cart:', error)
-      cart.value = []
-    }
-  }
-
+  loadCart()
   isLoaded.value = true
 })
 
-/* =========================================================
-   SAVE CART
-========================================================= */
-
-function saveCart() {
-  localStorage.setItem(
-    'lumina-cart',
-    JSON.stringify(cart.value)
-  )
-}
-
-/* =========================================================
-   CART COUNT
-========================================================= */
-
-const cartCount = computed(() => {
-  return cart.value.reduce(
-    (total, item) => total + item.quantity,
-    0
-  )
-})
-
-/* =========================================================
-   SUBTOTAL
-========================================================= */
+// =========================================================
+// SUBTOTAL
+// =========================================================
 
 const subtotal = computed(() => {
   return cart.value.reduce(
     (total, item) => {
-      return total + item.price * item.quantity
+      return total + Number(item.price) * item.quantity
     },
     0
   )
 })
 
-/* =========================================================
-   SHIPPING
-========================================================= */
+// =========================================================
+// SHIPPING
+// =========================================================
 
 const shipping = computed(() => {
+
   if (subtotal.value === 0) {
     return 0
   }
@@ -79,78 +58,35 @@ const shipping = computed(() => {
   return 5
 })
 
-/* =========================================================
-   TOTAL
-========================================================= */
+// =========================================================
+// TOTAL
+// =========================================================
 
 const total = computed(() => {
   return subtotal.value + shipping.value
 })
 
-/* =========================================================
-   INCREASE QUANTITY
-========================================================= */
+// =========================================================
+// CONTINUE SHOPPING
+// =========================================================
 
-function increaseQuantity(item) {
-  item.quantity++
-  saveCart()
-}
-
-/* =========================================================
-   DECREASE QUANTITY
-========================================================= */
-
-function decreaseQuantity(item) {
-  if (item.quantity > 1) {
-    item.quantity--
-  } else {
-    removeItem(item.id)
-    return
-  }
-
-  saveCart()
-}
-
-/* =========================================================
-   REMOVE ITEM
-========================================================= */
-
-function removeItem(id) {
-  cart.value = cart.value.filter(
-    item => item.id !== id
-  )
-
-  saveCart()
-}
-
-/* =========================================================
-   CLEAR CART
-========================================================= */
-
-function clearCart() {
-  cart.value = []
-  saveCart()
-}
-
-/* =========================================================
-   CONTINUE SHOPPING
-========================================================= */
-
-function continueShopping() {
+const continueShopping = () => {
   navigateTo('/browse')
 }
 
-/* =========================================================
-   CHECKOUT
-========================================================= */
+// =========================================================
+// CHECKOUT
+// =========================================================
 
-function checkout() {
+const checkout = () => {
+
   if (cart.value.length === 0) {
     return
   }
 
-  navigateTo('/checkout')
+  navigateTo('/order')
 }
+
 </script>
 
 
@@ -413,7 +349,7 @@ function checkout() {
 
                     <button
                       class="mt-4 w-fit text-xs font-medium text-gray-500 underline underline-offset-4 transition hover:text-black"
-                      @click="removeItem(item.id)"
+                      @click="removeFromCart(item.id)"
                     >
                       Remove
                     </button>
@@ -435,7 +371,7 @@ function checkout() {
 
                     <button
                       class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-gray-100 hover:text-black"
-                      @click="decreaseQuantity(item)"
+                      @click="decreaseQuantity(item.id)"
                     >
                       −
                     </button>
@@ -450,7 +386,7 @@ function checkout() {
 
                     <button
                       class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-gray-100 hover:text-black"
-                      @click="increaseQuantity(item)"
+                      @click="increaseQuantity(item.id)"
                     >
                       +
                     </button>

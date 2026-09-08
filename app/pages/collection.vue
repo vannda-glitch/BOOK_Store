@@ -1,15 +1,14 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+// =========================================================
+// NAVIGATION
+// =========================================================
 
 const activeNav = ref('Collections')
 
-/* =========================================================
-   COLLECTION DATA
-========================================================= */
+// =========================================================
+// COLLECTION DATA
+// =========================================================
 
 const collections = [
   {
@@ -74,10 +73,9 @@ const collections = [
   }
 ]
 
-/* =========================================================
-   FEATURED BOOKS
-   These use the same structure as your Browse products.
-========================================================= */
+// =========================================================
+// FEATURED BOOKS
+// =========================================================
 
 const books = [
   {
@@ -179,18 +177,22 @@ const books = [
 ]
 
 
-/* =========================================================
-   STATE
-========================================================= */
+// =========================================================
+// STATE
+// =========================================================
 
 const selectedCollection = ref('all')
-const cart = ref([])
-const cartCount = ref(0)
 const showCartMessage = ref(false)
 
-/* =========================================================
-   FILTER BOOKS
-========================================================= */
+// =========================================================
+// CART - Using shared composable
+// =========================================================
+
+const { addToCart, loadCart } = useCart()
+
+// =========================================================
+// FILTER BOOKS
+// =========================================================
 
 const filteredBooks = computed(() => {
   if (selectedCollection.value === 'all') {
@@ -202,9 +204,9 @@ const filteredBooks = computed(() => {
   )
 })
 
-/* =========================================================
-   SELECT COLLECTION
-========================================================= */
+// =========================================================
+// SELECT COLLECTION
+// =========================================================
 
 function selectCollection(slug) {
   selectedCollection.value = slug
@@ -219,27 +221,12 @@ function selectCollection(slug) {
   }, 50)
 }
 
-/* =========================================================
-   ADD TO CART
-   Shared localStorage key:
-   "lumina-cart"
-========================================================= */
+// =========================================================
+// ADD TO CART
+// =========================================================
 
-function addToCart(book) {
-  const existingBook = cart.value.find(
-    item => item.id === book.id
-  )
-
-  if (existingBook) {
-    existingBook.quantity++
-  } else {
-    cart.value.push({
-      ...book,
-      quantity: 1
-    })
-  }
-
-  updateCart()
+function handleAddToCart(book) {
+  addToCart(book)
 
   showCartMessage.value = true
 
@@ -248,57 +235,20 @@ function addToCart(book) {
   }, 2000)
 }
 
-/* =========================================================
-   UPDATE CART
-========================================================= */
-
-function updateCart() {
-  localStorage.setItem(
-    'lumina-cart',
-    JSON.stringify(cart.value)
-  )
-
-  cartCount.value = cart.value.reduce(
-    (total, item) => total + item.quantity,
-    0
-  )
-}
-
-/* =========================================================
-   LOAD CART
-========================================================= */
+// =========================================================
+// LOAD CART
+// =========================================================
 
 onMounted(() => {
-  const savedCart = localStorage.getItem('lumina-cart')
-
-  if (savedCart) {
-    try {
-      cart.value = JSON.parse(savedCart)
-
-      cartCount.value = cart.value.reduce(
-        (total, item) => total + item.quantity,
-        0
-      )
-    } catch (error) {
-      console.error('Could not load cart:', error)
-    }
-  }
+  loadCart()
 })
 
-/* =========================================================
-   CART PAGE
-========================================================= */
-
-function goToCart() {
-  navigateTo('/cart')
-}
-
-/* =========================================================
-   PRODUCT DETAIL
-========================================================= */
+// =========================================================
+// PRODUCT DETAIL
+// =========================================================
 
 function viewBook(book) {
-  navigateTo(`/product/${book.id}`)
+  navigateTo(`/productDetail/${book.id}`)
 }
 </script>
 
@@ -382,7 +332,7 @@ function viewBook(book) {
 
 
           <!-- Image -->
-          <div class="min-h-[350px] lg:min-h-[500px]">
+          <div class="min-h-87.5] lg:min-h-">
             <img
               src="https://www.pixartprinting.co.uk/blog/wp-content/uploads/2023/04/Copertina_non_ce_lhai.jpg"
               alt="Collection of books"
@@ -736,8 +686,9 @@ function viewBook(book) {
 
               <!-- Add To Cart -->
               <button
+                type="button"
                 class="mt-5 flex w-full items-center justify-center gap-3 bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click="addToCart(book)"
+                @click.prevent="handleAddToCart(book)"
               >
 
                 <svg

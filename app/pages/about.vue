@@ -145,9 +145,8 @@
 </template>
 
 <script setup>
-definePageMeta({
-    middleware: 'auth'
-})
+// About page - no auth required
+</script>
 
 const storyFeatures = [
   {

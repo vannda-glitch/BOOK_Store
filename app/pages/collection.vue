@@ -688,7 +688,7 @@ function viewBook(book) {
               <button
                 type="button"
                 class="mt-5 flex w-full items-center justify-center gap-3 bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click.prevent="handleAddToCart(book)"
+                @click.stop.prevent="handleAddToCart(book)"
               >
 
                 <svg

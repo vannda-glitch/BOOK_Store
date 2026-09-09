@@ -93,14 +93,14 @@ const checkout = () => {
 <template>
 
   <div
-    class="min-h-screen bg-[#f8f9fc] text-[#111827]"
+    class="min-h-screen bg-transparent text-[#17201f]"
   >
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
     <main
-      class="mx-auto max-w-[1600px] px-6 py-12 lg:px-12 lg:py-5"
+      class="mx-auto max-w-[1600px] px-6 py-10 lg:px-12 lg:py-12"
     >
 
       <!-- Breadcrumb -->
@@ -112,7 +112,7 @@ const checkout = () => {
            PAGE TITLE
       ==================================================== -->
 
-      <div class="mb-12 ">
+      <div class="mb-10 rounded-[1.75rem] border border-[#dce9e4] bg-white/60 px-6 py-8 shadow-sm backdrop-blur sm:px-10">
 
         <p
           class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
@@ -127,7 +127,7 @@ const checkout = () => {
           <div>
 
             <h1
-              class="font-serif text-5xl font-bold tracking-tight text-gray-950 sm:text-6xl "
+              class="display-heading text-5xl font-bold tracking-tight text-[#17201f] sm:text-6xl"
             >
               Shopping Cart
             </h1>
@@ -147,9 +147,10 @@ const checkout = () => {
           <!-- Clear Cart -->
 
           <button
+            type="button"
             v-if="cart.length > 0"
             class="text-sm text-gray-500 underline underline-offset-4 transition hover:text-black"
-            @click="clearCart"
+            @click.prevent="clearCart"
           >
             Clear cart
           </button>
@@ -187,7 +188,7 @@ const checkout = () => {
 
       <section
         v-else-if="cart.length === 0"
-        class="border border-gray-200 bg-white px-6 py-24 text-center"
+        class="soft-panel px-6 py-24 text-center"
       >
 
         <!-- Cart Icon -->
@@ -239,8 +240,9 @@ const checkout = () => {
 
 
         <button
-          class="mt-8 bg-black px-7 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-          @click="continueShopping"
+          type="button"
+          class="mt-8 rounded-xl bg-[#0f766e] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-[#0f766e]/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59]"
+          @click.prevent="continueShopping"
         >
           Continue Shopping
         </button>
@@ -254,7 +256,7 @@ const checkout = () => {
 
       <section
         v-else
-        class="grid gap-10 lg:grid-cols-[1fr_380px]"
+        class="grid gap-8 lg:grid-cols-[1fr_380px]"
       >
 
         <!-- =================================================
@@ -266,7 +268,7 @@ const checkout = () => {
           <!-- Header -->
 
           <div
-            class="hidden border-b border-gray-200 pb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 sm:grid sm:grid-cols-[1fr_120px_120px] sm:gap-6"
+            class="hidden rounded-t-2xl border-b border-[#dce9e4] bg-white/55 px-6 pb-4 pt-5 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500 sm:grid sm:grid-cols-[1fr_120px_120px] sm:gap-6"
           >
 
             <span>
@@ -291,7 +293,7 @@ const checkout = () => {
             <article
               v-for="item in cart"
               :key="item.id"
-              class="border-b border-gray-200 py-7"
+              class="border-b border-[#dce9e4] bg-white/72 px-6 py-7 first:rounded-t-2xl last:rounded-b-2xl last:border-b-0"
             >
 
               <div
@@ -307,7 +309,7 @@ const checkout = () => {
                   <!-- Image -->
 
                   <div
-                    class="h-32 w-24 shrink-0 overflow-hidden bg-[#edf1f7] sm:h-36 sm:w-28"
+                    class="h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-[#e6f0ed] shadow-sm ring-1 ring-[#d5e4df] sm:h-36 sm:w-28"
                   >
 
                     <img
@@ -326,7 +328,7 @@ const checkout = () => {
                   >
 
                     <h2
-                      class="font-serif text-xl font-bold leading-tight text-gray-950"
+                      class="display-heading text-xl font-bold leading-tight text-[#17201f]"
                     >
                       {{ item.title }}
                     </h2>
@@ -348,8 +350,9 @@ const checkout = () => {
                     <!-- Remove -->
 
                     <button
+                      type="button"
                       class="mt-4 w-fit text-xs font-medium text-gray-500 underline underline-offset-4 transition hover:text-black"
-                      @click="removeFromCart(item.id)"
+                      @click.prevent="removeFromCart(item.id, item.format)"
                     >
                       Remove
                     </button>
@@ -366,27 +369,29 @@ const checkout = () => {
                 >
 
                   <div
-                    class="flex h-10 items-center border border-gray-300"
+                    class="flex h-10 items-center overflow-hidden rounded-xl border border-[#cbdcd6] bg-white shadow-sm"
                   >
 
                     <button
-                      class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-gray-100 hover:text-black"
-                      @click="decreaseQuantity(item.id)"
+                      type="button"
+                      class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-[#e5f2ef] hover:text-[#0f766e]"
+                      @click.prevent="decreaseQuantity(item.id, item.format)"
                     >
                       −
                     </button>
 
 
                     <span
-                      class="flex h-full w-9 items-center justify-center border-x border-gray-300 text-sm font-medium"
+                      class="flex h-full w-9 items-center justify-center border-x border-[#cbdcd6] text-sm font-semibold text-[#17201f]"
                     >
                       {{ item.quantity }}
                     </span>
 
 
                     <button
-                      class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-gray-100 hover:text-black"
-                      @click="increaseQuantity(item.id)"
+                      type="button"
+                      class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-[#e5f2ef] hover:text-[#0f766e]"
+                      @click.prevent="increaseQuantity(item.id, item.format)"
                     >
                       +
                     </button>
@@ -430,8 +435,9 @@ const checkout = () => {
           <div class="pt-7">
 
             <button
+              type="button"
               class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 transition hover:text-black"
-              @click="continueShopping"
+              @click.prevent="continueShopping"
             >
 
               <span>
@@ -454,11 +460,11 @@ const checkout = () => {
         <aside>
 
           <div
-            class="sticky top-28 border border-gray-200 bg-white p-7"
+            class="soft-panel sticky top-28 overflow-hidden p-7"
           >
 
             <h2
-              class="font-serif text-2xl font-bold text-gray-950"
+              class="display-heading text-2xl font-bold text-[#17201f]"
             >
               Order Summary
             </h2>
@@ -516,7 +522,7 @@ const checkout = () => {
 
             <div
               v-if="subtotal > 0 && subtotal < 100"
-              class="mt-6 bg-[#f1f3f7] p-4 text-xs leading-5 text-gray-600"
+              class="mt-6 rounded-xl border border-[#cbe4de] bg-[#eaf6f3] p-4 text-xs leading-5 text-[#27645d]"
             >
 
               Add
@@ -575,8 +581,9 @@ const checkout = () => {
             <!-- Checkout -->
 
             <button
-              class="mt-7 w-full bg-black py-4 text-sm font-semibold text-white transition hover:bg-gray-800"
-              @click="checkout"
+              type="button"
+              class="mt-7 w-full rounded-xl bg-[#0f766e] py-4 text-sm font-semibold text-white shadow-lg shadow-[#0f766e]/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59]"
+              @click.prevent="checkout"
             >
               Proceed to Checkout
             </button>
@@ -637,13 +644,13 @@ const checkout = () => {
           <p
             class="font-serif text-xl font-bold text-gray-950"
           >
-            Lumina Books
+            ReadPlus
           </p>
 
           <p
             class="text-xs text-gray-400"
           >
-            © 2026 Lumina Books. All rights reserved.
+            © 2026 ReadPlus. All rights reserved.
           </p>
 
         </div>

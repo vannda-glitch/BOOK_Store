@@ -165,7 +165,7 @@ function viewBook(book) {
             <p
               class="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500"
             >
-              Lumina Books
+              ReadPlus
             </p>
 
 
@@ -221,7 +221,7 @@ function viewBook(book) {
 
             <img
               src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1400&q=85"
-              alt="Lumina Books collection"
+              alt="ReadPlus collection"
               class="h-full w-full object-cover"
             />
 
@@ -540,7 +540,7 @@ function viewBook(book) {
               <button
                 type="button"
                 class="mt-5 w-full bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click.prevent="handleAddToCart(book)"
+                @click.stop.prevent="handleAddToCart(book)"
               >
                 Add to Cart
               </button>
@@ -588,7 +588,7 @@ function viewBook(book) {
 
 
             <NuxtLink
-              to="/collections"
+              to="/collection"
               class="text-sm font-medium underline underline-offset-4"
             >
               View all collections
@@ -771,7 +771,7 @@ function viewBook(book) {
               <button
                 type="button"
                 class="bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                @click.prevent="handleAddToCart(books[0])"
+                @click.stop.prevent="handleAddToCart(books[0])"
               >
                 Add to Cart
               </button>
@@ -995,7 +995,7 @@ function viewBook(book) {
           <p
             class="mx-auto mt-4 max-w-xl text-sm leading-6 text-gray-600"
           >
-            Join the Lumina Books newsletter for new
+            Join the ReadPlus newsletter for new
             arrivals, curated collections, rare finds,
             and thoughtful recommendations.
           </p>

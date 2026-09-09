@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+definePageMeta({
+  layout: false
+})
+
 // ===============================
 // Form data
 // ===============================
@@ -227,21 +231,28 @@ const handleRegister = async () => {
 <template>
 
   <div
-    class="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-10"
+    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#eaf6f3] px-4 py-10"
   >
+
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(15,118,110,0.25),transparent_30%),radial-gradient(circle_at_85%_85%,rgba(23,32,31,0.16),transparent_34%),linear-gradient(135deg,#f7f7f2_0%,#eaf6f3_52%,#cde9e3_100%)]" />
 
     <!-- Register Card -->
 
     <div
-      class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg"
+      class="relative w-full max-w-md rounded-[1.75rem] border border-white/80 bg-white/90 p-7 shadow-[0_28px_90px_rgba(23,32,31,0.16)] backdrop-blur-xl sm:p-10"
     >
+
+      <NuxtLink to="/" class="mb-9 flex items-center justify-center gap-3 font-serif text-2xl font-bold tracking-tight text-ink">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-sm font-sans font-bold text-white shadow-lg shadow-primary/20">R+</span>
+        <span>Read<span class="text-primary">Plus</span></span>
+      </NuxtLink>
 
       <!-- Header -->
 
       <div class="mb-8 text-center">
 
         <h1
-          class="text-3xl font-bold text-gray-900"
+          class="display-heading text-4xl font-bold text-ink"
         >
           Create Account
         </h1>
@@ -249,7 +260,7 @@ const handleRegister = async () => {
         <p
           class="mt-2 text-sm text-gray-500"
         >
-          Create your Book Store account
+          Create your ReadPlus account
         </p>
 
       </div>
@@ -261,7 +272,7 @@ const handleRegister = async () => {
 
       <div
         v-if="errors.length > 0"
-        class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4"
+        class="mb-6 rounded-xl border border-red-200 bg-red-50/90 p-4"
       >
 
         <div
@@ -292,7 +303,7 @@ const handleRegister = async () => {
 
       <div
         v-if="successMessage"
-        class="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-700"
+        class="mb-6 rounded-xl border border-[#b9dfd7] bg-[#eaf6f3] p-4 text-sm text-[#27645d]"
       >
 
         {{ successMessage }}
@@ -315,7 +326,7 @@ const handleRegister = async () => {
 
           <label
             for="name"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Full Name
           </label>
@@ -326,7 +337,7 @@ const handleRegister = async () => {
             type="text"
             placeholder="Enter your name"
             autocomplete="name"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -338,7 +349,7 @@ const handleRegister = async () => {
 
           <label
             for="email"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Email
           </label>
@@ -349,7 +360,7 @@ const handleRegister = async () => {
             type="email"
             placeholder="Enter your email"
             autocomplete="email"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -361,7 +372,7 @@ const handleRegister = async () => {
 
           <label
             for="password"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Password
           </label>
@@ -372,7 +383,7 @@ const handleRegister = async () => {
             type="password"
             placeholder="At least 8 characters"
             autocomplete="new-password"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -384,7 +395,7 @@ const handleRegister = async () => {
 
           <label
             for="confirmPassword"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Confirm Password
           </label>
@@ -395,7 +406,7 @@ const handleRegister = async () => {
             type="password"
             placeholder="Confirm your password"
             autocomplete="new-password"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -404,7 +415,7 @@ const handleRegister = async () => {
         <!-- Role -->
 
         <div
-          class="rounded-lg bg-gray-50 p-3"
+          class="rounded-xl border border-[#dce9e4] bg-[#f2f9f7] p-4"
         >
 
           <div
@@ -418,7 +429,7 @@ const handleRegister = async () => {
             </span>
 
             <span
-              class="rounded-full bg-gray-200 px-3 py-1 text-xs font-semibold text-gray-700"
+              class="rounded-full bg-[#d4eee8] px-3 py-1 text-xs font-semibold text-[#27645d]"
             >
               User
             </span>
@@ -439,7 +450,7 @@ const handleRegister = async () => {
         <button
           type="submit"
           :disabled="loading"
-          class="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+          class="w-full rounded-xl bg-primary py-3.5 font-semibold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59] disabled:cursor-not-allowed disabled:opacity-50"
         >
 
           <span v-if="loading">
@@ -467,7 +478,7 @@ const handleRegister = async () => {
 
         <NuxtLink
           to="/auth/login"
-          class="ml-1 font-semibold text-black hover:underline"
+          class="ml-1 font-semibold text-primary hover:underline"
         >
           Login
         </NuxtLink>

@@ -668,7 +668,7 @@ onMounted(async () => {
               <button
                 type="button"
                 class="flex h-13 flex-1 items-center justify-center gap-2 rounded-xl bg-black px-6 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]"
-                @click.prevent="handleAddToCart"
+                @click.stop.prevent="handleAddToCart"
               >
 
                 <svg
@@ -1058,7 +1058,7 @@ onMounted(async () => {
               <button
                 type="button"
                 class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 active:scale-[0.98]"
-                @click.prevent="addToCart(related)"
+                  @click.stop.prevent="addToCart(related)"
               >
 
                 <svg

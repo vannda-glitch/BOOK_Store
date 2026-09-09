@@ -167,6 +167,30 @@
       "genre": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-10.jpg"
+    },
+    {
+      "title": "kak",
+      "author": "kak",
+      "price": 0.99,
+      "genre": "Design",
+      "format": "hardcore",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnDAbyRi44jJjAgejENaW3gwz3QuLToXa203GXzP0O3A&s=10",
+      "shortTitle": "kak",
+      "rating": 5,
+      "reviews": 0,
+      "id": "K_0YxCtJWBk"
+    },
+    {
+      "title": "kak Project",
+      "author": "Vannda",
+      "price": 30,
+      "genre": "Design",
+      "format": "hardcore",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9bLtyUzCxTTuR_Jz9yc8TsoL2BbWskm_gMNsetszOsA&s=10",
+      "shortTitle": "Testing",
+      "rating": 4,
+      "reviews": 0,
+      "id": "ndq25mqbrZo"
     }
   ],
   "categories": [
@@ -211,41 +235,7 @@
       "slug": "architecture"
     }
   ],
-  "cart": [
-    {
-      "id": "cYJ6RQMSFSY",
-      "title": "ឲ្យខ្ញុំ",
-      "shortTitle": "ឲ្យ",
-      "author": "សន រ៉ាមនា",
-      "price": 15,
-      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "format": "Hardcover",
-      "genre": "Typography",
-      "quantity": 1
-    },
-    {
-      "id": "jNiufUMKAko",
-      "title": "ឲ្យខ្ញុំ",
-      "shortTitle": "ឲ្យ",
-      "author": "សន រ៉ាមនា",
-      "price": 15,
-      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "format": "Hardcover",
-      "genre": "Typography",
-      "quantity": 1
-    },
-    {
-      "id": "ei9thYXqKPo",
-      "title": "ឲ្យខ្ញុំ",
-      "shortTitle": "ឲ្យ",
-      "author": "សន រ៉ាមនា",
-      "price": 15,
-      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "format": "Hardcover",
-      "genre": "Typography",
-      "quantity": 1
-    }
-  ],
+  "cart": [],
   "users": [
     {
       "name": "vannda",
@@ -269,6 +259,57 @@
       "id": "L3mrcobi1Jw"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "customerName": "Vannda kao",
+      "email": "kaovannda@gmail.com",
+      "phone": "0889973214",
+      "address": "PP",
+      "city": "Phnom Penh",
+      "postalCode": "12000",
+      "items": [
+        {
+          "id": "L0lmd0VLY78",
+          "productId": "1",
+          "title": "ឲ្យខ្ញុំ",
+          "shortTitle": "ឲ្យ",
+          "author": "សន រ៉ាមនា",
+          "price": 15,
+          "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
+          "format": "Hardcover",
+          "genre": "Typography",
+          "quantity": 3
+        },
+        {
+          "id": "_cw_gF8kdo0",
+          "productId": 2,
+          "title": "Donald J. Trump",
+          "author": "Donald J. Trump",
+          "price": 65,
+          "image": "https://khbookshop.com/wp-content/uploads/2022/01/%E1%9E%80%E1%9E%B6%E1%9E%9A%E1%9E%94%E1%9E%BB%E1%9E%B7%E1%9E%93%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%9F%E1%9E%94%E1%9F%8B%E1%9E%92%E1%9F%92%E1%9E%9C%E1%9E%BE%E1%9E%94%E1%9E%91%E1%9E%94%E1%9E%84%E1%9F%92%E1%9E%A0%E1%9E%B6%E1%9E%89%E1%9E%94%E1%9F%82%E1%9E%94-Steve-Jobs.jpg",
+          "format": "Hardcover",
+          "quantity": 1
+        },
+        {
+          "id": "ga5qzcu6Ubo",
+          "productId": "8",
+          "title": "ចិត្តសាស្ត្ររបស់លុយ",
+          "shortTitle": "ចិត្តសាស្ត្ររបស់លុយ",
+          "author": "Josef Müller-Brockmann",
+          "price": 65,
+          "image": "https://khbookshop.com/wp-content/uploads/2023/06/Untitled-15.jpg",
+          "format": "Paperback",
+          "genre": "Design",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 175,
+      "shipping": 0,
+      "total": 175,
+      "status": "pending",
+      "createdAt": "2026-09-08T16:52:14.542Z",
+      "id": "EcZ7BffqFOU"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

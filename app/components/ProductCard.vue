@@ -76,7 +76,7 @@ defineProps<{
         <NuxtLink :to="`/productDetail/${product.id}`" class="flex-1 rounded-xl bg-gray-900 py-3 text-center text-sm font-semibold text-white transition hover:bg-gray-800">
           View Details
         </NuxtLink>
-        <button type="button" @click.prevent="addToCart(product)" class="flex-1 rounded-xl bg-blue-700 py-3 text-sm font-semibold text-white transition hover:bg-blue-800">
+        <button type="button" @click.stop.prevent="addToCart(product)" class="flex-1 rounded-xl bg-blue-700 py-3 text-sm font-semibold text-white transition hover:bg-blue-800">
           Add to Cart
         </button>
       </div>

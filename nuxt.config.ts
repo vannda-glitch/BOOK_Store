@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   vite: {
+    server: {
+      watch: {
+        ignored: ['**/app/api/db.json'],
+      },
+    },
     plugins: [
       tailwindcss(),
     ],

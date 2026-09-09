@@ -2,6 +2,7 @@
 
 export interface CartItem {
   id: string | number
+  productId?: string | number
   title: string
   shortTitle?: string
   author?: string
@@ -34,13 +35,52 @@ export const useCart = () => {
     )
   }
 
+  const getProductKey = (product: Pick<CartItem, 'id' | 'productId' | 'title' | 'author' | 'format'>) => {
+    return String(product.productId ?? product.id ?? `${product.title}|${product.author || ''}`)
+  }
+
+  const getCartKey = (item: CartItem) => {
+    const productKey = item.productId
+      ? String(item.productId)
+      : `${item.title}|${item.author || ''}`
+
+    return `${productKey}::${item.format || ''}`
+  }
+
+  const consolidateCart = (items: CartItem[]) => {
+    const consolidated = new Map<string, CartItem>()
+
+    for (const item of items) {
+      const key = getCartKey(item)
+      const existingItem = consolidated.get(key)
+
+      if (existingItem) {
+        existingItem.quantity += Number(item.quantity) || 0
+      } else {
+        consolidated.set(key, {
+          ...item,
+          price: Number(item.price),
+          quantity: Number(item.quantity) || 1
+        })
+      }
+    }
+
+    return Array.from(consolidated.values())
+  }
+
+  const findCartItem = (id: string | number, format?: string) => {
+    return cart.value.find(item =>
+      String(item.id) === String(id) && (!format || item.format === format)
+    )
+  }
+
   const loadCart = async () => {
     if (!import.meta.client) return
 
     try {
       const serverCart = await $fetch<CartItem[]>(`${API_URL}/cart`)
       if (serverCart && Array.isArray(serverCart)) {
-        cart.value = serverCart
+        cart.value = consolidateCart(serverCart)
         saveCart()
         return
       }
@@ -52,7 +92,7 @@ export const useCart = () => {
     const savedCart = localStorage.getItem('lumina-cart')
     if (savedCart) {
       try {
-        cart.value = JSON.parse(savedCart)
+        cart.value = consolidateCart(JSON.parse(savedCart))
       } catch (error) {
         console.error('Failed to load cart from localStorage:', error)
         cart.value = []
@@ -62,11 +102,13 @@ export const useCart = () => {
 
   const addToCart = async (product: any) => {
     const existingItem = cart.value.find(
-      item => String(item.id) === String(product.id)
+      item => getCartKey(item) === `${getProductKey(product)}::${product.format || ''}` ||
+        (!item.productId && item.title === product.title && item.author === product.author && item.format === product.format)
     )
 
     const payload: CartItem = {
       id: product.id,
+      productId: product.id,
       title: product.title,
       shortTitle: product.shortTitle,
       author: product.author,
@@ -79,14 +121,12 @@ export const useCart = () => {
 
     try {
       if (existingItem) {
-        // Item exists - PATCH to increment quantity
         existingItem.quantity += 1
         await $fetch(`${API_URL}/cart/${existingItem.id}`, {
           method: 'PATCH',
           body: { quantity: existingItem.quantity }
         })
       } else {
-        // New item - POST to create
         const newItem = await $fetch<CartItem>(`${API_URL}/cart`, {
           method: 'POST',
           body: payload
@@ -97,20 +137,15 @@ export const useCart = () => {
       saveCart()
     } catch (error) {
       console.error('Failed to add to cart:', error)
-      // Still update local state as fallback
-      if (existingItem) {
-        existingItem.quantity += 1
-      } else {
+      if (!existingItem) {
         cart.value.push(payload)
       }
       saveCart()
     }
   }
 
-  const increaseQuantity = async (id: string | number) => {
-    const item = cart.value.find(
-      item => String(item.id) === String(id)
-    )
+  const increaseQuantity = async (id: string | number, format?: string) => {
+    const item = findCartItem(id, format)
 
     if (!item) return
 
@@ -128,10 +163,8 @@ export const useCart = () => {
     saveCart()
   }
 
-  const decreaseQuantity = async (id: string | number) => {
-    const item = cart.value.find(
-      item => String(item.id) === String(id)
-    )
+  const decreaseQuantity = async (id: string | number, format?: string) => {
+    const item = findCartItem(id, format)
 
     if (!item) return
 
@@ -147,17 +180,18 @@ export const useCart = () => {
       }
       saveCart()
     } else {
-      await removeFromCart(id)
+      await removeFromCart(id, format)
     }
   }
 
-  const removeFromCart = async (id: string | number) => {
-    cart.value = cart.value.filter(
-      item => String(item.id) !== String(id)
-    )
+  const removeFromCart = async (id: string | number, format?: string) => {
+    const item = findCartItem(id, format)
+    if (!item) return
+
+    cart.value = cart.value.filter(cartItem => cartItem !== item)
 
     try {
-      await $fetch(`${API_URL}/cart/${id}`, {
+      await $fetch(`${API_URL}/cart/${item.id}`, {
         method: 'DELETE'
       })
     } catch (error) {

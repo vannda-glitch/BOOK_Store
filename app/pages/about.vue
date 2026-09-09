@@ -1,3 +1,52 @@
+<script setup lang="ts">
+const storyFeatures = [
+  {
+    title: 'Curated selection',
+    text: 'We handpick books that inspire, inform, and entertain readers at every stage of life.'
+  },
+  {
+    title: 'Easy shopping',
+    text: 'A clean and simple experience helps readers discover titles without stress.'
+  },
+  {
+    title: 'Reader-focused service',
+    text: 'Great service, honest value, and thoughtful support are always part of the experience.'
+  }
+]
+
+const missionValues = [
+  {
+    number: '01',
+    title: 'Our Mission',
+    text: 'To make quality books affordable and accessible while creating a welcoming bookstore for curious readers.'
+  },
+  {
+    number: '02',
+    title: 'Our Vision',
+    text: 'To become a trusted digital bookstore where every person can discover stories, ideas, and knowledge that matter.'
+  },
+  {
+    number: '03',
+    title: 'Our Promise',
+    text: 'To deliver a thoughtful, reliable, and enjoyable shopping experience built around reader satisfaction.'
+  }
+]
+
+const values = [
+  { number: '01', title: 'Large Collection', icon: 'Books', text: 'Discover books across fiction, education, lifestyle, and more.' },
+  { number: '02', title: 'Affordable Prices', icon: 'Value', text: 'Enjoy meaningful reading without spending more than necessary.' },
+  { number: '03', title: 'Fast Delivery', icon: 'Delivery', text: 'Get your books quickly and without unnecessary hassle.' },
+  { number: '04', title: 'Secure Shopping', icon: 'Secure', text: 'Shop with confidence through a smooth and trustworthy experience.' }
+]
+
+const stats = [
+  { value: '10K+', label: 'Happy Readers' },
+  { value: '5K+', label: 'Books Listed' },
+  { value: '20+', label: 'Categories' },
+  { value: '4.8/5', label: 'Customer Rating' }
+]
+</script>
+
 <template>
   <div class="min-h-screen bg-white text-black">
     <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
@@ -11,7 +60,7 @@
               Book lovers deserve more than a shelf.
             </h1>
             <p class="mt-5 max-w-xl text-base leading-7 text-gray-300 md:text-lg">
-              We created Book to make reading feel personal, simple, and inspiring — a place where every story is easy to discover and every order feels thoughtful.
+              ReadPlus makes reading feel personal, simple, and inspiring: a place where every story is easy to discover and every order feels thoughtful.
             </p>
 
             <div class="mt-8 flex flex-wrap gap-4">
@@ -50,7 +99,7 @@
         <div class="overflow-hidden border border-black bg-gray-100">
           <img
             src="https://i.pinimg.com/736x/5f/71/99/5f7199de1783ba8ed92d69b36cf354c3.jpg"
-            alt="BookNest story"
+            alt="ReadPlus story"
             class="h-[500px] w-full object-cover"
           />
         </div>
@@ -58,13 +107,13 @@
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-600">Our Story</p>
           <h2 class="mt-3 text-3xl font-black leading-tight md:text-4xl">
-            A bookstore built around curiosity, trust, and reading joy.
+            A reading destination built around curiosity, trust, and reading joy.
           </h2>
 
           <div class="mt-6 space-y-5 text-base leading-7 text-gray-700">
             <p>
-              BookNest began with a simple idea: readers should feel connected to what they buy.
-              We wanted to create a bookstore that feels more personal, thoughtful, and easy to enjoy every day.
+              ReadPlus began with a simple idea: readers should feel connected to what they buy.
+              We wanted to create a reading experience that feels more personal, thoughtful, and easy to enjoy every day.
             </p>
             <p>
               Whether it is fiction, education, personal growth, or children’s books, we carefully curate a collection that supports every interest and every stage of life.
@@ -102,7 +151,7 @@
 
     <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="mb-10 text-center">
-        <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-600">Why BookNest</p>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-600">Why ReadPlus</p>
         <h2 class="mt-3 text-3xl font-black md:text-4xl">Why readers choose us</h2>
       </div>
 
@@ -144,53 +193,3 @@
   </div>
 </template>
 
-<script setup>
-// About page - no auth required
-</script>
-
-const storyFeatures = [
-  {
-    title: 'Curated selection',
-    text: 'We handpick books that inspire, inform, and entertain readers at every stage of life.'
-  },
-  {
-    title: 'Easy shopping',
-    text: 'A clean and simple experience helps readers discover titles without stress.'
-  },
-  {
-    title: 'Reader-focused service',
-    text: 'Great service, honest value, and thoughtful support are always part of the experience.'
-  }
-]
-
-const missionValues = [
-  {
-    number: '01',
-    title: 'Our Mission',
-    text: 'To make quality books affordable and accessible while creating a welcoming bookstore for curious readers.'
-  },
-  {
-    number: '02',
-    title: 'Our Vision',
-    text: 'To become a trusted digital bookstore where every person can discover stories, ideas, and knowledge that matter.'
-  },
-  {
-    number: '03',
-    title: 'Our Promise',
-    text: 'To deliver a thoughtful, reliable, and enjoyable shopping experience built around reader satisfaction.'
-  }
-]
-const values = [
-  { number: '01', title: 'Large Collection', icon: '📚', text: 'Discover books across fiction, education, lifestyle, and more.' },
-  { number: '02', title: 'Affordable Prices', icon: '💵', text: 'Enjoy meaningful reading without spending more than necessary.' },
-  { number: '03', title: 'Fast Delivery', icon: '🚚', text: 'Get your books quickly and without unnecessary hassle.' },
-  { number: '04', title: 'Secure Shopping', icon: '🔒', text: 'Shop with confidence through a smooth and trustworthy experience.' }
-]
-
-const stats = [
-  { value: '10K+', label: 'Happy Readers' },
-  { value: '5K+', label: 'Books Listed' },
-  { value: '20+', label: 'Categories' },
-  { value: '4.8/5', label: 'Customer Rating' }
-]
-</script>

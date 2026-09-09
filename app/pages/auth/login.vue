@@ -1,6 +1,10 @@
 
 <script setup lang="ts">
 
+definePageMeta({
+  layout: false
+})
+
 // ===============================
 // Form data
 // ===============================
@@ -191,21 +195,28 @@ const handleLogin = async () => {
 <template>
 
   <div
-    class="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-10"
+    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#eaf6f3] px-4 py-10"
   >
+
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(15,118,110,0.25),transparent_30%),radial-gradient(circle_at_85%_85%,rgba(23,32,31,0.16),transparent_34%),linear-gradient(135deg,#f7f7f2_0%,#eaf6f3_52%,#cde9e3_100%)]" />
 
     <!-- Login Card -->
 
     <div
-      class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg"
+      class="relative w-full max-w-md rounded-[1.75rem] border border-white/80 bg-white/90 p-7 shadow-[0_28px_90px_rgba(23,32,31,0.16)] backdrop-blur-xl sm:p-10"
     >
+
+      <NuxtLink to="/" class="mb-9 flex items-center justify-center gap-3 font-serif text-2xl font-bold tracking-tight text-ink">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-sm font-sans font-bold text-white shadow-lg shadow-primary/20">R+</span>
+        <span>Read<span class="text-primary">Plus</span></span>
+      </NuxtLink>
 
       <!-- Header -->
 
       <div class="mb-8 text-center">
 
         <h1
-          class="text-3xl font-bold text-gray-900"
+          class="display-heading text-4xl font-bold text-ink"
         >
           Welcome Back
         </h1>
@@ -213,7 +224,7 @@ const handleLogin = async () => {
         <p
           class="mt-2 text-sm text-gray-500"
         >
-          Login to your Book Store account
+          Sign in to continue your reading journey
         </p>
 
       </div>
@@ -225,7 +236,7 @@ const handleLogin = async () => {
 
       <div
         v-if="errors.length > 0"
-        class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4"
+        class="mb-6 rounded-xl border border-red-200 bg-red-50/90 p-4"
       >
 
         <div
@@ -265,7 +276,7 @@ const handleLogin = async () => {
 
           <label
             for="email"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Email
           </label>
@@ -276,7 +287,7 @@ const handleLogin = async () => {
             type="email"
             placeholder="Enter your email"
             autocomplete="email"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -288,7 +299,7 @@ const handleLogin = async () => {
 
           <label
             for="password"
-            class="mb-2 block text-sm font-medium text-gray-700"
+            class="mb-2 block text-sm font-semibold text-ink"
           >
             Password
           </label>
@@ -299,7 +310,7 @@ const handleLogin = async () => {
             type="password"
             placeholder="Enter your password"
             autocomplete="current-password"
-            class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+            class="w-full rounded-xl border border-[#d5e3df] bg-[#fbfdfc] px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
           />
 
         </div>
@@ -311,7 +322,7 @@ const handleLogin = async () => {
 
           <NuxtLink
             to="/contact"
-            class="text-sm text-gray-500 hover:text-black hover:underline"
+            class="text-sm text-gray-500 transition hover:text-primary hover:underline"
           >
             Forgot password?
           </NuxtLink>
@@ -324,7 +335,7 @@ const handleLogin = async () => {
         <button
           type="submit"
           :disabled="loading"
-          class="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+          class="w-full rounded-xl bg-primary py-3.5 font-semibold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59] disabled:cursor-not-allowed disabled:opacity-50"
         >
 
           <span v-if="loading">
@@ -352,7 +363,7 @@ const handleLogin = async () => {
 
         <NuxtLink
           to="/auth/register"
-          class="ml-1 font-semibold text-black hover:underline"
+          class="ml-1 font-semibold text-primary hover:underline"
         >
           Create Account
         </NuxtLink>

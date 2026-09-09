@@ -3,7 +3,7 @@
 </script>
 <template>
     <!-- ================= FOOTER ================= -->
-    <footer class="bg-gray-950 text-gray-400">
+    <footer class="border-t border-[#dfe5df] bg-[#17201f] text-gray-400">
 
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
@@ -13,8 +13,8 @@
 
         <div>
 
-          <h2 class="text-white text-xl font-bold">
-            Book<span class="text-indigo-500">Nest</span>
+          <h2 class="font-serif text-2xl font-bold tracking-tight text-white">
+            Read<span class="text-[#67c5bb]">Plus</span>
           </h2>
 
           <p class="mt-4 text-sm leading-6">
@@ -49,9 +49,9 @@
 
           <div class="mt-4 space-y-3 text-sm">
             <NuxtLink to="/contact" class="block hover:text-white">Contact Us</NuxtLink>
-            <NuxtLink to="/faq" class="block hover:text-white">FAQ</NuxtLink>
-            <NuxtLink to="/shipping" class="block hover:text-white">Shipping</NuxtLink>
-            <NuxtLink to="/returns" class="block hover:text-white">Returns</NuxtLink>
+            <NuxtLink to="/about" class="block hover:text-white">About ReadPlus</NuxtLink>
+            <NuxtLink to="/contact" class="block hover:text-white">Shipping Support</NuxtLink>
+            <NuxtLink to="/contact" class="block hover:text-white">Returns Support</NuxtLink>
           </div>
 
         </div>
@@ -64,21 +64,18 @@
           </h3>
 
           <div class="flex gap-3 mt-4">
-            <button
-              class="w-10 h-10 bg-gray-800
-                     rounded-lg hover:bg-indigo-600"
+            <button aria-label="ReadPlus on Facebook" type="button"
+              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
             >
               f
             </button>
-            <button
-              class="w-10 h-10 bg-gray-800
-                     rounded-lg hover:bg-indigo-600"
+            <button aria-label="ReadPlus on Instagram" type="button"
+              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
             >
               ◎
             </button>
-            <button
-              class="w-10 h-10 bg-gray-800
-                     rounded-lg hover:bg-indigo-600"
+            <button aria-label="ReadPlus on X" type="button"
+              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
             >
               X
             </button>
@@ -94,7 +91,7 @@
           class="max-w-7xl mx-auto px-4
                  py-6 text-sm text-center"
         >
-          © 2026 BookNest. All rights reserved.
+          © 2026 ReadPlus. All rights reserved.
         </div>
       </div>
 

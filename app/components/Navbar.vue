@@ -43,13 +43,25 @@ const {
 const searchText = ref('')
 
 const showSearch = ref(false)
+const searchInput = ref<HTMLInputElement | null>(null)
+
+const openSearch = async () => {
+  showSearch.value = true
+  await nextTick()
+  searchInput.value?.focus()
+}
+
+const closeSearch = () => {
+  showSearch.value = false
+  searchText.value = ''
+}
 
 const searchBooks = () => {
 
   const keyword = searchText.value.trim()
 
   if (!keyword) {
-    navigateTo('/browse')
+    openSearch()
     return
   }
 
@@ -60,7 +72,13 @@ const searchBooks = () => {
     }
   })
 
-  showSearch.value = false
+  closeSearch()
+}
+
+const handleSearchKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    closeSearch()
+  }
 }
 
 // ========================================
@@ -153,7 +171,7 @@ onBeforeUnmount(() => {
 <template>
 
   <header
-    class="sticky top-0 z-50 border-b border-gray-200 bg-white"
+    class="sticky top-0 z-50 border-b border-[#dfe5df] bg-[#f7f7f2]/95 backdrop-blur"
   >
 
     <div
@@ -166,9 +184,12 @@ onBeforeUnmount(() => {
 
       <NuxtLink
         to="/"
-        class="font-serif text-2xl font-bold tracking-tight text-gray-950"
+        class="group flex items-center gap-3 font-serif text-2xl font-bold tracking-tight text-[#17201f]"
       >
-        Lumina Books
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0f766e] text-sm font-sans font-bold text-white shadow-sm transition group-hover:-rotate-3">
+          R+
+        </span>
+        <span>Read<span class="text-[#0f766e]">Plus</span></span>
       </NuxtLink>
 
 
@@ -246,28 +267,6 @@ onBeforeUnmount(() => {
         </NuxtLink>
 
 
-        <!-- Rare Finds -->
-
-        <NuxtLink
-          to="/collection"
-          class="relative py-2 text-sm transition"
-          :class="
-            isActive('/collection')
-              ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-gray-950'
-          "
-        >
-
-          Rare Finds
-
-          <span
-            v-if="isActive('/collection')"
-            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
-          />
-
-        </NuxtLink>
-
-
         <!-- About -->
 
         <NuxtLink
@@ -308,62 +307,57 @@ onBeforeUnmount(() => {
       <!-- ================================= -->
 
       <div
-        class="flex items-center gap-5"
+        class="flex items-center gap-2 sm:gap-4"
       >
 
         <!-- ================================= -->
         <!-- Search -->
         <!-- ================================= -->
 
-        <div
-          class="relative flex items-center"
+        <form
+          class="flex items-center transition-all duration-300"
+          :class="showSearch ? 'w-64 rounded-full border border-[#d5e3e0] bg-white/90 px-3 py-1 shadow-[0_5px_18px_rgba(23,32,31,0.06)] transition hover:border-[#8fc5bd] hover:shadow-[0_8px_24px_rgba(15,118,110,0.12)] focus-within:border-[#0f766e] focus-within:shadow-[0_0_0_3px_rgba(15,118,110,0.10),0_8px_24px_rgba(15,118,110,0.12)] sm:w-80' : ''"
+          @submit.prevent="searchBooks"
         >
-
-          <!-- Search Input -->
-
-          <input
-            v-if="showSearch"
-            v-model="searchText"
-            type="text"
-            placeholder="Search books..."
-            class="w-40 border-b border-gray-400 bg-transparent px-2 py-1 text-sm outline-none transition focus:border-black sm:w-52"
-            @keyup.enter="searchBooks"
-          />
-
-
-          <!-- Search Button -->
-
           <button
+            v-if="!showSearch"
             type="button"
-            aria-label="Search"
-            class="text-gray-700 transition hover:text-black"
-            @click="
-              showSearch
-                ? searchBooks()
-                : showSearch = true
-            "
+            aria-label="Open search"
+            class="flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-gray-700 transition duration-200 hover:border-[#8fc5bd] hover:bg-[#e9f4f2] hover:text-[#0f766e] hover:shadow-[0_0_0_3px_rgba(15,118,110,0.08)]"
+            @click="openSearch"
           >
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.6"
-              stroke="currentColor"
-              class="h-6 w-6"
-            >
-
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
-              />
-
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
             </svg>
-
           </button>
 
-        </div>
+          <template v-else>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
+            </svg>
+
+            <input
+              ref="searchInput"
+              v-model="searchText"
+              type="text"
+              placeholder="Search title, author..."
+              aria-label="Search books"
+              autocomplete="off"
+              class="min-w-0 flex-1 border-0 bg-transparent px-2 py-2 text-sm text-gray-900 outline-none ring-0 placeholder:text-gray-400 focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none"
+              @keydown="handleSearchKeydown"
+            />
+
+            <button
+              v-if="searchText"
+              type="button"
+              aria-label="Clear search"
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-gray-400 transition hover:bg-[#e9f4f2] hover:text-[#0f766e]"
+              @click="searchText = ''"
+            >
+              <span aria-hidden="true" class="text-base leading-none">&#215;</span>
+            </button>
+          </template>
+        </form>
 
 
         <!-- ================================= -->

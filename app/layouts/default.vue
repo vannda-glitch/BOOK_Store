@@ -1,5 +1,7 @@
 <template>
-    <Navbar/>
-    <slot/>
-    <Footer/>
+    <div class="app-shell">
+        <Navbar/>
+        <slot/>
+        <Footer/>
+    </div>
 </template>

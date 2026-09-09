@@ -241,7 +241,7 @@ onMounted(async () => {
               </div>
 
               <!-- Add To Cart -->
-              <button type="button" class="flex h-13 flex-1 items-center justify-center gap-2 rounded-xl bg-black px-6 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]" @click.prevent="handleAddToCart">
+              <button type="button" class="flex h-13 flex-1 items-center justify-center gap-2 rounded-xl bg-black px-6 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]" @click.stop.prevent="handleAddToCart">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 1.98 1.72h8.9a2 2 0 0 0 1.96-1.6L20.5 7H5.2" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 20.25h.01M17 20.25h.01" />
@@ -336,7 +336,7 @@ onMounted(async () => {
                 </div>
                 <span class="text-[10px] text-gray-400">{{ related.rating }}</span>
               </div>
-              <button type="button" class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 active:scale-[0.98]" @click.prevent="addToCart(related)">
+              <button type="button" class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 active:scale-[0.98]" @click.stop.prevent="addToCart(related)">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.75 3.75h2.1l1.55 11.1a2 2 0 0 0 1.98 1.72h8.9a2 2 0 0 0 1.96-1.6L20.5 7H5.2" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 20.25h.01M17 20.25h.01" />

@@ -8,6 +8,17 @@ const { cart, cartCount, clearCart } = useCart()
 
 const orderPlaced = ref(false)
 const loading = ref(false)
+const orderError = ref('')
+const orderForm = reactive({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  address: '',
+  city: '',
+  postalCode: ''
+})
+const API_URL = 'http://localhost:8000'
 
 const subtotal = computed(() => {
   return cart.value.reduce(
@@ -25,14 +36,38 @@ const total = computed(() => {
   return subtotal.value + shipping.value
 })
 
-const placeOrder = () => {
+const placeOrder = async () => {
   loading.value = true
-  
-  setTimeout(() => {
+
+  orderError.value = ''
+
+  try {
+    await $fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      body: {
+        customerName: `${orderForm.firstName} ${orderForm.lastName}`.trim(),
+        email: orderForm.email.trim().toLowerCase(),
+        phone: orderForm.phone.trim(),
+        address: orderForm.address.trim(),
+        city: orderForm.city.trim(),
+        postalCode: orderForm.postalCode.trim(),
+        items: cart.value.map(item => ({ ...item })),
+        subtotal: subtotal.value,
+        shipping: shipping.value,
+        total: total.value,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+      }
+    })
+
     orderPlaced.value = true
-    clearCart()
+    await clearCart()
+  } catch (error) {
+    console.error('Failed to place order:', error)
+    orderError.value = 'Unable to place your order. Please try again.'
+  } finally {
     loading.value = false
-  }, 1500)
+  }
 }
 
 </script>
@@ -40,7 +75,7 @@ const placeOrder = () => {
 <template>
 
   <div
-    class="min-h-screen bg-[#f8f9fc] text-[#111827]"
+    class="min-h-screen bg-transparent text-[#17201f]"
   >
 
     <main
@@ -99,7 +134,7 @@ const placeOrder = () => {
         v-else-if="cart.length > 0"
       >
 
-        <div class="mb-12">
+        <div class="mb-12 rounded-[1.5rem] border border-[#dce9e4] bg-white/60 px-6 py-8 shadow-sm backdrop-blur sm:px-10">
 
           <p
             class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
@@ -108,7 +143,7 @@ const placeOrder = () => {
           </p>
 
           <h1
-            class="font-serif text-5xl font-bold tracking-tight text-gray-950"
+            class="display-heading text-5xl font-bold tracking-tight text-[#17201f] sm:text-6xl"
           >
             Complete Your Order
           </h1>
@@ -122,14 +157,21 @@ const placeOrder = () => {
 
           <!-- Form -->
           <div
-            class="rounded-2xl border border-gray-200 bg-white p-8"
+            class="soft-panel p-6 sm:p-8"
           >
 
             <h2
-              class="font-serif text-2xl font-bold text-gray-950"
+              class="display-heading text-2xl font-bold text-[#17201f]"
             >
               Shipping Information
             </h2>
+
+            <div
+              v-if="orderError"
+              class="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+            >
+              {{ orderError }}
+            </div>
 
 
             <form
@@ -149,8 +191,9 @@ const placeOrder = () => {
 
                   <input
                     type="text"
+                    v-model="orderForm.firstName"
                     required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                    class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                     placeholder="John"
                   />
 
@@ -166,6 +209,7 @@ const placeOrder = () => {
 
                   <input
                     type="text"
+                    v-model="orderForm.lastName"
                     required
                     class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
                     placeholder="Doe"
@@ -186,8 +230,9 @@ const placeOrder = () => {
 
                 <input
                   type="email"
+                  v-model="orderForm.email"
                   required
-                  class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                  class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                   placeholder="john@example.com"
                 />
 
@@ -204,8 +249,9 @@ const placeOrder = () => {
 
                 <input
                   type="tel"
+                  v-model="orderForm.phone"
                   required
-                  class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                  class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                   placeholder="+855 12 345 678"
                 />
 
@@ -222,8 +268,9 @@ const placeOrder = () => {
 
                 <input
                   type="text"
+                  v-model="orderForm.address"
                   required
-                  class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                  class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                   placeholder="123 Street, City"
                 />
 
@@ -244,6 +291,7 @@ const placeOrder = () => {
 
                   <input
                     type="text"
+                    v-model="orderForm.city"
                     required
                     class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
                     placeholder="Phnom Penh"
@@ -261,6 +309,7 @@ const placeOrder = () => {
 
                   <input
                     type="text"
+                    v-model="orderForm.postalCode"
                     required
                     class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
                     placeholder="12000"

@@ -2,7 +2,8 @@
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'admin'
+  middleware: 'admin',
+  alias: ['/admin/categories']
 })
 
 const API_URL = 'http://localhost:8000'

@@ -74,7 +74,7 @@
                 </h3>
 
                 <p class="text-gray-500 mt-1">
-                  support@booknest.com
+                  support@readplus.com
                 </p>
               </div>
             </div>

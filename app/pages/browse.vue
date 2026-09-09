@@ -29,6 +29,16 @@ const sortBy = ref('Relevance')
 
 const searchQuery = ref('')
 
+const normalizeSearchText = (value: unknown) => {
+
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+
+}
+
 // ========================================
 // Cart
 // ========================================
@@ -130,28 +140,25 @@ watch(
 
 const filteredBooks = computed(() => {
 
+  const keyword = normalizeSearchText(searchQuery.value)
+  const searchTerms = keyword.split(/\s+/).filter(Boolean)
+
   let result = books.value.filter((book) => {
 
     // ====================================
     // SEARCH
     // ====================================
 
-    const keyword =
-      searchQuery.value
-        .trim()
-        .toLowerCase()
+    const title = normalizeSearchText(book.title)
+    const shortTitle = normalizeSearchText(book.shortTitle)
+    const author = normalizeSearchText(book.author)
+    const genre = normalizeSearchText(book.genre)
+    const format = normalizeSearchText(book.format)
+    const searchableText = `${title} ${shortTitle} ${author} ${genre} ${format}`
 
     const matchesSearch =
-      keyword === '' ||
-      String(book.title || '')
-        .toLowerCase()
-        .includes(keyword) ||
-      String(book.author || '')
-        .toLowerCase()
-        .includes(keyword) ||
-      String(book.genre || '')
-        .toLowerCase()
-        .includes(keyword)
+      searchTerms.length === 0 ||
+      searchTerms.every((term) => searchableText.includes(term))
 
 
     // ====================================
@@ -263,6 +270,33 @@ const filteredBooks = computed(() => {
         Number(b.rating) -
         Number(a.rating)
     )
+
+  }
+
+  else if (keyword) {
+
+    result.sort((a, b) => {
+
+      const score = (book: any) => {
+        const title = normalizeSearchText(book.title)
+        const shortTitle = normalizeSearchText(book.shortTitle)
+        const author = normalizeSearchText(book.author)
+        const genre = normalizeSearchText(book.genre)
+        let total = 0
+
+        for (const term of searchTerms) {
+          if (title.startsWith(term) || shortTitle.startsWith(term)) total += 5
+          else if (title.includes(term) || shortTitle.includes(term)) total += 4
+          else if (author.includes(term)) total += 3
+          else if (genre.includes(term)) total += 1
+        }
+
+        return total
+      }
+
+      return score(b) - score(a)
+
+    })
 
   }
 
@@ -1134,7 +1168,7 @@ const scrollToTop = () => {
                 <button
                   type="button"
                   class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-black px-4 py-3 text-xs font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98]"
-                  @click.prevent="addToCart(book)"
+                  @click.stop.prevent="addToCart(book)"
                 >
 
                   <!-- Cart Icon -->

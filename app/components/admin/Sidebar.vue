@@ -69,7 +69,7 @@ const logout = async () => {
 <template>
 
   <aside
-    class="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white"
+    class="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-[#d9e7e2] bg-white/90 shadow-[12px_0_40px_rgba(23,32,31,0.05)] backdrop-blur"
   >
 
     <!-- ================================= -->
@@ -77,7 +77,7 @@ const logout = async () => {
     <!-- ================================= -->
 
     <div
-      class="flex h-20 items-center border-b border-gray-200 px-6"
+      class="flex h-20 items-center border-b border-[#d9e7e2] px-6"
     >
 
       <NuxtLink
@@ -87,9 +87,9 @@ const logout = async () => {
 
         <!-- Logo -->
         <div
-          class="flex h-10 w-10 items-center justify-center rounded-lg bg-black text-lg font-bold text-white"
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white"
         >
-          L
+          R+
         </div>
 
         <!-- Logo Text -->
@@ -98,7 +98,7 @@ const logout = async () => {
           <h1
             class="text-lg font-bold text-gray-900"
           >
-            Lumina Books
+            ReadPlus
           </h1>
 
           <p
@@ -142,8 +142,8 @@ const logout = async () => {
           class="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition"
           :class="
             isActive(item.path)
-              ? 'bg-black text-white'
-              : 'text-gray-600 hover:bg-gray-100 hover:text-black'
+              ? 'bg-primary text-white shadow-lg shadow-primary/20'
+              : 'text-gray-600 hover:bg-[#eaf6f3] hover:text-primary'
           "
         >
 
@@ -206,7 +206,7 @@ const logout = async () => {
 
        <NuxtLink
           to="/"
-          class="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-black"
+          class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-gray-600 transition hover:bg-[#eaf6f3] hover:text-primary"
         >
           <span
             class="flex h-6 w-6 items-center justify-center"
@@ -233,19 +233,19 @@ const logout = async () => {
     <!-- ================================= -->
 
     <div
-      class="border-t border-gray-200 p-4"
+      class="border-t border-[#d9e7e2] p-4"
     >
 
       <!-- Profile -->
 
       <div
-        class="mb-3 flex items-center gap-3 rounded-lg bg-gray-50 p-3"
+        class="mb-3 flex items-center gap-3 rounded-xl border border-[#d9e7e2] bg-[#f2f9f7] p-3"
       >
 
         <!-- Avatar -->
 
         <div
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black font-semibold text-white"
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-white"
         >
           A
         </div>
@@ -277,6 +277,7 @@ const logout = async () => {
       <!-- ================================= -->
 
       <button
+        type="button"
         @click="logout"
         class="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-red-600 transition hover:bg-red-50"
       >

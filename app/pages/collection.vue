@@ -253,7 +253,7 @@ function viewBook(book) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f8f9fc] text-[#111827]">
+  <div class="min-h-screen bg-paper text-ink">
 
     <!-- =====================================================
          HERO
@@ -262,12 +262,12 @@ function viewBook(book) {
     <main>
 
       <section
-        class="mx-auto max-w-[2000px] px-6 pb-14 pt-12 lg:px-12 lg:pt-16"
+        class="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-10"
       >
 
         <!-- Breadcrumb -->
         <div
-          class="mb-8 flex items-center gap-2 text-sm text-gray-500"
+          class="mb-6 flex items-center gap-2 text-xs text-gray-500"
         >
           <NuxtLink
             to="/"
@@ -286,28 +286,28 @@ function viewBook(book) {
 
         <!-- Hero -->
         <div
-          class="grid overflow-hidden bg-[#e9edf5] lg:grid-cols-2"
+          class="grid overflow-hidden rounded-[1.75rem] border border-[#dce9e4] bg-[#eaf6f3] shadow-[0_24px_70px_rgba(23,32,31,0.08)] lg:grid-cols-[0.9fr_1.1fr]"
         >
 
           <!-- Text -->
           <div
-            class="flex flex-col justify-center px-8 py-14 sm:px-12 lg:px-20 lg:py-20"
+            class="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16"
           >
 
             <p
-              class="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+              class="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-primary"
             >
               Curated Reading
             </p>
 
             <h1
-              class="max-w-2xl font-serif text-5xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-6xl lg:text-7xl"
+              class="max-w-2xl font-serif text-4xl font-bold leading-[1.04] tracking-tight text-ink sm:text-5xl lg:text-6xl"
             >
               Collections
             </h1>
 
             <p
-              class="mt-7 max-w-xl text-base leading-7 text-gray-600 sm:text-lg"
+              class="mt-6 max-w-xl text-sm leading-7 text-gray-600 sm:text-base"
             >
               Discover books selected around ideas,
               interests, and creative pursuits. Explore
@@ -317,7 +317,7 @@ function viewBook(book) {
 
             <div class="mt-8 flex items-center gap-5">
               <button
-                class="bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+                class="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59]"
                 @click="selectCollection('all')"
               >
                 Explore All Books
@@ -332,7 +332,7 @@ function viewBook(book) {
 
 
           <!-- Image -->
-          <div class="min-h-87.5] lg:min-h-">
+          <div class="min-h-[320px] lg:min-h-[480px]">
             <img
               src="https://www.pixartprinting.co.uk/blog/wp-content/uploads/2023/04/Copertina_non_ce_lhai.jpg"
               alt="Collection of books"
@@ -350,7 +350,7 @@ function viewBook(book) {
       ====================================================== -->
 
       <section
-        class="mx-auto max-w-[1600px] px-6 pb-20 lg:px-12"
+        class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
       >
 
         <div
@@ -364,7 +364,7 @@ function viewBook(book) {
             </p>
 
             <h2
-              class="font-serif text-4xl font-bold tracking-tight text-gray-950"
+              class="font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               Curated Collections
             </h2>
@@ -386,13 +386,13 @@ function viewBook(book) {
           <article
             v-for="collection in collections"
             :key="collection.id"
-            class="group cursor-pointer bg-white"
+            class="group cursor-pointer overflow-hidden rounded-2xl border border-[#dce9e4] bg-white/80 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             @click="selectCollection(collection.slug)"
           >
 
             <!-- Image -->
             <div
-              class="relative aspect-[4/3] overflow-hidden bg-gray-100"
+                class="relative aspect-[4/3] overflow-hidden bg-[#e8f0ed]"
             >
 
               <img
@@ -408,7 +408,7 @@ function viewBook(book) {
 
               <!-- Count -->
               <div
-                class="absolute right-4 top-4 bg-white px-3 py-2 text-xs font-medium text-gray-800"
+                class="absolute right-3 top-3 rounded-lg bg-white/90 px-3 py-2 text-xs font-semibold text-ink shadow-sm backdrop-blur"
               >
                 {{ collection.count }} books
               </div>
@@ -417,14 +417,14 @@ function viewBook(book) {
 
 
             <!-- Text -->
-            <div class="px-1 pb-5 pt-5">
+            <div class="px-5 pb-5 pt-5">
 
               <div
                 class="flex items-start justify-between gap-4"
               >
 
                 <h3
-                  class="font-serif text-2xl font-bold text-gray-950"
+                  class="font-serif text-xl font-bold text-ink"
                 >
                   {{ collection.name }}
                 </h3>
@@ -463,15 +463,15 @@ function viewBook(book) {
       ====================================================== -->
 
       <section
-        class="border-y border-gray-200 bg-white"
+        class="border-y border-[#dce9e4] bg-white/75"
       >
 
         <div
-          class="mx-auto grid max-w-[1600px] lg:grid-cols-2"
+          class="mx-auto grid max-w-7xl lg:grid-cols-2"
         >
 
           <!-- Image -->
-          <div class="min-h-[400px] lg:min-h-[560px]">
+          <div class="min-h-[320px] lg:min-h-[480px]">
             <img
               src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1400&q=85"
               alt="Design books"
@@ -482,17 +482,17 @@ function viewBook(book) {
 
           <!-- Content -->
           <div
-            class="flex flex-col justify-center px-8 py-14 sm:px-12 lg:px-20"
+            class="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14"
           >
 
             <p
-              class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
+              class="text-[10px] font-bold uppercase tracking-[0.22em] text-primary"
             >
               Collection of the Month
             </p>
 
             <h2
-              class="mt-5 font-serif text-4xl font-bold leading-tight text-gray-950 sm:text-5xl"
+              class="mt-4 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl"
             >
               Design &<br />
               Creativity
@@ -511,7 +511,7 @@ function viewBook(book) {
             <div class="mt-8">
 
               <button
-                class="inline-flex items-center gap-3 bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+                class="inline-flex items-center gap-3 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-[#0b5f59]"
                 @click="selectCollection('design')"
               >
                 Explore Design Collection
@@ -534,7 +534,7 @@ function viewBook(book) {
 
       <section
         id="collection-books"
-        class="mx-auto max-w-[1600px] px-6 py-20 lg:px-12"
+        class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
       >
 
         <!-- Heading -->
@@ -551,7 +551,7 @@ function viewBook(book) {
             </p>
 
             <h2
-              class="font-serif text-4xl font-bold tracking-tight text-gray-950"
+              class="font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               {{
                 selectedCollection === 'all'

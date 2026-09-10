@@ -4,7 +4,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { cart, cartCount, clearCart } = useCart()
+const { cart, cartCount, clearCart, loadCart } = useCart()
 
 const orderPlaced = ref(false)
 const loading = ref(false)
@@ -70,6 +70,10 @@ const placeOrder = async () => {
   }
 }
 
+onMounted(() => {
+  loadCart()
+})
+
 </script>
 
 <template>
@@ -130,11 +134,9 @@ const placeOrder = async () => {
 
 
       <!-- Checkout Form -->
-      <div
-        v-else-if="cart.length > 0"
-      >
+      <div v-else-if="cart.length > 0">
 
-        <div class="mb-12 rounded-[1.5rem] border border-[#dce9e4] bg-white/60 px-6 py-8 shadow-sm backdrop-blur sm:px-10">
+        <div class="mb-8 rounded-[1.5rem] border border-[#dce9e4] bg-white/70 px-6 py-8 shadow-sm backdrop-blur sm:px-10">
 
           <p
             class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
@@ -145,25 +147,21 @@ const placeOrder = async () => {
           <h1
             class="display-heading text-5xl font-bold tracking-tight text-[#17201f] sm:text-6xl"
           >
-            Complete Your Order
+            Complete your order
           </h1>
 
         </div>
 
 
-        <div
-          class="grid gap-10 lg:grid-cols-[1fr_400px]"
-        >
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
 
           <!-- Form -->
-          <div
-            class="soft-panel p-6 sm:p-8"
-          >
+          <div class="soft-panel p-6 sm:p-9">
 
             <h2
               class="display-heading text-2xl font-bold text-[#17201f]"
             >
-              Shipping Information
+              Customer information
             </h2>
 
             <div
@@ -211,7 +209,7 @@ const placeOrder = async () => {
                     type="text"
                     v-model="orderForm.lastName"
                     required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                    class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                     placeholder="Doe"
                   />
 
@@ -293,7 +291,7 @@ const placeOrder = async () => {
                     type="text"
                     v-model="orderForm.city"
                     required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-black"
+                    class="w-full rounded-xl border border-[#d7e1dd] bg-white/80 px-4 py-3 outline-none transition placeholder:text-gray-400 focus:border-[#0f766e] focus:ring-4 focus:ring-[#0f766e]/10"
                     placeholder="Phnom Penh"
                   />
 
@@ -325,7 +323,7 @@ const placeOrder = async () => {
                 <button
                   type="submit"
                   :disabled="loading"
-                  class="w-full bg-black py-4 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:opacity-50"
+                  class="w-full rounded-xl bg-[#0f766e] py-4 text-sm font-semibold text-white shadow-lg shadow-[#0f766e]/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span v-if="loading">
                     Processing...
@@ -345,14 +343,12 @@ const placeOrder = async () => {
           <!-- Order Summary -->
           <aside>
 
-            <div
-              class="sticky top-28 rounded-2xl border border-gray-200 bg-white p-7"
-            >
+            <div class="sticky top-28 rounded-[1.5rem] border border-[#dce9e4] bg-white/85 p-6 shadow-xl shadow-[#17201f]/5 backdrop-blur sm:p-7">
 
               <h2
                 class="font-serif text-2xl font-bold text-gray-950"
               >
-                Order Summary
+                Your order
               </h2>
 
 
@@ -363,11 +359,11 @@ const placeOrder = async () => {
                 <div
                   v-for="item in cart"
                   :key="item.id"
-                  class="flex gap-4"
+                  class="flex gap-3 border-b border-[#edf1ef] pb-4 last:border-0 last:pb-0"
                 >
 
                   <div
-                    class="h-16 w-12 shrink-0 overflow-hidden bg-gray-100"
+                    class="h-16 w-12 shrink-0 overflow-hidden rounded-lg bg-[#e6f0ed] ring-1 ring-[#d5e4df]"
                   >
                     <img
                       :src="item.image"
@@ -455,7 +451,7 @@ const placeOrder = async () => {
       <!-- Empty Cart -->
       <div
         v-else
-        class="flex min-h-[60vh] flex-col items-center justify-center text-center"
+          class="flex min-h-[60vh] flex-col items-center justify-center rounded-[1.5rem] border border-[#dce9e4] bg-white/70 px-6 text-center shadow-sm"
       >
 
         <div
@@ -496,7 +492,7 @@ const placeOrder = async () => {
 
         <NuxtLink
           to="/browse"
-          class="mt-8 bg-black px-8 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+          class="mt-8 rounded-xl bg-[#0f766e] px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-[#0f766e]/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59]"
         >
           Browse Books
         </NuxtLink>

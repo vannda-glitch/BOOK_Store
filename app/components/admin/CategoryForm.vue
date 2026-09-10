@@ -2,6 +2,7 @@
 
 const props = defineProps<{
   category?: any | null
+  saving?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -13,6 +14,10 @@ const form = ref({
   name: props.category?.name || '',
   slug: props.category?.slug || ''
 })
+
+watch(() => props.category, category => {
+  form.value = { name: category?.name || '', slug: category?.slug || '' }
+}, { immediate: true })
 
 const generateSlug = (name: string) => {
   return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
@@ -55,7 +60,7 @@ const handleSubmit = () => {
         </div>
         <div class="flex justify-end gap-3 pt-4">
           <button type="button" @click="emit('close')" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Cancel</button>
-          <button type="submit" class="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-800">Save</button>
+          <button type="submit" :disabled="props.saving" class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-[#0b5f59] disabled:opacity-50">{{ props.saving ? 'Saving...' : 'Save category' }}</button>
         </div>
       </form>
     </div>

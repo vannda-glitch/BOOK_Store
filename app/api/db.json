@@ -179,18 +179,6 @@
       "rating": 5,
       "reviews": 0,
       "id": "K_0YxCtJWBk"
-    },
-    {
-      "title": "kak Project",
-      "author": "Vannda",
-      "price": 30,
-      "genre": "Design",
-      "format": "hardcore",
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9bLtyUzCxTTuR_Jz9yc8TsoL2BbWskm_gMNsetszOsA&s=10",
-      "shortTitle": "Testing",
-      "rating": 4,
-      "reviews": 0,
-      "id": "ndq25mqbrZo"
     }
   ],
   "categories": [
@@ -235,7 +223,44 @@
       "slug": "architecture"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "92W_kxF2wZA",
+      "productId": "1",
+      "title": "ឲ្យខ្ញុំ",
+      "shortTitle": "ឲ្យ",
+      "author": "សន រ៉ាមនា",
+      "price": 15,
+      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
+      "format": "Hardcover",
+      "genre": "Typography",
+      "quantity": 3
+    },
+    {
+      "id": "n7Wt9LmTUgk",
+      "productId": "1",
+      "title": "ឲ្យខ្ញុំ",
+      "shortTitle": "ឲ្យ",
+      "author": "សន រ៉ាមនា",
+      "price": 15,
+      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
+      "format": "Hardcover",
+      "genre": "Typography",
+      "quantity": 1
+    },
+    {
+      "id": "_K8aJSgtGNg",
+      "productId": "2",
+      "title": "គំនិតនៃភាពជោគជ័យ",
+      "shortTitle": "គំនិតនៃភាពជោគជ័យ",
+      "author": "Josef Müller-Brockmann",
+      "price": 65,
+      "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
+      "format": "Paperback",
+      "genre": "Design",
+      "quantity": 1
+    }
+  ],
   "users": [
     {
       "name": "vannda",
@@ -309,6 +334,94 @@
       "status": "pending",
       "createdAt": "2026-09-08T16:52:14.542Z",
       "id": "EcZ7BffqFOU"
+    },
+    {
+      "customerName": "kak developer",
+      "email": "kakdeveloper@gmail.com",
+      "phone": "0998877678",
+      "address": "Bueng Kork",
+      "city": "Kompong Cham",
+      "postalCode": "199",
+      "items": [
+        {
+          "id": "hw8A8gcPSc4",
+          "productId": "2",
+          "title": "គំនិតនៃភាពជោគជ័យ",
+          "shortTitle": "គំនិតនៃភាពជោគជ័យ",
+          "author": "Josef Müller-Brockmann",
+          "price": 65,
+          "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
+          "format": "Paperback",
+          "genre": "Design",
+          "quantity": 2
+        },
+        {
+          "id": "9495DRsvmps",
+          "productId": "3",
+          "title": "48 ច្បាប់នៃអំណាច",
+          "shortTitle": "48 ច្បាប់នៃអំណាច",
+          "author": "Edward R. Tufte",
+          "price": 52,
+          "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
+          "format": "Hardcover",
+          "genre": "Design",
+          "quantity": 1
+        },
+        {
+          "id": "uiNRANqUtWc",
+          "productId": "1",
+          "title": "ឲ្យខ្ញុំ",
+          "shortTitle": "ឲ្យ",
+          "author": "សន រ៉ាមនា",
+          "price": 15,
+          "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
+          "format": "Hardcover",
+          "genre": "Typography",
+          "quantity": 1
+        },
+        {
+          "id": "zhDh1i_ecBs",
+          "productId": "4",
+          "title": "យុគសម័យបច្ចេកវិទ្យា",
+          "shortTitle": "យុគសម័យបច្ចេកវិទ្យា",
+          "author": "Ellen Lupton",
+          "price": 38,
+          "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-9.jpg",
+          "format": "Paperback",
+          "genre": "Typography",
+          "quantity": 1
+        },
+        {
+          "id": "WMr-2RyTnZw",
+          "productId": "8",
+          "title": "ចិត្តសាស្ត្ររបស់លុយ",
+          "shortTitle": "ចិត្តសាស្ត្ររបស់លុយ",
+          "author": "Josef Müller-Brockmann",
+          "price": 65,
+          "image": "https://khbookshop.com/wp-content/uploads/2023/06/Untitled-15.jpg",
+          "format": "Paperback",
+          "genre": "Design",
+          "quantity": 1
+        },
+        {
+          "id": "JTToFHxQLkw",
+          "productId": "10",
+          "title": "១០០រឿង ដែលគួរយល់ដឹងពីប្រទេសហ្វ៊ីលីពិន",
+          "shortTitle": "១០០រឿង ដែលគួរយល់ដឹងពីប្រទេសហ្វ៊ីលីពិន",
+          "author": "Edward R. Tufte",
+          "price": 52,
+          "image": "https://khbookshop.com/wp-content/uploads/2020/11/%E1%9F%A1%E1%9F%A0%E1%9F%A0%E1%9E%9A%E1%9E%BF%E1%9E%84-%E1%9E%8A%E1%9F%82%E1%9E%9B%E1%9E%82%E1%9E%BD%E1%9E%9A%E1%9E%99%E1%9E%9B%E1%9F%8B%E1%9E%8A%E1%9E%B9%E1%9E%84%E1%9E%96%E1%9E%B8%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%91%E1%9F%81%E1%9E%9F%E1%9E%A0%E1%9F%92%E1%9E%9C%E1%9F%8A%E1%9E%B8%E1%9E%9B%E1%9E%B8%E1%9E%96%E1%9E%B7%E1%9E%93.jpg",
+          "format": "Hardcover",
+          "genre": "Design",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 352,
+      "shipping": 0,
+      "total": 352,
+      "status": "pending",
+      "createdAt": "2026-09-09T15:58:21.453Z",
+      "id": "rucquU0CjCk"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

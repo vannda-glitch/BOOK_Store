@@ -171,11 +171,11 @@ onBeforeUnmount(() => {
 <template>
 
   <header
-    class="sticky top-0 z-50 border-b border-[#dfe5df] bg-[#f7f7f2]/95 backdrop-blur"
+    class="sticky top-0 z-50 border-b border-[#dce9e4] bg-[#f7f7f2]/90 shadow-sm backdrop-blur-xl"
   >
 
     <div
-      class="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-6 lg:px-12"
+      class="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
     >
 
       <!-- ================================= -->
@@ -184,9 +184,9 @@ onBeforeUnmount(() => {
 
       <NuxtLink
         to="/"
-        class="group flex items-center gap-3 font-serif text-2xl font-bold tracking-tight text-[#17201f]"
+        class="group flex items-center gap-3 font-serif text-xl font-bold tracking-tight text-ink sm:text-2xl"
       >
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0f766e] text-sm font-sans font-bold text-white shadow-sm transition group-hover:-rotate-3">
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-sans font-bold text-white shadow-lg shadow-primary/20 transition group-hover:-rotate-3">
           R+
         </span>
         <span>Read<span class="text-[#0f766e]">Plus</span></span>
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
           :class="
             isActive('/')
               ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-gray-950'
+              : 'text-gray-600 hover:text-primary'
           "
         >
 
@@ -217,7 +217,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/')"
-            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
           />
 
         </NuxtLink>
@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
           :class="
             isActive('/browse')
               ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-gray-950'
+              : 'text-gray-600 hover:text-primary'
           "
         >
 
@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/browse')"
-            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
           />
 
         </NuxtLink>
@@ -253,7 +253,7 @@ onBeforeUnmount(() => {
           :class="
             isActive('/collection')
               ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-gray-950'
+              : 'text-gray-600 hover:text-primary'
           "
         >
 
@@ -261,7 +261,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/collection')"
-            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
           />
 
         </NuxtLink>
@@ -275,7 +275,7 @@ onBeforeUnmount(() => {
           :class="
             isActive('/about')
               ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-gray-950'
+              : 'text-gray-600 hover:text-primary'
           "
         >
 
@@ -283,7 +283,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="isActive('/about')"
-            class="absolute bottom-0 left-0 h-px w-full bg-gray-950"
+            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
           />
 
         </NuxtLink>
@@ -316,7 +316,7 @@ onBeforeUnmount(() => {
 
         <form
           class="flex items-center transition-all duration-300"
-          :class="showSearch ? 'w-64 rounded-full border border-[#d5e3e0] bg-white/90 px-3 py-1 shadow-[0_5px_18px_rgba(23,32,31,0.06)] transition hover:border-[#8fc5bd] hover:shadow-[0_8px_24px_rgba(15,118,110,0.12)] focus-within:border-[#0f766e] focus-within:shadow-[0_0_0_3px_rgba(15,118,110,0.10),0_8px_24px_rgba(15,118,110,0.12)] sm:w-80' : ''"
+          :class="showSearch ? 'w-64 rounded-full border border-[#d5e3e0] bg-white/90 px-3 py-1 shadow-[0_5px_18px_rgba(23,32,31,0.06)] transition hover:border-[#8fc5bd] hover:shadow-[0_8px_24px_rgba(15,118,110,0.12)]  focus-within:shadow-[0_0_0_3px_rgba(15,118,110,0.10),0_8px_24px_rgba(15,118,110,0.12)] sm:w-80' : ''"
           @submit.prevent="searchBooks"
         >
           <button
@@ -367,7 +367,7 @@ onBeforeUnmount(() => {
         <button
           type="button"
           aria-label="Shopping cart"
-          class="relative text-gray-700 transition hover:text-black"
+          class="relative rounded-lg p-2 text-gray-600 transition hover:bg-[#e9f4f2] hover:text-primary"
           @click="goToCart"
         >
 
@@ -401,7 +401,7 @@ onBeforeUnmount(() => {
 
           <span
             v-if="cartCount > 0"
-            class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white"
+            class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-white"
           >
             {{cartCount}}
           </span>
@@ -417,7 +417,7 @@ onBeforeUnmount(() => {
 
           <NuxtLink
             to="/auth/login"
-            class="hidden text-sm font-medium text-gray-700 transition hover:text-black sm:block"
+            class="hidden text-sm font-semibold text-gray-600 transition hover:text-primary sm:block"
           >
             Login
           </NuxtLink>
@@ -425,7 +425,7 @@ onBeforeUnmount(() => {
 
           <NuxtLink
             to="/auth/register"
-            class="hidden rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 sm:block"
+            class="hidden rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/20 transition hover:bg-[#0b5f59] sm:block"
           >
             Register
           </NuxtLink>

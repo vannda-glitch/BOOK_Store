@@ -131,9 +131,7 @@ function viewBook(book) {
 
 <template>
 
-  <div
-    class="min-h-screen bg-[#f8f9fc] text-[#111827]"
-  >
+  <div class="min-h-screen bg-paper text-ink">
 
     <!-- =====================================================
          NAVBAR
@@ -149,28 +147,28 @@ function viewBook(book) {
     <main>
 
       <section
-        class="mx-auto max-w-[1600px] px-6 pt-6 lg:px-12 lg:pt-8"
+        class="mx-auto max-w-7xl px-4 pt-5 sm:px-6 lg:px-8 lg:pt-8"
       >
 
         <div
-          class="grid overflow-hidden bg-[#e9edf5] lg:grid-cols-2"
+          class="grid overflow-hidden rounded-[1.75rem] border border-[#dce9e4] bg-[#eaf6f3] shadow-[0_24px_70px_rgba(23,32,31,0.08)] lg:grid-cols-[0.9fr_1.1fr]"
         >
 
           <!-- Hero Text -->
 
           <div
-            class="flex flex-col justify-center px-8 py-16 sm:px-12 lg:px-20 lg:py-24"
+            class="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16"
           >
 
             <p
-              class="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500"
+              class="text-[10px] font-bold uppercase tracking-[0.24em] text-primary"
             >
               ReadPlus
             </p>
 
 
             <h1
-              class="mt-5 max-w-2xl font-serif text-5xl font-bold leading-[1.02] tracking-tight text-gray-950 sm:text-6xl lg:text-7xl"
+              class="mt-4 max-w-2xl font-serif text-4xl font-bold leading-[1.03] tracking-tight text-ink sm:text-5xl lg:text-6xl"
             >
               Books for
               <br />
@@ -179,7 +177,7 @@ function viewBook(book) {
 
 
             <p
-              class="mt-7 max-w-xl text-base leading-7 text-gray-600 sm:text-lg"
+              class="mt-6 max-w-xl text-sm leading-7 text-gray-600 sm:text-base"
             >
               Discover carefully selected books about
               design, art, architecture, creativity, and
@@ -194,7 +192,7 @@ function viewBook(book) {
             >
 
               <button
-                class="bg-black px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-gray-800"
+                class="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-[#0b5f59]"
                 @click="goToBrowse"
               >
                 Browse Books
@@ -203,7 +201,7 @@ function viewBook(book) {
 
               <NuxtLink
                 to="/collection"
-                class="border border-gray-300 bg-white px-7 py-3.5 text-center text-sm font-semibold text-gray-900 transition hover:border-black"
+                class="rounded-xl border border-[#c9ddd7] bg-white/80 px-6 py-3 text-center text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
               >
                 Explore Collections
               </NuxtLink>
@@ -216,7 +214,7 @@ function viewBook(book) {
           <!-- Hero Image -->
 
           <div
-            class="relative min-h-[420px] lg:min-h-[600px]"
+            class="relative min-h-[340px] lg:min-h-[500px]"
           >
 
             <img
@@ -229,17 +227,17 @@ function viewBook(book) {
             <!-- Hero Label -->
 
             <div
-              class="absolute bottom-6 left-6 bg-white px-5 py-4 shadow-sm sm:bottom-8 sm:left-8"
+              class="absolute bottom-5 left-5 rounded-xl border border-white/70 bg-white/90 px-4 py-3 shadow-lg backdrop-blur sm:bottom-7 sm:left-7"
             >
 
               <p
-                class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400"
+                class="text-[10px] font-bold uppercase tracking-[0.18em] text-primary"
               >
                 Curated Reading
               </p>
 
               <p
-                class="mt-1 font-serif text-lg font-bold text-gray-950"
+                class="mt-1 font-serif text-base font-bold text-ink"
               >
                 Discover your next book
               </p>
@@ -258,16 +256,16 @@ function viewBook(book) {
       ====================================================== -->
 
       <section
-        class="mx-auto max-w-[1600px] px-6 py-16 lg:px-12"
+        class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
       >
 
         <div
-          class="grid border-y border-gray-200 sm:grid-cols-2 lg:grid-cols-4"
+          class="grid overflow-hidden rounded-2xl border border-[#dce9e4] bg-white/75 shadow-sm sm:grid-cols-2 lg:grid-cols-4"
         >
 
           <NuxtLink
             to="/browse?genre=design"
-            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white sm:border-r lg:border-b-0"
+            class="group border-b border-[#e6efec] px-5 py-6 transition hover:bg-[#f3f9f7] sm:border-r lg:border-b-0"
           >
 
             <span
@@ -299,7 +297,7 @@ function viewBook(book) {
 
           <NuxtLink
             to="/browse?genre=art"
-            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white lg:border-b-0 lg:border-r"
+            class="group border-b border-[#e6efec] px-5 py-6 transition hover:bg-[#f3f9f7] lg:border-b-0 lg:border-r"
           >
 
             <span
@@ -331,7 +329,7 @@ function viewBook(book) {
 
           <NuxtLink
             to="/collection"
-            class="group border-b border-gray-200 px-6 py-7 transition hover:bg-white sm:border-r lg:border-b-0"
+            class="group border-b border-[#e6efec] px-5 py-6 transition hover:bg-[#f3f9f7] sm:border-r lg:border-b-0"
           >
 
             <span
@@ -363,7 +361,7 @@ function viewBook(book) {
 
           <NuxtLink
             to="/collection"
-            class="group px-6 py-7 transition hover:bg-white"
+            class="group px-5 py-6 transition hover:bg-[#f3f9f7]"
           >
 
             <span
@@ -402,7 +400,7 @@ function viewBook(book) {
       ====================================================== -->
 
       <section
-        class="mx-auto max-w-[1600px] px-6 pb-20 lg:px-12"
+        class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
       >
 
         <!-- Heading -->
@@ -420,7 +418,7 @@ function viewBook(book) {
             </p>
 
             <h2
-              class="font-serif text-4xl font-bold tracking-tight text-gray-950"
+              class="font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               Popular Books
             </h2>
@@ -453,7 +451,7 @@ function viewBook(book) {
             <!-- Image -->
 
             <div
-              class="relative aspect-[3/4] overflow-hidden bg-[#edf1f7]"
+              class="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#e8f0ed] shadow-sm"
             >
 
               <img
@@ -466,7 +464,7 @@ function viewBook(book) {
               <!-- View -->
 
               <button
-                class="absolute bottom-4 left-4 right-4 bg-white py-3 text-sm font-semibold opacity-0 shadow-sm transition group-hover:opacity-100"
+                class="absolute bottom-3 left-3 right-3 rounded-xl bg-white/95 py-2.5 text-sm font-semibold text-ink opacity-0 shadow-lg backdrop-blur transition group-hover:opacity-100"
                 @click="viewBook(book)"
               >
                 View Details
@@ -539,7 +537,7 @@ function viewBook(book) {
 
               <button
                 type="button"
-                class="mt-5 w-full bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+                  class="mt-5 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]"
                 @click.stop.prevent="handleAddToCart(book)"
               >
                 Add to Cart
@@ -559,11 +557,11 @@ function viewBook(book) {
       ====================================================== -->
 
       <section
-        class="border-y border-gray-200 bg-white"
+        class="border-y border-[#dce9e4] bg-white/75"
       >
 
         <div
-          class="mx-auto max-w-[1600px] px-6 py-20 lg:px-12"
+          class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
         >
 
           <div

@@ -48,15 +48,15 @@ const stats = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-white text-black">
+  <div class="min-h-screen bg-paper text-ink">
     <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-      <div class="overflow-hidden border border-black bg-black text-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+      <div class="overflow-hidden rounded-[1.75rem] border border-[#dce9e4] bg-[#17201f] text-white shadow-[0_24px_70px_rgba(23,32,31,0.14)]">
         <div class="grid items-center gap-8 px-6 py-8 md:px-10 md:py-12 lg:grid-cols-2 lg:px-14">
           <div>
-            <p class="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-gray-300">
+            <p class="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-[#67c5bb]">
               About Book
             </p>
-            <h1 class="text-4xl font-black leading-none md:text-5xl lg:text-6xl">
+              <h1 class="font-serif text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
               Book lovers deserve more than a shelf.
             </h1>
             <p class="mt-5 max-w-xl text-base leading-7 text-gray-300 md:text-lg">
@@ -66,13 +66,13 @@ const stats = [
             <div class="mt-8 flex flex-wrap gap-4">
               <NuxtLink
                 to="/browse"
-                class="inline-flex items-center justify-center border border-white bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-gray-200"
+                class="inline-flex items-center justify-center rounded-xl border border-white bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:bg-[#eaf6f3]"
               >
                 Explore Books
               </NuxtLink>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center justify-center border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/5"
+                class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
                 Contact Us
               </NuxtLink>
@@ -83,11 +83,11 @@ const stats = [
             <img
               src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80"
               alt="Books on a table"
-              class="h-[420px] w-full object-cover "
+              class="h-[360px] w-full object-cover sm:h-[420px]"
             />
-            <div class="absolute -bottom-5 left-4 border border-black bg-white px-4 py-3 shadow-lg md:left-8">
+            <div class="absolute -bottom-5 left-4 rounded-xl border border-[#dce9e4] bg-white px-4 py-3 shadow-lg md:left-8">
               <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">Since 2023</p>
-              <p class="mt-2 text-2xl font-black text-black">20+ Genres</p>
+              <p class="mt-2 font-serif text-2xl font-bold text-ink">20+ Genres</p>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@ const stats = [
 
     <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="grid items-center gap-10 lg:grid-cols-2">
-        <div class="overflow-hidden border border-black bg-gray-100">
+        <div class="overflow-hidden rounded-2xl border border-[#dce9e4] bg-[#e8f0ed] shadow-sm">
           <img
             src="https://i.pinimg.com/736x/5f/71/99/5f7199de1783ba8ed92d69b36cf354c3.jpg"
             alt="ReadPlus story"
@@ -106,7 +106,7 @@ const stats = [
 
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-600">Our Story</p>
-          <h2 class="mt-3 text-3xl font-black leading-tight md:text-4xl">
+          <h2 class="mt-3 font-serif text-3xl font-bold leading-tight md:text-4xl">
             A reading destination built around curiosity, trust, and reading joy.
           </h2>
 
@@ -122,7 +122,7 @@ const stats = [
 
           <ul class="mt-8 space-y-4">
             <li v-for="feature in storyFeatures" :key="feature.title" class="flex items-start gap-3">
-              <span class="mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-black text-sm font-bold text-white">✓</span>
+              <span class="mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">✓</span>
               <div>
                 <p class="font-bold text-black">{{ feature.title }}</p>
                 <p class="text-sm text-gray-600">{{ feature.text }}</p>
@@ -132,15 +132,15 @@ const stats = [
         </div>
       </div>
     </section>
-    <section class="bg-black py-16 text-white">
+    <section class="bg-[#17201f] py-16 text-white">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mb-10 text-center">
           <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-300">What We Believe</p>
-          <h2 class="mt-3 text-3xl font-black md:text-4xl">Our mission, vision, and promise</h2>
+          <h2 class="mt-3 font-serif text-3xl font-bold md:text-4xl">Our mission, vision, and promise</h2>
         </div>
 
         <div class="grid gap-6 md:grid-cols-3">
-          <div v-for="item in missionValues" :key="item.number" class="border border-white/20 bg-white/5 p-7">
+          <div v-for="item in missionValues" :key="item.number" class="rounded-2xl border border-white/15 bg-white/5 p-7 transition hover:bg-white/10">
             <p class="text-xs font-bold uppercase tracking-[0.25em] text-gray-400">{{ item.number }}</p>
             <h3 class="mt-5 text-2xl font-black">{{ item.title }}</h3>
             <p class="mt-4 text-base leading-7 text-gray-300">{{ item.text }}</p>
@@ -156,18 +156,18 @@ const stats = [
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        <div v-for="value in values" :key="value.title" class="border border-black bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
-          <div class="mb-5 flex h-12 w-12 items-center justify-center border border-black text-2xl">
+        <div v-for="value in values" :key="value.title" class="rounded-2xl border border-[#dce9e4] bg-white/80 p-6 transition hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(23,32,31,0.08)]">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#eaf6f3] text-2xl text-primary">
             {{ value.icon }}
           </div>
           <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">{{ value.number }}</p>
-          <h3 class="mt-4 text-xl font-black text-black">{{ value.title }}</h3>
+          <h3 class="mt-4 font-serif text-xl font-bold text-ink">{{ value.title }}</h3>
           <p class="mt-3 text-sm leading-6 text-gray-600">{{ value.text }}</p>
         </div>
       </div>
     </section>
 
-    <section class="bg-gray-100 py-16">
+    <section class="border-y border-[#dce9e4] bg-white/60 py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="grid gap-8 text-center md:grid-cols-4">
           <div v-for="stat in stats" :key="stat.label">
@@ -179,12 +179,12 @@ const stats = [
     </section>
 
     <section class="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8">
-      <div class="border border-black bg-[#f5f5f5] p-10">
+      <div class="rounded-2xl border border-[#dce9e4] bg-[#eaf6f3] p-8 shadow-sm sm:p-10">
         <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-600">Ready to start reading?</p>
         <h2 class="mt-4 text-3xl font-black text-black md:text-4xl">Discover books that fit your next chapter.</h2>
         <NuxtLink
           to="/collection"
-          class="mt-7 inline-flex items-center justify-center border border-black bg-black px-7 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
+          class="mt-7 inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-[#0b5f59]"
         >
           Browse Collection
         </NuxtLink>

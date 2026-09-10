@@ -3,11 +3,11 @@
 </script>
 <template>
     <!-- ================= FOOTER ================= -->
-    <footer class="border-t border-[#dfe5df] bg-[#17201f] text-gray-400">
+    <footer class="border-t border-[#dce9e4] bg-[#17201f] text-gray-400">
 
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-               py-12 grid sm:grid-cols-2
+               py-14 grid sm:grid-cols-2
                lg:grid-cols-4 gap-10"
       >
 
@@ -65,17 +65,17 @@
 
           <div class="flex gap-3 mt-4">
             <button aria-label="ReadPlus on Facebook" type="button"
-              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
+              class="h-10 w-10 rounded-xl border border-white/10 bg-white/10 font-semibold text-white transition hover:border-[#67c5bb] hover:bg-[#0f766e]"
             >
               f
             </button>
             <button aria-label="ReadPlus on Instagram" type="button"
-              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
+              class="h-10 w-10 rounded-xl border border-white/10 bg-white/10 font-semibold text-white transition hover:border-[#67c5bb] hover:bg-[#0f766e]"
             >
               ◎
             </button>
             <button aria-label="ReadPlus on X" type="button"
-              class="h-10 w-10 rounded-xl bg-white/10 font-semibold text-white transition hover:bg-[#0f766e]"
+              class="h-10 w-10 rounded-xl border border-white/10 bg-white/10 font-semibold text-white transition hover:border-[#67c5bb] hover:bg-[#0f766e]"
             >
               X
             </button>

@@ -2,6 +2,11 @@
 
 const { addToCart } = useCart()
 
+const orderNow = async (product: Product) => {
+  await addToCart(product)
+  await navigateTo('/order')
+}
+
 type Product = {
   id: number | string
   title: string
@@ -26,14 +31,14 @@ defineProps<{
 
 <template>
 
-  <div class="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl mt-8 ml-2">
+  <div class="group mt-8 ml-2 overflow-hidden rounded-2xl border border-[#dce9e4] bg-white/85 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
 
     <!-- Image -->
     <div class="relative overflow-hidden">
       <NuxtLink :to="`/productDetail/${product.id}`">
-        <img :src="product.image" :alt="product.title" class="h-72 w-full object-cover transition duration-300 group-hover:scale-105" />
+        <img :src="product.image" :alt="product.title" class="h-72 w-full object-cover transition duration-500 group-hover:scale-105" />
       </NuxtLink>
-      <span v-if="product.isNew" class="absolute left-3 top-3 rounded-full bg-black px-3 py-1 text-xs font-semibold text-white">
+      <span v-if="product.isNew" class="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white shadow-sm">
         NEW
       </span>
     </div>
@@ -45,7 +50,7 @@ defineProps<{
       </p>
 
       <NuxtLink :to="`/productDetail/${product.id}`">
-        <h2 class="mt-2 text-lg font-bold text-gray-900 transition group-hover:text-blue-600">
+        <h2 class="mt-2 font-serif text-lg font-bold text-ink transition group-hover:text-primary">
           {{ product.shortTitle || product.title }}
         </h2>
       </NuxtLink>
@@ -72,12 +77,15 @@ defineProps<{
       </div>
 
       <!-- Actions -->
-      <div class="mt-5 flex gap-2">
-        <NuxtLink :to="`/productDetail/${product.id}`" class="flex-1 rounded-xl bg-gray-900 py-3 text-center text-sm font-semibold text-white transition hover:bg-gray-800">
+      <div class="mt-5 grid grid-cols-2 gap-2">
+        <NuxtLink :to="`/productDetail/${product.id}`" class="flex-1 rounded-xl bg-ink py-3 text-center text-sm font-semibold text-white transition hover:bg-primary">
           View Details
         </NuxtLink>
-        <button type="button" @click.stop.prevent="addToCart(product)" class="flex-1 rounded-xl bg-blue-700 py-3 text-sm font-semibold text-white transition hover:bg-blue-800">
+        <button type="button" @click.stop.prevent="addToCart(product)" class="rounded-xl border border-primary py-3 text-sm font-semibold text-primary transition hover:bg-[#edf8f5]">
           Add to Cart
+        </button>
+        <button type="button" @click.stop.prevent="orderNow(product)" class="rounded-xl bg-[#0f766e] py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]">
+          Order Now
         </button>
       </div>
     </div>

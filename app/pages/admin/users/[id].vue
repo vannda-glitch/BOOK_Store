@@ -1,0 +1,6 @@
+<script setup lang="ts">
+definePageMeta({ layout: 'admin', middleware: 'admin' })
+const route = useRoute(); const API_URL = 'http://localhost:8000'; const user = ref<any | null>(null); const loading = ref(true)
+onMounted(async () => { try { user.value = await $fetch<any>(`${API_URL}/users/${route.params.id}`) } finally { loading.value = false } })
+</script>
+<template><section><AdminHeader title="User details" description="View account information." /><div v-if="loading" class="py-20 text-center text-sm text-gray-500">Loading...</div><div v-else-if="user" class="max-w-xl rounded-2xl border border-[#d9e7e2] bg-white p-7 shadow-sm"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white">{{ user.name?.slice(0, 1).toUpperCase() }}</div><h2 class="mt-5 font-serif text-3xl font-bold text-ink">{{ user.name }}</h2><p class="mt-2 text-gray-500">{{ user.email }}</p><div class="mt-6 rounded-xl bg-[#f3f9f7] p-4 text-sm"><span class="text-gray-500">Role</span><span class="float-right font-semibold text-primary">{{ user.role }}</span></div></div><p v-else class="rounded-xl bg-red-50 p-4 text-sm text-red-700">User not found.</p></section></template>

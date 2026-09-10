@@ -1,16 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-paper">
 
     <!-- Hero Section -->
-    <section class="bg-indigo-600 text-white  max-w-7xl mx-auto mt-2 rounded-2xl">
+    <section class="mx-auto mt-5 max-w-7xl rounded-[1.75rem] border border-[#dce9e4] bg-[#17201f] text-white shadow-[0_24px_70px_rgba(23,32,31,0.12)]">
       <div class="max-w-7xl mx-auto px-6 py-10 text-center">
-        <div class="text-5xl mb-5">📚</div>
+        <div class="mb-5 text-4xl">📚</div>
 
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <h1 class="font-serif text-4xl font-bold md:text-5xl">
           Get in Touch With Us
         </h1>
 
-        <p class="max-w-2xl mx-auto text-indigo-100 text-lg">
+        <p class="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg">
           Have a question about our books, orders, or delivery?
           We are here to help.
         </p>
@@ -19,21 +19,21 @@
 
 
     <!-- Contact Section -->
-    <section class="max-w-7xl mx-auto px-6 py-16">
+    <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
 
       <div class="grid lg:grid-cols-3 gap-8">
 
         <!-- Contact Information -->
         <div class="lg:col-span-1">
 
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          <h2 class="mb-6 font-serif text-2xl font-bold text-ink">
             Contact Information
           </h2>
 
           <div class="space-y-5">
 
             <!-- Address -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
+            <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
               <div class="text-2xl">📍</div>
 
               <div>
@@ -49,7 +49,7 @@
 
 
             <!-- Phone -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
+            <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
               <div class="text-2xl">📞</div>
 
               <div>
@@ -65,7 +65,7 @@
 
 
             <!-- Email -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
+            <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
               <div class="text-2xl">📧</div>
 
               <div>
@@ -81,7 +81,7 @@
 
 
             <!-- Opening Hours -->
-            <div class="flex gap-4 bg-white p-5 rounded-xl shadow-sm">
+            <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
               <div class="text-2xl">🕐</div>
 
               <div>
@@ -104,9 +104,9 @@
 
 
         <!-- Contact Form -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm p-8">
+        <div class="lg:col-span-2 rounded-2xl border border-[#dce9e4] bg-white/80 p-6 shadow-sm backdrop-blur sm:p-8">
 
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">
+          <h2 class="mb-2 font-serif text-2xl font-bold text-ink">
             Send Us a Message
           </h2>
 
@@ -216,8 +216,7 @@
             <!-- Submit Button -->
             <button
               type="submit"
-              class="mt-6 bg-indigo-600 text-white px-7 py-3 rounded-lg
-                     font-semibold hover:bg-indigo-700 transition"
+              class="mt-6 rounded-xl bg-primary px-7 py-3 font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-[#0b5f59]"
             >
               Send Message →
             </button>
@@ -232,17 +231,17 @@
 
 
     <!-- FAQ Section -->
-    <section class="bg-white py-16">
+    <section class="border-y border-[#dce9e4] bg-white/70 py-16">
 
       <div class="max-w-4xl mx-auto px-6">
 
         <div class="text-center mb-10">
 
-          <p class="text-indigo-600 font-semibold">
+          <p class="font-semibold text-primary">
             FAQ
           </p>
 
-          <h2 class="text-3xl font-bold text-gray-900 mt-2">
+          <h2 class="mt-2 font-serif text-3xl font-bold text-ink">
             Frequently Asked Questions
           </h2>
 
@@ -251,7 +250,7 @@
 
         <div class="space-y-4">
 
-          <details class="border border-gray-200 rounded-xl p-5">
+          <details class="rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
             <summary class="font-semibold cursor-pointer">
               How can I order a book?
             </summary>
@@ -263,7 +262,7 @@
           </details>
 
 
-          <details class="border border-gray-200 rounded-xl p-5">
+          <details class="rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
             <summary class="font-semibold cursor-pointer">
               How long does delivery take?
             </summary>
@@ -275,7 +274,7 @@
           </details>
 
 
-          <details class="border border-gray-200 rounded-xl p-5">
+          <details class="rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
             <summary class="font-semibold cursor-pointer">
               Can I return a book?
             </summary>
@@ -287,7 +286,7 @@
           </details>
 
 
-          <details class="border border-gray-200 rounded-xl p-5">
+          <details class="rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
             <summary class="font-semibold cursor-pointer">
               What payment methods do you accept?
             </summary>
@@ -306,7 +305,7 @@
 
 
     <!-- CTA -->
-    <section class="bg-indigo-600 text-white">
+    <section class="bg-[#17201f] text-white">
 
       <div class="max-w-4xl mx-auto px-6 py-16 text-center">
 
@@ -324,8 +323,7 @@
 
         <NuxtLink
           to="/books"
-          class="inline-block bg-white text-indigo-600 px-7 py-3
-                 rounded-lg font-semibold hover:bg-gray-100 transition"
+             class="inline-block rounded-xl bg-white px-7 py-3 font-semibold text-primary transition hover:bg-[#eaf6f3]"
         >
           Browse Books →
         </NuxtLink>

@@ -9,7 +9,7 @@ export interface CartItem {
   price: number
   image?: string
   format?: string
-  genre?: string
+  category?: string
   quantity: number
 }
 
@@ -115,7 +115,7 @@ export const useCart = () => {
       price: Number(product.price),
       image: product.image,
       format: product.format,
-      genre: product.genre,
+      category: product.category,
       quantity: 1
     }
 

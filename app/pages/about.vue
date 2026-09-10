@@ -87,7 +87,7 @@ const stats = [
             />
             <div class="absolute -bottom-5 left-4 rounded-xl border border-[#dce9e4] bg-white px-4 py-3 shadow-lg md:left-8">
               <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">Since 2023</p>
-              <p class="mt-2 font-serif text-2xl font-bold text-ink">20+ Genres</p>
+              <p class="mt-2 font-serif text-2xl font-bold text-ink">20+ Categories</p>
             </div>
           </div>
         </div>

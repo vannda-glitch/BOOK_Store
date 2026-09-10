@@ -264,7 +264,7 @@ function viewBook(book) {
         >
 
           <NuxtLink
-            to="/browse?genre=design"
+            to="/browse?category=design"
             class="group border-b border-[#e6efec] px-5 py-6 transition hover:bg-[#f3f9f7] sm:border-r lg:border-b-0"
           >
 
@@ -296,7 +296,7 @@ function viewBook(book) {
 
 
           <NuxtLink
-            to="/browse?genre=art"
+            to="/browse?category=art-history"
             class="group border-b border-[#e6efec] px-5 py-6 transition hover:bg-[#f3f9f7] lg:border-b-0 lg:border-r"
           >
 

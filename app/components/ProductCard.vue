@@ -11,7 +11,7 @@ type Product = {
   id: number | string
   title: string
   author?: string
-  genre?: string
+  category?: string
   format?: string
   price: number
   originalPrice?: number | null
@@ -46,7 +46,7 @@ defineProps<{
     <!-- Content -->
     <div class="p-5">
       <p class="text-sm text-gray-500">
-        {{ product.genre }} • {{ product.format }}
+        {{ product.category }} • {{ product.format }}
       </p>
 
       <NuxtLink :to="`/productDetail/${product.id}`">

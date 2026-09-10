@@ -8,7 +8,7 @@
       "price": 15,
       "rating": 5,
       "reviews": 128,
-      "genre": "Typography",
+      "category": "Programming",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg"
     },
@@ -20,7 +20,7 @@
       "price": 65,
       "rating": 5,
       "reviews": 342,
-      "genre": "Design",
+      "category": "Design",
       "format": "Paperback",
       "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg"
     },
@@ -32,7 +32,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg"
     },
@@ -44,7 +44,7 @@
       "price": 38,
       "rating": 5,
       "reviews": 215,
-      "genre": "Typography",
+      "category": "Typography",
       "format": "Paperback",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-9.jpg"
     },
@@ -56,7 +56,7 @@
       "price": 72,
       "rating": 5,
       "reviews": 421,
-      "genre": "Art History",
+      "category": "Art History",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-7.jpg"
     },
@@ -68,7 +68,7 @@
       "price": 105,
       "rating": 4,
       "reviews": 74,
-      "genre": "Architecture",
+      "category": "Architecture",
       "format": "Special Edition",
       "image": "https://khbookshop.com/wp-content/uploads/2016/03/%E1%9E%9F%E1%9E%BB%E1%9E%97%E1%9E%B6%E1%9E%9F%E1%9E%B7%E1%9E%8F%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99300.jpg"
     },
@@ -80,7 +80,7 @@
       "price": 45,
       "rating": 5,
       "reviews": 128,
-      "genre": "Typography",
+      "category": "Typography",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-1-1.jpg"
     },
@@ -92,7 +92,7 @@
       "price": 65,
       "rating": 5,
       "reviews": 342,
-      "genre": "Design",
+      "category": "Design",
       "format": "Paperback",
       "image": "https://khbookshop.com/wp-content/uploads/2023/06/Untitled-15.jpg"
     },
@@ -104,7 +104,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2023/05/Untitled-17.jpg"
     },
@@ -116,7 +116,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2020/11/%E1%9F%A1%E1%9F%A0%E1%9F%A0%E1%9E%9A%E1%9E%BF%E1%9E%84-%E1%9E%8A%E1%9F%82%E1%9E%9B%E1%9E%82%E1%9E%BD%E1%9E%9A%E1%9E%99%E1%9E%9B%E1%9F%8B%E1%9E%8A%E1%9E%B9%E1%9E%84%E1%9E%96%E1%9E%B8%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%91%E1%9F%81%E1%9E%9F%E1%9E%A0%E1%9F%92%E1%9E%9C%E1%9F%8A%E1%9E%B8%E1%9E%9B%E1%9E%B8%E1%9E%96%E1%9E%B7%E1%9E%93.jpg"
     },
@@ -128,7 +128,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2019/06/Cover-Mengly-J.-Quach-108-Ideal-Practices-1.jpg"
     },
@@ -140,7 +140,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2020/02/24-%E1%9E%91%E1%9E%B7%E1%9E%85%E1%9E%93%E1%9E%B7%E1%9E%80%E1%9E%9C%E1%9E%B6%E1%9E%99%E1%9E%9B%E1%9E%BB%E1%9E%80-%E1%9E%93%E1%9E%B7%E1%9E%84%E1%9E%91%E1%9E%94%E1%9F%8B%E1%9E%91%E1%9E%9B%E1%9F%8B%E1%9E%9B%E1%9E%BE%E1%9E%9F%E1%9E%98%E1%9E%9A%E1%9E%97%E1%9E%BC%E1%9E%98%E1%9E%B7%E1%9E%87%E1%9F%86%E1%9E%93%E1%9E%BD%E1%9E%89.jpg"
     },
@@ -152,7 +152,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2019/06/Untitled-5-1.jpg"
     },
@@ -164,7 +164,7 @@
       "price": 52,
       "rating": 4,
       "reviews": 89,
-      "genre": "Design",
+      "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-10.jpg"
     },
@@ -172,7 +172,7 @@
       "title": "kak",
       "author": "kak",
       "price": 0.99,
-      "genre": "Design",
+      "category": "Design",
       "format": "hardcore",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnDAbyRi44jJjAgejENaW3gwz3QuLToXa203GXzP0O3A&s=10",
       "shortTitle": "kak",
@@ -225,39 +225,35 @@
   ],
   "cart": [
     {
-      "id": "92W_kxF2wZA",
-      "productId": "1",
-      "title": "ឲ្យខ្ញុំ",
-      "shortTitle": "ឲ្យ",
-      "author": "សន រ៉ាមនា",
-      "price": 15,
-      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "format": "Hardcover",
-      "genre": "Typography",
-      "quantity": 3
-    },
-    {
-      "id": "n7Wt9LmTUgk",
-      "productId": "1",
-      "title": "ឲ្យខ្ញុំ",
-      "shortTitle": "ឲ្យ",
-      "author": "សន រ៉ាមនា",
-      "price": 15,
-      "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "format": "Hardcover",
-      "genre": "Typography",
+      "id": "Oq2kqa8ugCs",
+      "productId": "4",
+      "title": "យុគសម័យបច្ចេកវិទ្យា",
+      "shortTitle": "យុគសម័យបច្ចេកវិទ្យា",
+      "author": "Ellen Lupton",
+      "price": 38,
+      "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-9.jpg",
+      "format": "Paperback",
+      "category": "Typography",
       "quantity": 1
     },
     {
-      "id": "_K8aJSgtGNg",
-      "productId": "2",
-      "title": "គំនិតនៃភាពជោគជ័យ",
-      "shortTitle": "គំនិតនៃភាពជោគជ័យ",
-      "author": "Josef Müller-Brockmann",
-      "price": 65,
-      "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
+      "id": "2j1S3TpwY1A",
+      "productId": 1,
+      "title": " គ្មាននរណាកើតមកក្រទេ",
+      "author": " វេជ្ជបណ្ឌិត គួច ម៉េងលី ",
+      "price": 45,
+      "image": "https://khbookshop.com/wp-content/uploads/2021/09/Untitled-1.jpg",
+      "format": "Hardcover",
+      "quantity": 1
+    },
+    {
+      "id": "P1a6np2b-58",
+      "productId": 3,
+      "title": "The Visual Display of Quantitative Information",
+      "author": "Edward R. Tufte",
+      "price": 52,
+      "image": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=80",
       "format": "Paperback",
-      "genre": "Design",
       "quantity": 1
     }
   ],
@@ -302,7 +298,7 @@
           "price": 15,
           "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
           "format": "Hardcover",
-          "genre": "Typography",
+          "category": "Typography",
           "quantity": 3
         },
         {
@@ -324,7 +320,7 @@
           "price": 65,
           "image": "https://khbookshop.com/wp-content/uploads/2023/06/Untitled-15.jpg",
           "format": "Paperback",
-          "genre": "Design",
+          "category": "Design",
           "quantity": 1
         }
       ],
@@ -352,7 +348,7 @@
           "price": 65,
           "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
           "format": "Paperback",
-          "genre": "Design",
+          "category": "Design",
           "quantity": 2
         },
         {
@@ -364,7 +360,7 @@
           "price": 52,
           "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
           "format": "Hardcover",
-          "genre": "Design",
+          "category": "Design",
           "quantity": 1
         },
         {
@@ -376,7 +372,7 @@
           "price": 15,
           "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
           "format": "Hardcover",
-          "genre": "Typography",
+          "category": "Typography",
           "quantity": 1
         },
         {
@@ -388,7 +384,7 @@
           "price": 38,
           "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-9.jpg",
           "format": "Paperback",
-          "genre": "Typography",
+          "category": "Typography",
           "quantity": 1
         },
         {
@@ -400,7 +396,7 @@
           "price": 65,
           "image": "https://khbookshop.com/wp-content/uploads/2023/06/Untitled-15.jpg",
           "format": "Paperback",
-          "genre": "Design",
+          "category": "Design",
           "quantity": 1
         },
         {
@@ -412,7 +408,7 @@
           "price": 52,
           "image": "https://khbookshop.com/wp-content/uploads/2020/11/%E1%9F%A1%E1%9F%A0%E1%9F%A0%E1%9E%9A%E1%9E%BF%E1%9E%84-%E1%9E%8A%E1%9F%82%E1%9E%9B%E1%9E%82%E1%9E%BD%E1%9E%9A%E1%9E%99%E1%9E%9B%E1%9F%8B%E1%9E%8A%E1%9E%B9%E1%9E%84%E1%9E%96%E1%9E%B8%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%91%E1%9F%81%E1%9E%9F%E1%9E%A0%E1%9F%92%E1%9E%9C%E1%9F%8A%E1%9E%B8%E1%9E%9B%E1%9E%B8%E1%9E%96%E1%9E%B7%E1%9E%93.jpg",
           "format": "Hardcover",
-          "genre": "Design",
+          "category": "Design",
           "quantity": 1
         }
       ],
@@ -422,6 +418,34 @@
       "status": "pending",
       "createdAt": "2026-09-09T15:58:21.453Z",
       "id": "rucquU0CjCk"
+    },
+    {
+      "customerName": "Kak Developer",
+      "email": "john@gmail.com",
+      "phone": "098456789",
+      "address": "123 Street City",
+      "city": "Phnom Penh",
+      "postalCode": "1300",
+      "items": [
+        {
+          "id": "oYdMEhNBTeg",
+          "productId": "5",
+          "title": "កំពូលអ្នកលក់លើលោក",
+          "shortTitle": "កំពូលអ្នកលក់លើលោក",
+          "author": "E. H. Gombrich",
+          "price": 72,
+          "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-7.jpg",
+          "format": "Hardcover",
+          "category": "Art History",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 72,
+      "shipping": 5,
+      "total": 77,
+      "status": "pending",
+      "createdAt": "2026-09-10T13:16:00.372Z",
+      "id": "s6owAeytQlw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

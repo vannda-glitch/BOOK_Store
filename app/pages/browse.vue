@@ -13,12 +13,13 @@ const API_URL = 'http://localhost:8000'
 // ========================================
 
 const books = ref<any[]>([])
+const categoryRecords = ref<any[]>([])
 
 // ========================================
 // Filter State
 // ========================================
 
-const selectedGenre = ref('All')
+const selectedCategory = ref('All')
 const selectedPrice = ref('All')
 const selectedFormat = ref('All')
 const sortBy = ref('Relevance')
@@ -49,32 +50,15 @@ const { addToCart } = useCart()
 // Filter Options
 // ========================================
 
-const genres = [
-  {
-    name: 'All',
-    count: 0
-  },
-  {
-    name: 'Fiction',
-    count: 0
-  },
-  {
-    name: 'Typography',
-    count: 0
-  },
-  {
-    name: 'Design',
-    count: 0
-  },
-  {
-    name: 'Business',
-    count: 0
-  },
-  {
-    name: 'Technology',
-    count: 0
-  }
-]
+const categories = computed(() => [
+  { name: 'All', count: books.value.length },
+  ...categoryRecords.value.map(category => ({
+    name: category.name,
+    count: books.value.filter(book =>
+      normalizeSearchText(book.category) === normalizeSearchText(category.name)
+    ).length
+  }))
+])
 
 const priceRanges = [
   'All',
@@ -115,6 +99,25 @@ const getAllBooks = async () => {
 
 }
 
+const getAllCategories = async () => {
+
+  try {
+
+    categoryRecords.value = await $fetch<any[]>(
+      `${API_URL}/categories`
+    )
+
+  } catch (error) {
+
+    console.error(
+      'Failed to fetch categories:',
+      error
+    )
+
+  }
+
+}
+
 // ========================================
 // Search From Navbar
 // ========================================
@@ -126,6 +129,20 @@ watch(
 
     searchQuery.value =
       String(value || '')
+
+  },
+
+  {
+    immediate: true
+  }
+)
+
+watch(
+  () => route.query.category,
+
+  (value) => {
+
+    selectedCategory.value = String(value || 'All')
 
   },
 
@@ -152,9 +169,9 @@ const filteredBooks = computed(() => {
     const title = normalizeSearchText(book.title)
     const shortTitle = normalizeSearchText(book.shortTitle)
     const author = normalizeSearchText(book.author)
-    const genre = normalizeSearchText(book.genre)
+    const category = normalizeSearchText(book.category)
     const format = normalizeSearchText(book.format)
-    const searchableText = `${title} ${shortTitle} ${author} ${genre} ${format}`
+    const searchableText = `${title} ${shortTitle} ${author} ${category} ${format}`
 
     const matchesSearch =
       searchTerms.length === 0 ||
@@ -162,13 +179,13 @@ const filteredBooks = computed(() => {
 
 
     // ====================================
-    // GENRE
+    // CATEGORY
     // ====================================
 
-    const matchesGenre =
-      selectedGenre.value === 'All' ||
-      String(book.genre || '').toLowerCase() ===
-        selectedGenre.value.toLowerCase()
+    const matchesCategory =
+      selectedCategory.value === 'All' ||
+      String(book.category || '').toLowerCase() ===
+        selectedCategory.value.toLowerCase()
 
 
     // ====================================
@@ -225,7 +242,7 @@ const filteredBooks = computed(() => {
 
     return (
       matchesSearch &&
-      matchesGenre &&
+      matchesCategory &&
       matchesPrice &&
       matchesFormat
     )
@@ -281,14 +298,14 @@ const filteredBooks = computed(() => {
         const title = normalizeSearchText(book.title)
         const shortTitle = normalizeSearchText(book.shortTitle)
         const author = normalizeSearchText(book.author)
-        const genre = normalizeSearchText(book.genre)
+        const category = normalizeSearchText(book.category)
         let total = 0
 
         for (const term of searchTerms) {
           if (title.startsWith(term) || shortTitle.startsWith(term)) total += 5
           else if (title.includes(term) || shortTitle.includes(term)) total += 4
           else if (author.includes(term)) total += 3
-          else if (genre.includes(term)) total += 1
+          else if (category.includes(term)) total += 1
         }
 
         return total
@@ -305,12 +322,12 @@ const filteredBooks = computed(() => {
 })
 
 // ========================================
-// Select Genre
+// Select Category
 // ========================================
 
-const selectGenre = (genre: string) => {
+const selectCategory = (category: string) => {
 
-  selectedGenre.value = genre
+  selectedCategory.value = category
 
 }
 
@@ -340,7 +357,7 @@ const selectFormat = (format: string) => {
 
 const resetFilters = () => {
 
-  selectedGenre.value = 'All'
+  selectedCategory.value = 'All'
 
   selectedPrice.value = 'All'
 
@@ -360,7 +377,10 @@ const resetFilters = () => {
 
 onMounted(() => {
 
-  getAllBooks()
+  Promise.all([
+    getAllBooks(),
+    getAllCategories()
+  ])
 
 })
 
@@ -528,7 +548,7 @@ const scrollToTop = () => {
 
       <div
         v-if="
-          selectedGenre !== 'All' ||
+          selectedCategory !== 'All' ||
           selectedPrice !== 'All' ||
           selectedFormat !== 'All' ||
           searchQuery
@@ -569,16 +589,16 @@ const scrollToTop = () => {
         </button>
 
 
-        <!-- Genre -->
+        <!-- Category -->
 
         <button
-          v-if="selectedGenre !== 'All'"
+          v-if="selectedCategory !== 'All'"
           type="button"
           class="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-medium text-gray-700 shadow-sm"
-          @click="selectedGenre = 'All'"
+          @click="selectedCategory = 'All'"
         >
 
-          {{ selectedGenre }}
+          {{ selectedCategory }}
 
           <span
             class="text-gray-400 group-hover:text-black"
@@ -684,7 +704,7 @@ const scrollToTop = () => {
 
             <button
               v-if="
-                selectedGenre !== 'All' ||
+                selectedCategory !== 'All' ||
                 selectedPrice !== 'All' ||
                 selectedFormat !== 'All'
               "
@@ -699,7 +719,7 @@ const scrollToTop = () => {
 
 
           <!-- ================================================= -->
-          <!-- GENRE -->
+          <!-- CATEGORY -->
           <!-- ================================================= -->
 
           <section>
@@ -707,23 +727,23 @@ const scrollToTop = () => {
             <h3
               class="mb-3 text-xs font-semibold text-gray-950"
             >
-              Genre
+              Category
             </h3>
 
 
             <div class="space-y-1">
 
               <button
-                v-for="genre in genres"
-                :key="genre.name"
+                v-for="category in categories"
+                :key="category.name"
                 type="button"
                 class="group flex w-full items-center justify-between rounded-lg px-2 py-2.5 text-left transition"
                 :class="
-                  selectedGenre === genre.name
+                  selectedCategory === category.name
                     ? 'bg-gray-100'
                     : 'hover:bg-gray-50'
                 "
-                @click="selectGenre(genre.name)"
+                @click="selectCategory(category.name)"
               >
 
                 <div
@@ -735,14 +755,14 @@ const scrollToTop = () => {
                   <span
                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition"
                     :class="
-                      selectedGenre === genre.name
+                      selectedCategory === category.name
                         ? 'border-black bg-black'
                         : 'border-gray-300 bg-white group-hover:border-gray-500'
                     "
                   >
 
                     <svg
-                      v-if="selectedGenre === genre.name"
+                      v-if="selectedCategory === category.name"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -765,12 +785,12 @@ const scrollToTop = () => {
                   <span
                     class="text-xs"
                     :class="
-                      selectedGenre === genre.name
+                      selectedCategory === category.name
                         ? 'font-semibold text-gray-950'
                         : 'text-gray-500 group-hover:text-gray-900'
                     "
                   >
-                    {{ genre.name }}
+                    {{ category.name }}
                   </span>
 
                 </div>
@@ -779,10 +799,10 @@ const scrollToTop = () => {
                 <!-- Count -->
 
                 <span
-                  v-if="genre.name !== 'All'"
+                  v-if="category.name !== 'All'"
                   class="text-[10px] text-gray-400"
                 >
-                  {{ genre.count }}
+                  {{ category.count }}
                 </span>
 
               </button>
@@ -1144,10 +1164,10 @@ const scrollToTop = () => {
                 >
 
                   <span
-                    v-if="book.genre"
+                    v-if="book.category"
                     class="rounded-full bg-gray-100 px-2.5 py-1 text-[9px] font-medium text-gray-600"
                   >
-                    {{ book.genre }}
+                    {{ book.category }}
                   </span>
 
 
@@ -1268,10 +1288,10 @@ const scrollToTop = () => {
               >
 
                 <span
-                  v-if="selectedGenre !== 'All'"
+                  v-if="selectedCategory !== 'All'"
                   class="rounded-full bg-gray-100 px-3 py-1 text-[10px] text-gray-600"
                 >
-                  {{ selectedGenre }}
+                  {{ selectedCategory }}
                 </span>
 
                 <span

@@ -343,7 +343,7 @@ onBeforeUnmount(() => {
               placeholder="Search title, author..."
               aria-label="Search books"
               autocomplete="off"
-              class="min-w-0 flex-1 border-0 bg-transparent px-2 py-2 text-sm text-gray-900 outline-none ring-0 placeholder:text-gray-400 focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none"
+              class="min-w-0 flex-1 appearance-none border-none bg-transparent px-2 py-2 text-sm text-gray-900 outline-none ring-0 placeholder:text-gray-400 focus:border-none focus:outline-none focus:ring-0 focus:shadow-none focus-visible:outline-none"
               @keydown="handleSearchKeydown"
             />
 

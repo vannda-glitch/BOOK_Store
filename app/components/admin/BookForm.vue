@@ -14,7 +14,7 @@ const form = ref({
   shortTitle: props.book?.shortTitle || '',
   author: props.book?.author || '',
   price: props.book?.price || 0,
-  genre: props.book?.genre || '',
+  category: props.book?.category || '',
   format: props.book?.format || '',
   image: props.book?.image || '',
   rating: props.book?.rating || 5,
@@ -60,8 +60,8 @@ const handleSubmit = () => {
             <input v-model.number="form.price" type="number" step="0.01" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700">Genre</label>
-            <input v-model="form.genre" type="text" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
+            <label class="block text-sm font-medium text-gray-700">Category</label>
+            <input v-model="form.category" type="text" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">

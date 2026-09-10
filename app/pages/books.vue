@@ -125,8 +125,8 @@ const getRelatedBooks = async () => {
     relatedBooks.value = response
       .filter(item =>
         String(item.id) !== String(book.value.id) &&
-        String(item.genre || '').toLowerCase() ===
-        String(book.value.genre || '').toLowerCase()
+        String(item.category || '').toLowerCase() ===
+        String(book.value.category || '').toLowerCase()
       )
       .slice(0, 3)
 
@@ -409,13 +409,13 @@ onMounted(async () => {
               <p
                 class="text-[9px] uppercase tracking-wider text-gray-400"
               >
-                Genre
+                Category
               </p>
 
               <p
                 class="mt-1 truncate text-xs font-semibold text-gray-900"
               >
-                {{ book.genre || 'N/A' }}
+                {{ book.category || 'N/A' }}
               </p>
 
             </div>
@@ -452,17 +452,17 @@ onMounted(async () => {
           class="flex flex-col justify-center"
         >
 
-          <!-- Genre -->
+          <!-- Category -->
 
           <div
             class="flex flex-wrap items-center gap-2"
           >
 
             <span
-              v-if="book.genre"
+              v-if="book.category"
               class="rounded-full bg-gray-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-gray-600"
             >
-              {{ book.genre }}
+              {{ book.category }}
             </span>
 
             <span
@@ -755,7 +755,7 @@ onMounted(async () => {
               </div>
 
 
-              <!-- Genre -->
+              <!-- Category -->
 
               <div
                 class="flex items-center justify-between border-b border-gray-100 pb-4"
@@ -764,13 +764,13 @@ onMounted(async () => {
                 <span
                   class="text-xs text-gray-400"
                 >
-                  Genre
+                  Category
                 </span>
 
                 <span
                   class="text-xs font-semibold text-gray-800"
                 >
-                  {{ book.genre }}
+                  {{ book.category }}
                 </span>
 
               </div>
@@ -863,7 +863,7 @@ onMounted(async () => {
             </span>.
             This book is part of our
             <span class="font-medium text-gray-700">
-              {{ book.genre }}
+              {{ book.category }}
             </span>
             collection and is available in
             <span class="font-medium text-gray-700">

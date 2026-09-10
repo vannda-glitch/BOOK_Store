@@ -166,8 +166,8 @@ onMounted(async () => {
               <p class="mt-1 text-xs font-semibold text-gray-900">{{ book.format || 'N/A' }}</p>
             </div>
             <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
-              <p class="text-[9px] uppercase tracking-wider text-gray-400">Genre</p>
-              <p class="mt-1 truncate text-xs font-semibold text-gray-900">{{ book.genre || 'N/A' }}</p>
+              <p class="text-[9px] uppercase tracking-wider text-gray-400">Category</p>
+              <p class="mt-1 truncate text-xs font-semibold text-gray-900">{{ book.category || 'N/A' }}</p>
             </div>
             <div class="rounded-xl border border-gray-200 bg-white p-4 text-center">
               <p class="text-[9px] uppercase tracking-wider text-gray-400">Rating</p>
@@ -180,10 +180,10 @@ onMounted(async () => {
         <!-- Product Information -->
         <div class="flex flex-col justify-center">
 
-          <!-- Genre Tags -->
+          <!-- Category Tags -->
           <div class="flex flex-wrap items-center gap-2">
-            <span v-if="book.genre" class="rounded-full bg-gray-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-gray-600">
-              {{ book.genre }}
+              <span v-if="book.category" class="rounded-full bg-gray-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-gray-600">
+                {{ book.category }}
             </span>
             <span v-if="book.format" class="rounded-full bg-gray-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-gray-600">
               {{ book.format }}
@@ -263,8 +263,8 @@ onMounted(async () => {
                 <span class="text-xs font-semibold text-gray-800">{{ book.author }}</span>
               </div>
               <div class="flex items-center justify-between border-b border-gray-100 pb-4">
-                <span class="text-xs text-gray-400">Genre</span>
-                <span class="text-xs font-semibold text-gray-800">{{ book.genre }}</span>
+                <span class="text-xs text-gray-400">Category</span>
+                <span class="text-xs font-semibold text-gray-800">{{ book.category }}</span>
               </div>
               <div class="flex items-center justify-between border-b border-gray-100 pb-4">
                 <span class="text-xs text-gray-400">Format</span>
@@ -288,7 +288,7 @@ onMounted(async () => {
           <h2 class="mt-2 font-serif text-3xl font-bold text-gray-950">{{ book.shortTitle || book.title }}</h2>
           <p class="mt-5 text-sm leading-7 text-gray-500">
             Discover <span class="font-medium text-gray-700">{{ book.title }}</span> by <span class="font-medium text-gray-700">{{ book.author }}</span>.
-            This book is part of our <span class="font-medium text-gray-700">{{ book.genre }}</span> collection and is available in <span class="font-medium text-gray-700">{{ book.format }}</span> format.
+            This book is part of our <span class="font-medium text-gray-700">{{ book.category }}</span> collection and is available in <span class="font-medium text-gray-700">{{ book.format }}</span> format.
           </p>
         </div>
       </section>

@@ -22,7 +22,7 @@ const emit = defineEmits<{
           <tr>
             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Book</th>
             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Author</th>
-            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Genre</th>
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Category</th>
             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Price</th>
             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Rating</th>
             <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
@@ -40,7 +40,7 @@ const emit = defineEmits<{
               </div>
             </td>
             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ book.author }}</td>
-            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ book.genre }}</td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ book.category }}</td>
             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">${{ Number(book.price).toFixed(2) }}</td>
             <td class="whitespace-nowrap px-6 py-4">
               <div class="flex items-center gap-1">

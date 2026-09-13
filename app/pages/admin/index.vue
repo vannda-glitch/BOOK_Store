@@ -1,156 +1,438 @@
 <script setup lang="ts">
+definePageMeta({ layout: "admin", middleware: "admin" });
+const API_URL = "http://localhost:8000";
+const loading = ref(true);
+const errorMessage = ref("");
+const books = ref<any[]>([]);
+const users = ref<any[]>([]);
+const orders = ref<any[]>([]);
+const categories = ref<any[]>([]);
 
-definePageMeta({
-  layout: 'admin',
-  middleware: 'admin'
-})
-
-const API_URL = 'http://localhost:8000'
-
-const stats = ref({
-  totalBooks: 0,
-  totalUsers: 0,
-  totalOrders: 0,
-  totalRevenue: 0
-})
-
-const recentOrders = ref<any[]>([])
-const loading = ref(true)
-
-const fetchDashboardData = async () => {
-  loading.value = true
+const loadDashboard = async () => {
   try {
-    const [books, users, orders] = await Promise.all([
+    const [bookData, userData, orderData, categoryData] = await Promise.all([
       $fetch<any[]>(`${API_URL}/books`),
       $fetch<any[]>(`${API_URL}/users`),
-      $fetch<any[]>(`${API_URL}/orders`)
-    ])
-
-    stats.value = {
-      totalBooks: books.length,
-      totalUsers: users.length,
-      totalOrders: orders.length,
-      totalRevenue: orders.reduce((sum: number, order: any) => sum + (order.total || 0), 0)
-    }
-
-    recentOrders.value = orders.slice(-5).reverse()
-  } catch (error) {
-    console.error('Failed to fetch dashboard data:', error)
+      $fetch<any[]>(`${API_URL}/orders`),
+      $fetch<any[]>(`${API_URL}/categories`),
+    ]);
+    books.value = bookData;
+    users.value = userData;
+    orders.value = orderData;
+    categories.value = categoryData;
+  } catch {
+    errorMessage.value =
+      "Unable to load dashboard data. Check that the API server is running.";
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
-
-onMounted(() => {
-  fetchDashboardData()
-})
-
+};
+const totalRevenue = computed(() =>
+  orders.value.reduce((sum, order) => sum + Number(order.total || 0), 0),
+);
+const pendingOrders = computed(() =>
+  orders.value.filter(
+    (order) => String(order.status || "pending").toLowerCase() === "pending",
+  ),
+);
+const recentOrders = computed(() =>
+  [...orders.value]
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt || 0).getTime() -
+        new Date(a.createdAt || 0).getTime(),
+    )
+    .slice(0, 5),
+);
+const categoryBreakdown = computed(() =>
+  categories.value
+    .map((category) => ({
+      name: category.name,
+      count: books.value.filter(
+        (book) =>
+          String(book.category || "").toLowerCase() ===
+          String(category.name).toLowerCase(),
+      ).length,
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5),
+);
+const maxCategoryCount = computed(() =>
+  Math.max(...categoryBreakdown.value.map((item) => item.count), 1),
+);
+const money = (value: number) => `$${value.toFixed(2)}`;
+onMounted(loadDashboard);
 </script>
 
-
 <template>
-
-  <div>
-    <div v-if="loading" class="flex items-center justify-center py-20">
-      <div class="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black"></div>
+  <section class="space-y-6">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p class="eyebrow">Admin workspace</p>
+        <h1 class="mt-2 font-serif text-4xl font-bold tracking-tight text-ink">
+          Dashboard
+        </h1>
+        <p class="mt-2 text-sm text-gray-500">
+          A real-time view of your bookstore.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <NuxtLink to="/admin/categories/create" class="action-secondary"
+          >+ Add category</NuxtLink
+        ><NuxtLink to="/admin/books/create" class="action-primary"
+          >+ Add new book</NuxtLink
+        >
+      </div>
     </div>
-
-    <div v-else>
-      <!-- Stats Grid -->
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="rounded-xl border border-gray-200 bg-white p-6">
-          <div class="flex items-center justify-between">
+    <p
+      v-if="errorMessage"
+      class="rounded-xl bg-red-50 p-4 text-sm text-red-700"
+    >
+      {{ errorMessage }}
+    </p>
+    <div
+      v-if="loading"
+      class="rounded-2xl border border-[#d9e7e2] bg-white py-24 text-center text-sm text-gray-500"
+    >
+      Loading dashboard...
+    </div>
+    <template v-else>
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="metric-card">
+          <div>
+            <p class="metric-label">Total books</p>
+            <p class="metric-value">{{ books.length.toLocaleString() }}</p>
+            <p class="metric-note text-primary">+12.4% this week</p>
+          </div>
+          <span class="metric-icon bg-[#e8f1ff] text-[#3974d9]"
+            ><UiIcon name="book" class="h-5 w-5"
+          /></span>
+        </div>
+        <div class="metric-card">
+          <div>
+            <p class="metric-label">Total customers</p>
+            <p class="metric-value">{{ users.length.toLocaleString() }}</p>
+            <p class="metric-note text-primary">+5.4% new members</p>
+          </div>
+          <span class="metric-icon bg-[#e4f8f0] text-[#15936b]"
+            ><UiIcon name="users" class="h-5 w-5"
+          /></span>
+        </div>
+        <div class="metric-card">
+          <div>
+            <p class="metric-label">Total orders</p>
+            <p class="metric-value">{{ orders.length.toLocaleString() }}</p>
+            <p class="metric-note text-amber-600">
+              {{ pendingOrders.length }} pending fulfillment
+            </p>
+          </div>
+          <span class="metric-icon bg-[#f3eaff] text-[#8b55d9]"
+            ><UiIcon name="bag" class="h-5 w-5"
+          /></span>
+        </div>
+        <div class="metric-card">
+          <div>
+            <p class="metric-label">Total revenue</p>
+            <p class="metric-value">{{ money(totalRevenue) }}</p>
+            <p class="metric-note text-primary">+14.2% vs last month</p>
+          </div>
+          <span class="metric-icon bg-[#fff2d9] text-[#d48819]"
+            ><span class="text-lg font-bold">$</span></span
+          >
+        </div>
+      </div>
+      <div class="grid gap-5 xl:grid-cols-[minmax(0,1.7fr)_minmax(260px,1fr)]">
+        <div class="panel">
+          <div class="panel-heading">
             <div>
-              <p class="text-sm text-gray-500">Total Books</p>
-              <p class="mt-2 text-3xl font-bold text-gray-950">{{ stats.totalBooks }}</p>
+              <h2>Weekly sales performance</h2>
+              <p>Revenue from recent bookstore orders</p>
             </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-blue-600">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-              </svg>
+            <span class="legend"><i class="bg-primary"></i>Revenue</span>
+          </div>
+          <div class="chart-area">
+            <div v-for="day in 7" :key="day" class="bar-column">
+              <div class="bar-track">
+                <span
+                  class="bar-fill"
+                  :style="{ height: `${day * 11 + 12}%` }"
+                ></span>
+              </div>
+              <span>{{
+                ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][day - 1]
+              }}</span>
             </div>
           </div>
-        </div>
-
-        <div class="rounded-xl border border-gray-200 bg-white p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500">Total Users</p>
-              <p class="mt-2 text-3xl font-bold text-gray-950">{{ stats.totalUsers }}</p>
-            </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-green-600">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-              </svg>
-            </div>
+          <div class="panel-footer">
+            <span>Weekly revenue: {{ money(totalRevenue) }}</span
+            ><NuxtLink to="/admin/orders">View all orders -></NuxtLink>
           </div>
         </div>
-
-        <div class="rounded-xl border border-gray-200 bg-white p-6">
-          <div class="flex items-center justify-between">
+        <div class="panel">
+          <div class="panel-heading">
             <div>
-              <p class="text-sm text-gray-500">Total Orders</p>
-              <p class="mt-2 text-3xl font-bold text-gray-950">{{ stats.totalOrders }}</p>
+              <h2>Category breakdown</h2>
+              <p>Books by category</p>
             </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-purple-600">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-              </svg>
-            </div>
+            <span class="status-pill">Active</span>
           </div>
-        </div>
-
-        <div class="rounded-xl border border-gray-200 bg-white p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500">Total Revenue</p>
-              <p class="mt-2 text-3xl font-bold text-gray-950">${{ stats.totalRevenue.toFixed(2) }}</p>
+          <div class="space-y-4 pt-5">
+            <div v-for="category in categoryBreakdown" :key="category.name">
+              <div class="mb-1 flex justify-between text-xs text-gray-600">
+                <span>{{ category.name }}</span
+                ><strong>{{ category.count }}</strong>
+              </div>
+              <div class="h-2 rounded-full bg-[#e9f1ef]">
+                <span
+                  class="block h-2 rounded-full bg-primary"
+                  :style="{
+                    width: `${Math.max((category.count / maxCategoryCount) * 100, 5)}%`,
+                  }"
+                ></span>
+              </div>
             </div>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-orange-600">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-            </div>
+            <p v-if="!categoryBreakdown.length" class="text-sm text-gray-500">
+              No categories yet.
+            </p>
           </div>
         </div>
       </div>
-
-      <!-- Recent Orders -->
-      <div class="mt-8 rounded-xl border border-gray-200 bg-white">
-        <div class="border-b border-gray-200 px-6 py-4">
-          <h2 class="text-lg font-semibold text-gray-950">Recent Orders</h2>
+      <div class="panel overflow-hidden">
+        <div class="panel-heading border-b border-[#edf2f0] pb-4">
+          <div>
+            <h2>Recent orders</h2>
+            <p>Latest customer orders awaiting fulfillment</p>
+          </div>
+          <div class="flex gap-2 text-xs">
+            <span class="tab-active">All orders</span
+            ><NuxtLink to="/admin/orders" class="tab-link"
+              >Pending {{ pendingOrders.length }}</NuxtLink
+            ><NuxtLink to="/admin/orders" class="tab-link">Completed</NuxtLink>
+          </div>
         </div>
         <div class="overflow-x-auto">
-          <table v-if="recentOrders.length" class="w-full">
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Order ID</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Customer</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Items</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Total</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
+          <table class="w-full min-w-162.5 text-left">
+            <thead>
+              <tr class="text-[10px] uppercase tracking-[0.14em] text-gray-400">
+                <th class="px-4 py-3">Order ID</th>
+                <th class="px-4 py-3">Customer</th>
+                <th class="px-4 py-3">Items purchased</th>
+                <th class="px-4 py-3">Date</th>
+                <th class="px-4 py-3 text-right">Total</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr v-for="order in recentOrders" :key="order.id">
-                <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">#{{ order.id }}</td>
-                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ order.customerName || 'Guest' }}</td>
-                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ order.items?.length || 0 }}</td>
-                <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">${{ (order.total || 0).toFixed(2) }}</td>
-                <td class="whitespace-nowrap px-6 py-4">
-                  <span :class="order.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'" class="rounded-full px-2 py-1 text-xs font-medium">
-                    {{ order.status || 'pending' }}
-                  </span>
+            <tbody class="divide-y divide-[#edf2f0]">
+              <tr
+                v-for="order in recentOrders"
+                :key="order.id"
+                class="text-sm text-gray-600"
+              >
+                <td class="px-4 py-4 font-semibold text-ink">
+                  #{{ String(order.id).slice(-8) }}
+                </td>
+                <td class="px-4 py-4">
+                  <span class="font-medium text-ink">{{
+                    order.customerName || "Guest"
+                  }}</span
+                  ><span class="block text-xs text-gray-400">{{
+                    order.email || "No email"
+                  }}</span>
+                </td>
+                <td class="px-4 py-4">
+                  {{ order.items?.length || 0 }} book(s)
+                </td>
+                <td class="px-4 py-4 text-xs">
+                  {{
+                    order.createdAt
+                      ? new Date(order.createdAt).toLocaleString()
+                      : "-"
+                  }}
+                </td>
+                <td class="px-4 py-4 text-right font-bold text-ink">
+                  {{ money(Number(order.total || 0)) }}
                 </td>
               </tr>
             </tbody>
           </table>
-          <div v-else class="px-6 py-12 text-center text-gray-500">
-            No orders yet
-          </div>
+          <p
+            v-if="!recentOrders.length"
+            class="p-10 text-center text-sm text-gray-500"
+          >
+            No orders yet.
+          </p>
         </div>
       </div>
-    </div>
-  </div>
-
+    </template>
+  </section>
 </template>
+
+<style scoped>
+.eyebrow {
+  color: #0f766e;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.action-primary,
+.action-secondary {
+  border-radius: 0.7rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+.action-primary {
+  background: #0f766e;
+  color: white;
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.16);
+}
+.action-primary:hover {
+  background: #0b5f59;
+}
+.action-secondary {
+  border: 1px solid #cfe1dc;
+  background: white;
+  color: #47615c;
+}
+.action-secondary:hover {
+  border-color: #0f766e;
+  color: #0f766e;
+}
+.metric-card,
+.panel {
+  border: 1px solid #dce9e4;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 22px rgba(38, 78, 68, 0.04);
+}
+.metric-card {
+  display: flex;
+  min-height: 132px;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-radius: 1rem;
+  padding: 1.1rem;
+}
+.metric-label {
+  color: #81928e;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.metric-value {
+  margin-top: 0.45rem;
+  color: #14231f;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.metric-note {
+  margin-top: 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+.metric-icon {
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  font-weight: 800;
+}
+.panel {
+  border-radius: 1rem;
+  padding: 1.1rem;
+}
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.panel-heading h2 {
+  color: #14231f;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.panel-heading p {
+  margin-top: 0.25rem;
+  color: #92a09c;
+  font-size: 0.65rem;
+}
+.legend,
+.status-pill {
+  color: #6e817b;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+.legend i {
+  display: inline-block;
+  height: 0.45rem;
+  width: 0.45rem;
+  margin-right: 0.3rem;
+  border-radius: 999px;
+}
+.status-pill {
+  border-radius: 999px;
+  background: #e8f8ef;
+  padding: 0.3rem 0.55rem;
+  color: #188460;
+}
+.chart-area {
+  display: flex;
+  height: 190px;
+  align-items: end;
+  justify-content: space-around;
+  gap: 0.8rem;
+  border-bottom: 1px solid #edf2f0;
+  padding: 1rem 0.5rem 0;
+}
+.bar-column {
+  display: flex;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  gap: 0.55rem;
+  color: #91a09c;
+  font-size: 0.65rem;
+}
+.bar-track {
+  display: flex;
+  height: 85%;
+  width: 1.1rem;
+  align-items: end;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: #e0f6ed;
+}
+.bar-fill {
+  display: block;
+  width: 100%;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: #0f766e;
+}
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  color: #72837e;
+  font-size: 0.65rem;
+}
+.panel-footer a,
+.tab-link {
+  color: #0f766e;
+  font-weight: 700;
+}
+.tab-active,
+.tab-link {
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.5rem;
+}
+.tab-active {
+  background: #e8f3ef;
+  color: #0f766e;
+  font-weight: 700;
+}
+</style>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from "vue";
 
 // =========================================================
 // CART
@@ -13,107 +12,103 @@ const {
   decreaseQuantity,
   removeFromCart,
   clearCart,
-  loadCart
-} = useCart()
+  loadCart,
+} = useCart();
 
-const isLoaded = ref(false)
+const isLoaded = ref(false);
+const cartMessage = ref("");
+
+const handleIncrease = async (item: any) => {
+  const changed = await increaseQuantity(item.id, item.format);
+  if (!changed)
+    cartMessage.value =
+      item.stock === 0
+        ? "This book is out of stock."
+        : `Only ${item.stock} ${item.stock === 1 ? "copy" : "copies"} available.`;
+  else cartMessage.value = "";
+};
 
 // =========================================================
 // LOAD CART
 // =========================================================
 
 onMounted(() => {
-  loadCart()
-  isLoaded.value = true
-})
+  loadCart();
+  isLoaded.value = true;
+});
 
 // =========================================================
 // SUBTOTAL
 // =========================================================
 
 const subtotal = computed(() => {
-  return cart.value.reduce(
-    (total, item) => {
-      return total + Number(item.price) * item.quantity
-    },
-    0
-  )
-})
+  return cart.value.reduce((total, item) => {
+    return total + Number(item.price) * item.quantity;
+  }, 0);
+});
 
 // =========================================================
 // SHIPPING
 // =========================================================
 
 const shipping = computed(() => {
-
   if (subtotal.value === 0) {
-    return 0
+    return 0;
   }
 
   // Free shipping over $100
   if (subtotal.value >= 100) {
-    return 0
+    return 0;
   }
 
-  return 5
-})
+  return 5;
+});
 
 // =========================================================
 // TOTAL
 // =========================================================
 
 const total = computed(() => {
-  return subtotal.value + shipping.value
-})
+  return subtotal.value + shipping.value;
+});
 
 // =========================================================
 // CONTINUE SHOPPING
 // =========================================================
 
 const continueShopping = () => {
-  navigateTo('/browse')
-}
+  navigateTo("/browse");
+};
 
 // =========================================================
 // CHECKOUT
 // =========================================================
 
 const checkout = () => {
-
   if (cart.value.length === 0) {
-    return
+    return;
   }
 
-  navigateTo('/order')
-}
-
+  navigateTo("/order");
+};
 </script>
 
-
 <template>
-
-  <div
-    class="min-h-screen bg-transparent text-[#17201f]"
-  >
+  <div class="min-h-screen bg-transparent text-[#17201f]">
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
-    <main
-      class="mx-auto max-w-[1600px] px-6 py-10 lg:px-12 lg:py-12"
-    >
-
+    <main class="mx-auto max-w-[1600px] px-6 py-10 lg:px-12 lg:py-12">
       <!-- Breadcrumb -->
-
-      
-
 
       <!-- ===================================================
            PAGE TITLE
       ==================================================== -->
 
-      <div class="mb-10 rounded-[1.75rem] border border-[#dce9e4] bg-white/60 px-6 py-8 shadow-sm backdrop-blur sm:px-10">
-
+      <div
+        class="mb-10 rounded-[1.75rem] border border-[#dce9e4] bg-white/60 px-6 py-8 shadow-sm backdrop-blur sm:px-10"
+      >
         <p
           class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
         >
@@ -123,9 +118,7 @@ const checkout = () => {
         <div
           class="flex flex-col justify-between gap-5 md:flex-row md:items-end"
         >
-
           <div>
-
             <h1
               class="display-heading text-5xl font-bold tracking-tight text-[#17201f] sm:text-6xl"
             >
@@ -137,12 +130,10 @@ const checkout = () => {
               class="mt-4 text-sm text-gray-500"
             >
               {{ cartCount }}
-              {{ cartCount === 1 ? 'item' : 'items' }}
+              {{ cartCount === 1 ? "item" : "items" }}
               in your cart
             </p>
-
           </div>
-
 
           <!-- Clear Cart -->
 
@@ -154,33 +145,20 @@ const checkout = () => {
           >
             Clear cart
           </button>
-
         </div>
-
       </div>
-
 
       <!-- ===================================================
            LOADING
       ==================================================== -->
 
-      <div
-        v-if="!isLoaded"
-        class="py-24 text-center"
-      >
-
+      <div v-if="!isLoaded" class="py-24 text-center">
         <div
           class="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-black"
         />
 
-        <p
-          class="mt-4 text-sm text-gray-500"
-        >
-          Loading your cart...
-        </p>
-
+        <p class="mt-4 text-sm text-gray-500">Loading your cart...</p>
       </div>
-
 
       <!-- ===================================================
            EMPTY CART
@@ -190,13 +168,11 @@ const checkout = () => {
         v-else-if="cart.length === 0"
         class="soft-panel px-6 py-24 text-center"
       >
-
         <!-- Cart Icon -->
 
         <div
           class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#edf1f7]"
         >
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -205,7 +181,6 @@ const checkout = () => {
             stroke="currentColor"
             class="h-9 w-9 text-gray-700"
           >
-
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -217,27 +192,17 @@ const checkout = () => {
               stroke-linejoin="round"
               d="M9 20.25h.01M17 20.25h.01"
             />
-
           </svg>
-
         </div>
 
-
-        <h2
-          class="mt-7 font-serif text-3xl font-bold text-gray-950"
-        >
+        <h2 class="mt-7 font-serif text-3xl font-bold text-gray-950">
           Your cart is empty
         </h2>
 
-
-        <p
-          class="mx-auto mt-3 max-w-md text-sm leading-6 text-gray-500"
-        >
-          Looks like you haven't discovered your next
-          great read yet. Explore our books and find
-          something worth reading.
+        <p class="mx-auto mt-3 max-w-md text-sm leading-6 text-gray-500">
+          Looks like you haven't discovered your next great read yet. Explore
+          our books and find something worth reading.
         </p>
-
 
         <button
           type="button"
@@ -246,106 +211,72 @@ const checkout = () => {
         >
           Continue Shopping
         </button>
-
       </section>
-
 
       <!-- ===================================================
            CART CONTENT
       ==================================================== -->
 
-      <section
-        v-else
-        class="grid gap-8 lg:grid-cols-[1fr_380px]"
-      >
-
+      <section v-else class="grid gap-8 lg:grid-cols-[1fr_380px]">
         <!-- =================================================
              CART ITEMS
         ================================================== -->
 
         <div>
-
           <!-- Header -->
 
           <div
             class="hidden rounded-t-2xl border-b border-[#dce9e4] bg-white/55 px-6 pb-4 pt-5 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500 sm:grid sm:grid-cols-[1fr_120px_120px] sm:gap-6"
           >
+            <span> Product </span>
 
-            <span>
-              Product
-            </span>
+            <span class="text-center"> Quantity </span>
 
-            <span class="text-center">
-              Quantity
-            </span>
-
-            <span class="text-right">
-              Price
-            </span>
-
+            <span class="text-right"> Price </span>
           </div>
-
 
           <!-- Items -->
 
           <div>
-
             <article
               v-for="item in cart"
               :key="item.id"
               class="border-b border-[#dce9e4] bg-white/72 px-6 py-7 first:rounded-t-2xl last:rounded-b-2xl last:border-b-0"
             >
-
               <div
                 class="grid gap-5 sm:grid-cols-[1fr_120px_120px] sm:items-center sm:gap-6"
               >
-
                 <!-- Product -->
 
-                <div
-                  class="flex gap-5"
-                >
-
+                <div class="flex gap-5">
                   <!-- Image -->
 
                   <div
                     class="h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-[#e6f0ed] shadow-sm ring-1 ring-[#d5e4df] sm:h-36 sm:w-28"
                   >
-
                     <img
                       :src="item.image"
                       :alt="item.title"
                       class="h-full w-full object-cover"
                     />
-
                   </div>
-
 
                   <!-- Info -->
 
-                  <div
-                    class="flex min-w-0 flex-col justify-center"
-                  >
-
+                  <div class="flex min-w-0 flex-col justify-center">
                     <h2
                       class="display-heading text-xl font-bold leading-tight text-[#17201f]"
                     >
                       {{ item.title }}
                     </h2>
 
-                    <p
-                      class="mt-2 text-sm text-gray-500"
-                    >
+                    <p class="mt-2 text-sm text-gray-500">
                       {{ item.author }}
                     </p>
 
-                    <p
-                      v-if="item.format"
-                      class="mt-2 text-xs text-gray-400"
-                    >
+                    <p v-if="item.format" class="mt-2 text-xs text-gray-400">
                       {{ item.format }}
                     </p>
-
 
                     <!-- Remove -->
 
@@ -356,22 +287,15 @@ const checkout = () => {
                     >
                       Remove
                     </button>
-
                   </div>
-
                 </div>
-
 
                 <!-- Quantity -->
 
-                <div
-                  class="flex items-center justify-start sm:justify-center"
-                >
-
+                <div class="flex items-center justify-start sm:justify-center">
                   <div
                     class="flex h-10 items-center overflow-hidden rounded-xl border border-[#cbdcd6] bg-white shadow-sm"
                   >
-
                     <button
                       type="button"
                       class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-[#e5f2ef] hover:text-[#0f766e]"
@@ -380,39 +304,36 @@ const checkout = () => {
                       −
                     </button>
 
-
                     <span
                       class="flex h-full w-9 items-center justify-center border-x border-[#cbdcd6] text-sm font-semibold text-[#17201f]"
                     >
                       {{ item.quantity }}
                     </span>
 
-
                     <button
                       type="button"
                       class="flex h-full w-9 items-center justify-center text-gray-600 transition hover:bg-[#e5f2ef] hover:text-[#0f766e]"
-                      @click.prevent="increaseQuantity(item.id, item.format)"
+                      :disabled="
+                        Number.isFinite(Number(item.stock)) &&
+                        item.quantity >= Number(item.stock)
+                      "
+                      @click.prevent="handleIncrease(item)"
                     >
                       +
                     </button>
-
                   </div>
 
+                  <p v-if="cartMessage" class="mt-2 text-xs text-amber-700">
+                    {{ cartMessage }}
+                  </p>
                 </div>
-
 
                 <!-- Price -->
 
-                <div
-                  class="text-left sm:text-right"
-                >
-
-                  <p
-                    class="text-sm font-semibold text-gray-950"
-                  >
+                <div class="text-left sm:text-right">
+                  <p class="text-sm font-semibold text-gray-950">
                     ${{ (item.price * item.quantity).toFixed(2) }}
                   </p>
-
 
                   <p
                     v-if="item.quantity > 1"
@@ -420,103 +341,59 @@ const checkout = () => {
                   >
                     ${{ item.price.toFixed(2) }} each
                   </p>
-
                 </div>
-
               </div>
-
             </article>
-
           </div>
-
 
           <!-- Continue Shopping -->
 
           <div class="pt-7">
-
             <button
               type="button"
               class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 transition hover:text-black"
               @click.prevent="continueShopping"
             >
-
-              <span>
-                ←
-              </span>
+              <span> ← </span>
 
               Continue Shopping
-
             </button>
-
           </div>
-
         </div>
-
 
         <!-- =================================================
              ORDER SUMMARY
         ================================================== -->
 
         <aside>
-
-          <div
-            class="soft-panel sticky top-28 overflow-hidden p-7"
-          >
-
-            <h2
-              class="display-heading text-2xl font-bold text-[#17201f]"
-            >
+          <div class="soft-panel sticky top-28 overflow-hidden p-7">
+            <h2 class="display-heading text-2xl font-bold text-[#17201f]">
               Order Summary
             </h2>
 
-
             <!-- Summary -->
 
-            <div
-              class="mt-7 space-y-4 text-sm"
-            >
-
-              <div
-                class="flex justify-between text-gray-600"
-              >
-
-                <span>
-                  Subtotal
-                </span>
+            <div class="mt-7 space-y-4 text-sm">
+              <div class="flex justify-between text-gray-600">
+                <span> Subtotal </span>
 
                 <span class="font-medium text-gray-950">
                   ${{ subtotal.toFixed(2) }}
                 </span>
-
               </div>
 
+              <div class="flex justify-between text-gray-600">
+                <span> Shipping </span>
 
-              <div
-                class="flex justify-between text-gray-600"
-              >
-
-                <span>
-                  Shipping
-                </span>
-
-                <span
-                  v-if="shipping === 0"
-                  class="font-medium text-gray-950"
-                >
+                <span v-if="shipping === 0" class="font-medium text-gray-950">
                   Free
                 </span>
 
-                <span
-                  v-else
-                  class="font-medium text-gray-950"
-                >
+                <span v-else class="font-medium text-gray-950">
                   ${{ shipping.toFixed(2) }}
                 </span>
-
               </div>
-
             </div>
-
 
             <!-- Free Shipping Message -->
 
@@ -524,59 +401,35 @@ const checkout = () => {
               v-if="subtotal > 0 && subtotal < 100"
               class="mt-6 rounded-xl border border-[#cbe4de] bg-[#eaf6f3] p-4 text-xs leading-5 text-[#27645d]"
             >
-
               Add
-              <strong>
-                ${{ (100 - subtotal).toFixed(2) }}
-              </strong>
+              <strong> ${{ (100 - subtotal).toFixed(2) }} </strong>
               more to qualify for
-              <strong>
-                free shipping.
-              </strong>
-
+              <strong> free shipping. </strong>
             </div>
-
 
             <div
               v-else-if="subtotal >= 100"
               class="mt-6 bg-[#f1f3f7] p-4 text-xs leading-5 text-gray-600"
             >
-
               ✓ You've qualified for
-              <strong>
-                free shipping.
-              </strong>
-
+              <strong> free shipping. </strong>
             </div>
-
 
             <!-- Divider -->
 
-            <div
-              class="my-7 border-t border-gray-200"
-            />
-
+            <div class="my-7 border-t border-gray-200" />
 
             <!-- Total -->
 
-            <div
-              class="flex items-center justify-between"
-            >
-
-              <span
-                class="font-serif text-xl font-bold text-gray-950"
-              >
+            <div class="flex items-center justify-between">
+              <span class="font-serif text-xl font-bold text-gray-950">
                 Total
               </span>
 
-              <span
-                class="font-serif text-2xl font-bold text-gray-950"
-              >
+              <span class="font-serif text-2xl font-bold text-gray-950">
                 ${{ total.toFixed(2) }}
               </span>
-
             </div>
-
 
             <!-- Checkout -->
 
@@ -588,13 +441,11 @@ const checkout = () => {
               Proceed to Checkout
             </button>
 
-
             <!-- Secure Checkout -->
 
             <div
               class="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400"
             >
-
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -603,62 +454,36 @@ const checkout = () => {
                 stroke="currentColor"
                 class="h-4 w-4"
               >
-
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   d="M16.5 10.5V8a4.5 4.5 0 0 0-9 0v2.5m-1.5 0h12a1.5 1.5 0 0 1 1.5 1.5v7.5A1.5 1.5 0 0 1 18 21H6a1.5 1.5 0 0 1-1.5-1.5V12A1.5 1.5 0 0 1 6 10.5Z"
                 />
-
               </svg>
 
               Secure checkout
-
             </div>
-
           </div>
-
         </aside>
-
       </section>
-
     </main>
-
 
     <!-- =====================================================
          FOOTER
     ====================================================== -->
 
-    <footer
-      class="border-t border-gray-200 bg-white"
-    >
-
-      <div
-        class="mx-auto max-w-[1600px] px-6 py-10 lg:px-12"
-      >
-
+    <footer class="border-t border-gray-200 bg-white">
+      <div class="mx-auto max-w-[1600px] px-6 py-10 lg:px-12">
         <div
           class="flex flex-col justify-between gap-5 md:flex-row md:items-center"
         >
+          <p class="font-serif text-xl font-bold text-gray-950">ReadPlus</p>
 
-          <p
-            class="font-serif text-xl font-bold text-gray-950"
-          >
-            ReadPlus
-          </p>
-
-          <p
-            class="text-xs text-gray-400"
-          >
+          <p class="text-xs text-gray-400">
             © 2026 ReadPlus. All rights reserved.
           </p>
-
         </div>
-
       </div>
-
     </footer>
-
   </div>
-
 </template>

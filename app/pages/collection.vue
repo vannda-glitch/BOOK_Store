@@ -1,10 +1,9 @@
 <script setup>
-
 // =========================================================
 // NAVIGATION
 // =========================================================
 
-const activeNav = ref('Collections')
+const activeNav = ref("Collections");
 
 // =========================================================
 // COLLECTION DATA
@@ -13,65 +12,71 @@ const activeNav = ref('Collections')
 const collections = [
   {
     id: 1,
-    name: 'Design & Creativity',
-    slug: 'design',
+    stock: 12,
+    name: "Design & Creativity",
+    slug: "design",
     description:
-      'Books about visual thinking, typography, creativity, branding, and the art of making.',
+      "Books about visual thinking, typography, creativity, branding, and the art of making.",
     image:
-      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=80',
-    count: 24
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=80",
+    count: 24,
   },
   {
     id: 2,
-    name: 'Art & Architecture',
-    slug: 'art',
+    stock: 8,
+    name: "Art & Architecture",
+    slug: "art",
     description:
-      'Explore architecture, art history, photography, and the people who shaped visual culture.',
+      "Explore architecture, art history, photography, and the people who shaped visual culture.",
     image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
-    count: 18
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+    count: 18,
   },
   {
     id: 3,
-    name: 'Modern Classics',
-    slug: 'classics',
+    stock: 4,
+    name: "Modern Classics",
+    slug: "classics",
     description:
-      'Timeless books that continue to influence designers, artists, thinkers, and creators.',
+      "Timeless books that continue to influence designers, artists, thinkers, and creators.",
     image:
-      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80',
-    count: 32
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
+    count: 32,
   },
   {
     id: 4,
-    name: 'Books for Creators',
-    slug: 'creators',
+    stock: 0,
+    name: "Books for Creators",
+    slug: "creators",
     description:
-      'Practical and inspiring books for designers, writers, developers, photographers, and makers.',
+      "Practical and inspiring books for designers, writers, developers, photographers, and makers.",
     image:
-      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1200&q=80',
-    count: 21
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1200&q=80",
+    count: 21,
   },
   {
     id: 5,
-    name: 'New & Noteworthy',
-    slug: 'new',
+    stock: 15,
+    name: "New & Noteworthy",
+    slug: "new",
     description:
-      'Recently published books selected for curious readers looking for something new.',
+      "Recently published books selected for curious readers looking for something new.",
     image:
-      'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
-    count: 16
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+    count: 16,
   },
   {
     id: 6,
-    name: 'Ideas & Culture',
-    slug: 'culture',
+    stock: 2,
+    name: "Ideas & Culture",
+    slug: "culture",
     description:
-      'Discover books exploring philosophy, society, technology, culture, and the world around us.',
+      "Discover books exploring philosophy, society, technology, culture, and the world around us.",
     image:
-      'https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80',
-    count: 27
-  }
-]
+      "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80",
+    count: 27,
+  },
+];
 
 // =========================================================
 // FEATURED BOOKS
@@ -80,145 +85,144 @@ const collections = [
 const books = [
   {
     id: 1,
-    title: 'The Elements of Typographic Style',
-    author: 'Robert Bringhurst',
+    title: "The Elements of Typographic Style",
+    author: "Robert Bringhurst",
     price: 45,
     rating: 5,
     reviews: 128,
-    collection: 'design',
-    format: 'Hardcover',
+    collection: "design",
+    format: "Hardcover",
     image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 2,
-    title: 'Grid Systems in Graphic Design',
-    author: 'Josef Müller-Brockmann',
+    title: "Grid Systems in Graphic Design",
+    author: "Josef Müller-Brockmann",
     price: 65,
     rating: 5,
     reviews: 342,
-    collection: 'design',
-    format: 'Hardcover',
+    collection: "design",
+    format: "Hardcover",
     image:
-      'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 3,
-    title: 'The Visual Display of Quantitative Information',
-    author: 'Edward R. Tufte',
+    title: "The Visual Display of Quantitative Information",
+    author: "Edward R. Tufte",
     price: 52,
     rating: 5,
     reviews: 89,
-    collection: 'design',
-    format: 'Paperback',
+    collection: "design",
+    format: "Paperback",
     image:
-      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 4,
-    title: 'Thinking with Type',
-    author: 'Ellen Lupton',
+    title: "Thinking with Type",
+    author: "Ellen Lupton",
     price: 38,
     rating: 4,
     reviews: 215,
-    collection: 'design',
-    format: 'Paperback',
+    collection: "design",
+    format: "Paperback",
     image:
-      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 5,
-    title: 'Ways of Seeing',
-    author: 'John Berger',
+    title: "Ways of Seeing",
+    author: "John Berger",
     price: 35,
     rating: 5,
     reviews: 176,
-    collection: 'art',
-    format: 'Paperback',
+    collection: "art",
+    format: "Paperback",
     image:
-      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 6,
-    title: 'The Story of Art',
-    author: 'E. H. Gombrich',
+    title: "The Story of Art",
+    author: "E. H. Gombrich",
     price: 58,
     rating: 5,
     reviews: 304,
-    collection: 'art',
-    format: 'Hardcover',
+    collection: "art",
+    format: "Hardcover",
     image:
-      'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 7,
-    title: 'The Design of Everyday Things',
-    author: 'Don Norman',
+    stock: 9,
+    title: "The Design of Everyday Things",
+    author: "Don Norman",
     price: 42,
     rating: 5,
     reviews: 421,
-    collection: 'creators',
-    format: 'Paperback',
+    collection: "creators",
+    format: "Paperback",
     image:
-      'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=700&q=80'
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=700&q=80",
   },
   {
     id: 8,
-    title: 'Steal Like an Artist',
-    author: 'Austin Kleon',
+    stock: 6,
+    title: "Steal Like an Artist",
+    author: "Austin Kleon",
     price: 25,
     rating: 4,
     reviews: 512,
-    collection: 'creators',
-    format: 'Paperback',
+    collection: "creators",
+    format: "Paperback",
     image:
-      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80'
-  }
-]
-
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80",
+  },
+];
 
 // =========================================================
 // STATE
 // =========================================================
 
-const selectedCollection = ref('all')
-const showCartMessage = ref(false)
+const selectedCollection = ref("all");
+const showCartMessage = ref(false);
 
 // =========================================================
 // CART - Using shared composable
 // =========================================================
 
-const { addToCart, loadCart } = useCart()
+const { addToCart, loadCart } = useCart();
+const { isFavorite, toggleWishlist, error: wishlistError } = useWishlist();
+const cartMessage = ref("");
 
 // =========================================================
 // FILTER BOOKS
 // =========================================================
 
 const filteredBooks = computed(() => {
-  if (selectedCollection.value === 'all') {
-    return books
+  if (selectedCollection.value === "all") {
+    return books;
   }
 
-  return books.filter(
-    book => book.collection === selectedCollection.value
-  )
-})
+  return books.filter((book) => book.collection === selectedCollection.value);
+});
 
 // =========================================================
 // SELECT COLLECTION
 // =========================================================
 
 function selectCollection(slug) {
-  selectedCollection.value = slug
+  selectedCollection.value = slug;
 
   // Smooth scroll to books
   setTimeout(() => {
-    document
-      .getElementById('collection-books')
-      ?.scrollIntoView({
-        behavior: 'smooth'
-      })
-  }, 50)
+    document.getElementById("collection-books")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, 50);
 }
 
 // =========================================================
@@ -226,13 +230,17 @@ function selectCollection(slug) {
 // =========================================================
 
 function handleAddToCart(book) {
-  addToCart(book)
+  addToCart(book).then((result) => {
+    cartMessage.value = result?.success
+      ? "Added to cart."
+      : result?.message || "Unable to add this book.";
+  });
 
-  showCartMessage.value = true
+  showCartMessage.value = true;
 
   setTimeout(() => {
-    showCartMessage.value = false
-  }, 2000)
+    showCartMessage.value = false;
+  }, 2000);
 }
 
 // =========================================================
@@ -240,60 +248,45 @@ function handleAddToCart(book) {
 // =========================================================
 
 onMounted(() => {
-  loadCart()
-})
+  loadCart();
+});
 
 // =========================================================
 // PRODUCT DETAIL
 // =========================================================
 
 function viewBook(book) {
-  navigateTo(`/productDetail/${book.id}`)
+  navigateTo(`/productDetail/${book.id}`);
 }
 </script>
 
 <template>
   <div class="min-h-screen bg-paper text-ink">
-
     <!-- =====================================================
          HERO
     ====================================================== -->
 
     <main>
-
       <section
         class="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-10"
       >
-
         <!-- Breadcrumb -->
-        <div
-          class="mb-6 flex items-center gap-2 text-xs text-gray-500"
-        >
-          <NuxtLink
-            to="/"
-            class="hover:text-black"
-          >
-            Home
-          </NuxtLink>
+        <div class="mb-6 flex items-center gap-2 text-xs text-gray-500">
+          <NuxtLink to="/" class="hover:text-black"> Home </NuxtLink>
 
           <span>›</span>
 
-          <span class="text-gray-950">
-            Collections
-          </span>
+          <span class="text-gray-950"> Collections </span>
         </div>
-
 
         <!-- Hero -->
         <div
           class="grid overflow-hidden rounded-[1.75rem] border border-[#dce9e4] bg-[#eaf6f3] shadow-[0_24px_70px_rgba(23,32,31,0.08)] lg:grid-cols-[0.9fr_1.1fr]"
         >
-
           <!-- Text -->
           <div
             class="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16"
           >
-
             <p
               class="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-primary"
             >
@@ -309,9 +302,8 @@ function viewBook(book) {
             <p
               class="mt-6 max-w-xl text-sm leading-7 text-gray-600 sm:text-base"
             >
-              Discover books selected around ideas,
-              interests, and creative pursuits. Explore
-              thoughtfully curated collections made for
+              Discover books selected around ideas, interests, and creative
+              pursuits. Explore thoughtfully curated collections made for
               curious readers.
             </p>
 
@@ -327,9 +319,7 @@ function viewBook(book) {
                 {{ books.length }} featured books
               </span>
             </div>
-
           </div>
-
 
           <!-- Image -->
           <div class="min-h-[320px] lg:min-h-[480px]">
@@ -339,20 +329,14 @@ function viewBook(book) {
               class="h-full w-full object-cover"
             />
           </div>
-
         </div>
-
       </section>
-
 
       <!-- =====================================================
            COLLECTION CARDS
       ====================================================== -->
 
-      <section
-        class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
-      >
-
+      <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20">
         <div
           class="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
         >
@@ -371,34 +355,29 @@ function viewBook(book) {
           </div>
 
           <p class="max-w-md text-sm leading-6 text-gray-500">
-            Each collection brings together books
-            connected by a common idea, discipline, or
-            creative practice.
+            Each collection brings together books connected by a common idea,
+            discipline, or creative practice.
           </p>
         </div>
 
-
         <!-- Collection Grid -->
-        <div
-          class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
-
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <article
             v-for="collection in collections"
             :key="collection.id"
             class="group cursor-pointer overflow-hidden rounded-2xl border border-[#dce9e4] bg-white/80 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             @click="selectCollection(collection.slug)"
           >
-
             <!-- Image -->
-            <div
-                class="relative aspect-[4/3] overflow-hidden bg-[#e8f0ed]"
-            >
-
+            <div class="relative aspect-[4/3] overflow-hidden bg-[#e8f0ed]">
               <img
                 :src="collection.image"
                 :alt="collection.name"
                 class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+              <StockStatus
+                :stock="book.stock"
+                class="absolute bottom-3 left-3"
               />
 
               <!-- Overlay -->
@@ -412,20 +391,12 @@ function viewBook(book) {
               >
                 {{ collection.count }} books
               </div>
-
             </div>
-
 
             <!-- Text -->
             <div class="px-5 pb-5 pt-5">
-
-              <div
-                class="flex items-start justify-between gap-4"
-              >
-
-                <h3
-                  class="font-serif text-xl font-bold text-ink"
-                >
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="font-serif text-xl font-bold text-ink">
                   {{ collection.name }}
                 </h3>
 
@@ -434,12 +405,9 @@ function viewBook(book) {
                 >
                   →
                 </span>
-
               </div>
 
-              <p
-                class="mt-3 max-w-lg text-sm leading-6 text-gray-500"
-              >
+              <p class="mt-3 max-w-lg text-sm leading-6 text-gray-500">
                 {{ collection.description }}
               </p>
 
@@ -448,28 +416,17 @@ function viewBook(book) {
               >
                 Explore Collection
               </button>
-
             </div>
-
           </article>
-
         </div>
-
       </section>
-
 
       <!-- =====================================================
            FEATURED COLLECTION
       ====================================================== -->
 
-      <section
-        class="border-y border-[#dce9e4] bg-white/75"
-      >
-
-        <div
-          class="mx-auto grid max-w-7xl lg:grid-cols-2"
-        >
-
+      <section class="border-y border-[#dce9e4] bg-white/75">
+        <div class="mx-auto grid max-w-7xl lg:grid-cols-2">
           <!-- Image -->
           <div class="min-h-[320px] lg:min-h-[480px]">
             <img
@@ -479,12 +436,10 @@ function viewBook(book) {
             />
           </div>
 
-
           <!-- Content -->
           <div
             class="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14"
           >
-
             <p
               class="text-[10px] font-bold uppercase tracking-[0.22em] text-primary"
             >
@@ -498,18 +453,13 @@ function viewBook(book) {
               Creativity
             </h2>
 
-            <p
-              class="mt-6 max-w-lg text-base leading-7 text-gray-600"
-            >
-              From typography and visual systems to
-              creative thinking and design philosophy,
-              this collection brings together essential
-              books for anyone interested in how ideas
-              become visual.
+            <p class="mt-6 max-w-lg text-base leading-7 text-gray-600">
+              From typography and visual systems to creative thinking and design
+              philosophy, this collection brings together essential books for
+              anyone interested in how ideas become visual.
             </p>
 
             <div class="mt-8">
-
               <button
                 class="inline-flex items-center gap-3 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-[#0b5f59]"
                 @click="selectCollection('design')"
@@ -518,15 +468,10 @@ function viewBook(book) {
 
                 <span>→</span>
               </button>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
-
 
       <!-- =====================================================
            BOOKS
@@ -536,14 +481,11 @@ function viewBook(book) {
         id="collection-books"
         class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
       >
-
         <!-- Heading -->
         <div
           class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
         >
-
           <div>
-
             <p
               class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500"
             >
@@ -554,27 +496,22 @@ function viewBook(book) {
               class="font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               {{
-                selectedCollection === 'all'
-                  ? 'Featured Books'
-                  : collections.find(
-                      c => c.slug === selectedCollection
-                    )?.name
+                selectedCollection === "all"
+                  ? "Featured Books"
+                  : collections.find((c) => c.slug === selectedCollection)?.name
               }}
             </h2>
-
           </div>
 
-
           <!-- Collection Filter -->
-          <div
-            class="flex flex-wrap gap-2"
-          >
-
+          <div class="flex flex-wrap gap-2">
             <button
               class="border px-4 py-2 text-xs font-medium transition"
-              :class="selectedCollection === 'all'
-                ? 'border-black bg-black text-white'
-                : 'border-gray-300 bg-white text-gray-600 hover:border-black hover:text-black'"
+              :class="
+                selectedCollection === 'all'
+                  ? 'border-black bg-black text-white'
+                  : 'border-gray-300 bg-white text-gray-600 hover:border-black hover:text-black'
+              "
               @click="selectCollection('all')"
             >
               All
@@ -584,40 +521,47 @@ function viewBook(book) {
               v-for="collection in collections.slice(0, 4)"
               :key="collection.id"
               class="border px-4 py-2 text-xs font-medium transition"
-              :class="selectedCollection === collection.slug
-                ? 'border-black bg-black text-white'
-                : 'border-gray-300 bg-white text-gray-600 hover:border-black hover:text-black'"
+              :class="
+                selectedCollection === collection.slug
+                  ? 'border-black bg-black text-white'
+                  : 'border-gray-300 bg-white text-gray-600 hover:border-black hover:text-black'
+              "
               @click="selectCollection(collection.slug)"
             >
               {{ collection.name }}
             </button>
-
           </div>
-
         </div>
-
 
         <!-- Book Grid -->
         <div
           class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
-
-          <article
-            v-for="book in filteredBooks"
-            :key="book.id"
-            class="group"
-          >
-
+          <article v-for="book in filteredBooks" :key="book.id" class="group">
             <!-- Image -->
-            <div
-              class="relative aspect-[3/4] overflow-hidden bg-[#edf1f7]"
-            >
-
+            <div class="relative aspect-[3/4] overflow-hidden bg-[#edf1f7]">
               <img
                 :src="book.image"
                 :alt="book.title"
                 class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               />
+
+              <button
+                type="button"
+                :aria-label="
+                  isFavorite(book.id)
+                    ? 'Remove from favorites'
+                    : 'Add to favorites'
+                "
+                class="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-2xl leading-none text-primary shadow-sm transition hover:scale-105"
+                @click.stop.prevent="toggleWishlist(book.id)"
+              >
+                <UiIcon
+                  name="heart"
+                  class="h-5 w-5"
+                  :class="isFavorite(book.id) ? 'fill-current' : ''"
+                />
+              </button>
 
               <!-- Quick View -->
               <button
@@ -626,52 +570,36 @@ function viewBook(book) {
               >
                 View Details
               </button>
-
             </div>
-
 
             <!-- Information -->
             <div class="pt-5">
-
-              <div
-                class="flex items-start justify-between gap-3"
-              >
-
+              <div class="flex items-start justify-between gap-3">
                 <h3
                   class="font-serif text-xl font-bold leading-tight text-gray-950"
                 >
                   {{ book.title }}
                 </h3>
 
-                <span
-                  class="shrink-0 text-sm font-medium text-gray-950"
-                >
+                <span class="shrink-0 text-sm font-medium text-gray-950">
                   ${{ book.price }}
                 </span>
-
               </div>
 
-
-              <p
-                class="mt-2 text-sm text-gray-500"
-              >
+              <p class="mt-2 text-sm text-gray-500">
                 {{ book.author }}
               </p>
 
-
               <!-- Rating -->
-              <div
-                class="mt-3 flex items-center gap-2"
-              >
-
+              <div class="mt-3 flex items-center gap-2">
                 <div class="flex">
                   <span
                     v-for="star in 5"
                     :key="star"
                     class="text-sm"
-                    :class="star <= book.rating
-                      ? 'text-[#b36b00]'
-                      : 'text-gray-300'"
+                    :class="
+                      star <= book.rating ? 'text-[#b36b00]' : 'text-gray-300'
+                    "
                   >
                     ★
                   </span>
@@ -680,17 +608,15 @@ function viewBook(book) {
                 <span class="text-xs text-gray-500">
                   ({{ book.reviews }})
                 </span>
-
               </div>
-
 
               <!-- Add To Cart -->
               <button
                 type="button"
-                class="mt-5 flex w-full items-center justify-center gap-3 bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
                 @click.stop.prevent="handleAddToCart(book)"
+                :disabled="Number(book.stock) === 0"
+                class="mt-5 flex w-full items-center justify-center gap-3 bg-black py-3 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300"
               >
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -712,72 +638,47 @@ function viewBook(book) {
                 </svg>
 
                 Add to Cart
-
               </button>
-
+              <p v-if="cartMessage" class="mt-2 text-xs text-gray-500">
+                {{ cartMessage }}
+              </p>
+              <p v-if="wishlistError" class="mt-2 text-xs text-red-600">
+                {{ wishlistError }}
+              </p>
             </div>
-
           </article>
-
         </div>
-
 
         <!-- No Books -->
-        <div
-          v-if="filteredBooks.length === 0"
-          class="py-20 text-center"
-        >
-          <h3
-            class="font-serif text-2xl font-bold"
-          >
-            No books found
-          </h3>
+        <div v-if="filteredBooks.length === 0" class="py-20 text-center">
+          <h3 class="font-serif text-2xl font-bold">No books found</h3>
 
-          <p
-            class="mt-2 text-sm text-gray-500"
-          >
-            Try another collection.
-          </p>
+          <p class="mt-2 text-sm text-gray-500">Try another collection.</p>
         </div>
-
       </section>
-
 
       <!-- =====================================================
            NEWSLETTER
       ====================================================== -->
 
-      <section
-        class="border-t border-gray-200 bg-[#e9edf5]"
-      >
-
-        <div
-          class="mx-auto max-w-3xl px-6 py-20 text-center"
-        >
-
+      <section class="border-t border-gray-200 bg-[#e9edf5]">
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
           <p
             class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500"
           >
             Stay Curious
           </p>
 
-          <h2
-            class="mt-4 font-serif text-4xl font-bold text-gray-950"
-          >
+          <h2 class="mt-4 font-serif text-4xl font-bold text-gray-950">
             Discover something worth reading.
           </h2>
 
-          <p
-            class="mx-auto mt-4 max-w-xl text-sm leading-6 text-gray-600"
-          >
-            Join our newsletter for new collections,
-            rare finds, and thoughtful recommendations.
+          <p class="mx-auto mt-4 max-w-xl text-sm leading-6 text-gray-600">
+            Join our newsletter for new collections, rare finds, and thoughtful
+            recommendations.
           </p>
 
-          <div
-            class="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row"
-          >
-
+          <div class="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row">
             <input
               type="email"
               placeholder="Your email address"
@@ -789,15 +690,10 @@ function viewBook(book) {
             >
               Subscribe
             </button>
-
           </div>
-
         </div>
-
       </section>
-
     </main>
-
 
     <!-- =====================================================
          ADD TO CART MESSAGE
@@ -811,12 +707,10 @@ function viewBook(book) {
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="translate-y-4 opacity-0"
     >
-
       <div
         v-if="showCartMessage"
         class="fixed bottom-6 right-6 z-[100] flex items-center gap-3 bg-black px-5 py-4 text-sm font-medium text-white shadow-xl"
       >
-
         <span
           class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
         >
@@ -824,10 +718,7 @@ function viewBook(book) {
         </span>
 
         Added to your cart
-
       </div>
-
     </Transition>
-
   </div>
 </template>

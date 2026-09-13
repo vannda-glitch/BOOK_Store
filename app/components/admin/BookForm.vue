@@ -9,6 +9,11 @@ const emit = defineEmits<{
   'close': []
 }>()
 
+const imageError = ref('')
+const categoryOptions = ref<string[]>([])
+const formatOptions = ref<string[]>([])
+const API_URL = 'http://localhost:8000'
+
 const form = ref({
   title: props.book?.title || '',
   shortTitle: props.book?.shortTitle || '',
@@ -22,8 +27,51 @@ const form = ref({
 })
 
 const handleSubmit = () => {
+  if (!form.value.image) {
+    imageError.value = 'Choose an image or enter an image URL.'
+    return
+  }
   emit('save', { ...form.value, id: props.book?.id })
 }
+
+const loadOptions = async () => {
+  try {
+    const [categoryRecords, books] = await Promise.all([
+      $fetch<any[]>(`${API_URL}/categories`),
+      $fetch<any[]>(`${API_URL}/books`)
+    ])
+    categoryOptions.value = categoryRecords.map(category => category.name).filter(Boolean)
+    formatOptions.value = [...new Set(books.map(book => book.format).filter(Boolean))]
+    if (form.value.category && !categoryOptions.value.includes(form.value.category)) categoryOptions.value.push(form.value.category)
+    if (form.value.format && !formatOptions.value.includes(form.value.format)) formatOptions.value.push(form.value.format)
+  } catch {
+    categoryOptions.value = form.value.category ? [form.value.category] : []
+    formatOptions.value = form.value.format ? [form.value.format] : []
+  }
+}
+
+const handleImageUpload = (event: Event) => {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  imageError.value = ''
+  if (!file) return
+  if (!file.type.startsWith('image/')) {
+    imageError.value = 'Please select an image file.'
+    input.value = ''
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    imageError.value = 'Image must be 5 MB or smaller.'
+    input.value = ''
+    return
+  }
+  const reader = new FileReader()
+  reader.onload = () => { form.value.image = String(reader.result || '') }
+  reader.onerror = () => { imageError.value = 'Unable to read this image.'; input.value = '' }
+  reader.readAsDataURL(file)
+}
+
+onMounted(loadOptions)
 
 </script>
 
@@ -61,13 +109,13 @@ const handleSubmit = () => {
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700">Category</label>
-            <input v-model="form.category" type="text" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
+            <select v-model="form.category" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black"><option value="" disabled>Select a category</option><option v-for="category in categoryOptions" :key="category" :value="category">{{ category }}</option></select>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700">Format</label>
-            <input v-model="form.format" type="text" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
+            <select v-model="form.format" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black"><option value="" disabled>Select a format</option><option v-for="format in formatOptions" :key="format" :value="format">{{ format }}</option></select>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700">Rating</label>
@@ -75,8 +123,11 @@ const handleSubmit = () => {
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700">Image URL</label>
-          <input v-model="form.image" type="url" required class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
+          <label class="block text-sm font-medium text-gray-700">Cover image</label>
+          <input type="file" accept="image/*" class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 text-sm" @change="handleImageUpload" />
+          <input v-model="form.image" type="text" placeholder="Or paste an image URL" class="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-black" />
+          <p v-if="imageError" class="mt-1 text-xs text-red-600">{{ imageError }}</p>
+          <img v-if="form.image" :src="form.image" alt="Cover preview" class="mt-2 h-24 w-16 rounded object-cover" />
         </div>
         <div class="flex justify-end gap-3 pt-4">
           <button type="button" @click="emit('close')" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Cancel</button>

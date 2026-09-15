@@ -376,7 +376,7 @@ function viewBook(book) {
                 class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
               />
               <StockStatus
-                :stock="book.stock"
+                :stock="collection.stock"
                 class="absolute bottom-3 left-3"
               />
 

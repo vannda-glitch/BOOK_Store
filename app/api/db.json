@@ -11,7 +11,7 @@
       "category": "Programming",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2019/09/978-999-63-09-84-7_f43c3096-500x500.jpg",
-      "stock": 12
+      "stock": 4
     },
     {
       "id": "2",
@@ -24,7 +24,7 @@
       "category": "Design",
       "format": "Paperback",
       "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
-      "stock": 9
+      "stock": 8
     },
     {
       "id": "3",
@@ -37,7 +37,7 @@
       "category": "Design",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
-      "stock": 4
+      "stock": 3
     },
     {
       "id": "4",
@@ -50,7 +50,7 @@
       "category": "Typography",
       "format": "Paperback",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-9.jpg",
-      "stock": 0
+      "stock": 6
     },
     {
       "id": "5",
@@ -63,7 +63,7 @@
       "category": "Art History",
       "format": "Hardcover",
       "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-7.jpg",
-      "stock": 15
+      "stock": 0
     },
     {
       "id": "6",
@@ -266,19 +266,7 @@
   ],
   "cart": [
     {
-      "id": "oUO5telxPtE",
-      "productId": "3",
-      "title": "48 ច្បាប់នៃអំណាច",
-      "shortTitle": "48 ច្បាប់នៃអំណាច",
-      "author": "Edward R. Tufte",
-      "price": 52,
-      "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
-      "format": "Hardcover",
-      "category": "Design",
-      "quantity": 1
-    },
-    {
-      "id": "mnM_nemZxfE",
+      "id": "M4nKEXORo7o",
       "productId": "2",
       "title": "គំនិតនៃភាពជោគជ័យ",
       "shortTitle": "គំនិតនៃភាពជោគជ័យ",
@@ -287,21 +275,21 @@
       "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
       "format": "Paperback",
       "category": "Design",
-      "stock": 9,
-      "quantity": 6
+      "stock": 8,
+      "quantity": 2
     },
     {
-      "id": "9nSoWgEIwXI",
-      "productId": "5",
-      "title": "កំពូលអ្នកលក់លើលោក",
-      "shortTitle": "កំពូលអ្នកលក់លើលោក",
-      "author": "E. H. Gombrich",
-      "price": 72,
-      "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-7.jpg",
+      "id": "y60BUBMcy70",
+      "productId": "3",
+      "title": "48 ច្បាប់នៃអំណាច",
+      "shortTitle": "48 ច្បាប់នៃអំណាច",
+      "author": "Edward R. Tufte",
+      "price": 52,
+      "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
       "format": "Hardcover",
-      "category": "Art History",
-      "stock": 15,
-      "quantity": 5
+      "category": "Design",
+      "stock": 3,
+      "quantity": 2
     }
   ],
   "users": [
@@ -552,6 +540,61 @@
       "status": "pending",
       "createdAt": "2026-09-11T03:14:04.859Z",
       "id": "k9NQU974u58"
+    },
+    {
+      "customerName": "Jonh Dara",
+      "email": "dara@gmail.com",
+      "phone": "0889973214",
+      "address": "hdhds",
+      "city": "Kompongcham",
+      "postalCode": "678",
+      "items": [
+        {
+          "id": "oUO5telxPtE",
+          "productId": "3",
+          "title": "48 ច្បាប់នៃអំណាច",
+          "shortTitle": "48 ច្បាប់នៃអំណាច",
+          "author": "Edward R. Tufte",
+          "price": 52,
+          "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-12.jpg",
+          "format": "Hardcover",
+          "category": "Design",
+          "quantity": 1,
+          "stock": 4
+        },
+        {
+          "id": "mnM_nemZxfE",
+          "productId": "2",
+          "title": "គំនិតនៃភាពជោគជ័យ",
+          "shortTitle": "គំនិតនៃភាពជោគជ័យ",
+          "author": "Josef Müller-Brockmann",
+          "price": 65,
+          "image": "https://khbookshop.com/wp-content/uploads/2020/02/%E1%9F%A1%E1%9F%A0%E1%9F%A0-%E1%9E%82%E1%9F%86%E1%9E%93%E1%9E%B7%E1%9E%8F%E1%9E%93%E1%9F%83%E1%9E%97%E1%9E%B6%E1%9E%96%E1%9E%87%E1%9F%84%E1%9E%82%E1%9E%87%E1%9F%90%E1%9E%99.jpg",
+          "format": "Paperback",
+          "category": "Design",
+          "stock": 9,
+          "quantity": 1
+        },
+        {
+          "id": "9nSoWgEIwXI",
+          "productId": "5",
+          "title": "កំពូលអ្នកលក់លើលោក",
+          "shortTitle": "កំពូលអ្នកលក់លើលោក",
+          "author": "E. H. Gombrich",
+          "price": 72,
+          "image": "https://khbookshop.com/wp-content/uploads/2025/12/Untitled-7.jpg",
+          "format": "Hardcover",
+          "category": "Art History",
+          "stock": 6,
+          "quantity": 6
+        }
+      ],
+      "subtotal": 549,
+      "shipping": 0,
+      "total": 549,
+      "status": "pending",
+      "createdAt": "2026-09-14T09:21:12.009Z",
+      "id": "bBUZB8P50HQ"
     }
   ],
   "wishlist": [
@@ -559,6 +602,11 @@
       "userId": "Uf6GMoM6C0U",
       "bookId": "5",
       "id": "i4QiqRTRha0"
+    },
+    {
+      "userId": "Uf6GMoM6C0U",
+      "bookId": "2",
+      "id": "gPOW8b3h0SA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

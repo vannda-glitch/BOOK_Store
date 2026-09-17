@@ -909,7 +909,7 @@ function viewBook(book) {
             <p
               class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400"
             >
-              Rare Finds
+              Collection Spotlight
             </p>
 
 
@@ -938,7 +938,7 @@ function viewBook(book) {
                 to="/collection"
                 class="inline-flex items-center gap-3 bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-gray-200"
               >
-                Explore Rare Finds
+                Explore Collections
                 <span>→</span>
               </NuxtLink>
 

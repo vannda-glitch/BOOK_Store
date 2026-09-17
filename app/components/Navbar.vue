@@ -270,7 +270,7 @@ onBeforeUnmount(() => {
           to="/admin"
           class="relative py-2 text-sm font-semibold text-gray-700 transition hover:text-black"
         >
-          Admin
+          Admin Dashboard
         </NuxtLink>
       </nav>
 
@@ -439,6 +439,7 @@ onBeforeUnmount(() => {
 
         <template v-else>
           <NuxtLink
+            v-if="user.role !== 'admin'"
             to="/profile"
             class="flex items-center gap-2 text-gray-700 transition hover:text-black"
           >

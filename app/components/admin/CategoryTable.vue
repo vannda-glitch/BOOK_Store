@@ -31,8 +31,12 @@ const emit = defineEmits<{
             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">{{ category.name }}</td>
             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{ category.slug }}</td>
             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-              <button @click="emit('edit', category)" class="mr-3 text-blue-600 hover:text-blue-800">Edit</button>
-              <button @click="emit('delete', category.id)" class="text-red-600 hover:text-red-800">Delete</button>
+              <button @click="emit('edit', category)" class="mr-3 text-blue-600 hover:text-blue-800" aria-label="Edit category">
+                <UiIcon name="edit" class="h-4 w-4" />
+              </button>
+              <button @click="emit('delete', category.id)" class="text-red-600 hover:text-red-800" aria-label="Delete category">
+                <UiIcon name="delete" class="h-4 w-4" />
+              </button>
             </td>
           </tr>
         </tbody>

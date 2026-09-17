@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware((to) => {
   if (import.meta.server) {
     return
   }
@@ -13,12 +13,16 @@ export default defineNuxtRouteMiddleware(() => {
 
   try {
     user = JSON.parse(savedUser)
-  } catch (error) {
+  } catch {
     localStorage.removeItem('user')
     return navigateTo('/auth/login')
   }
 
   if (user.role !== 'admin') {
     return navigateTo('/')
+  }
+
+  if (!to.path.startsWith('/admin')) {
+    return navigateTo('/admin')
   }
 })

@@ -1,265 +1,787 @@
 <script setup lang="ts">
-definePageMeta({ layout: "admin", middleware: "admin" });
+definePageMeta({
+  layout: "admin",
+  middleware: "admin",
+});
+
 const API_URL = "http://localhost:8000";
+
 const loading = ref(true);
 const errorMessage = ref("");
+
 const books = ref<any[]>([]);
 const users = ref<any[]>([]);
 const orders = ref<any[]>([]);
 const categories = ref<any[]>([]);
 
+/* =========================
+   LOAD DASHBOARD
+========================= */
+
 const loadDashboard = async () => {
+  loading.value = true;
+  errorMessage.value = "";
+
   try {
-    const [bookData, userData, orderData, categoryData] = await Promise.all([
-      $fetch<any[]>(`${API_URL}/books`),
-      $fetch<any[]>(`${API_URL}/users`),
-      $fetch<any[]>(`${API_URL}/orders`),
-      $fetch<any[]>(`${API_URL}/categories`),
-    ]);
+    const [bookData, userData, orderData, categoryData] =
+      await Promise.all([
+        $fetch<any[]>(`${API_URL}/books`),
+        $fetch<any[]>(`${API_URL}/users`),
+        $fetch<any[]>(`${API_URL}/orders`),
+        $fetch<any[]>(`${API_URL}/categories`),
+      ]);
+
     books.value = bookData;
     users.value = userData;
     orders.value = orderData;
     categories.value = categoryData;
-  } catch {
+  } catch (error) {
+    console.error("Dashboard error:", error);
+
     errorMessage.value =
-      "Unable to load dashboard data. Check that the API server is running.";
+      "Unable to load dashboard data. Make sure JSON Server is running.";
   } finally {
     loading.value = false;
   }
 };
-const totalRevenue = computed(() =>
-  orders.value.reduce((sum, order) => sum + Number(order.total || 0), 0),
-);
-const pendingOrders = computed(() =>
-  orders.value.filter(
-    (order) => String(order.status || "pending").toLowerCase() === "pending",
-  ),
-);
-const recentOrders = computed(() =>
-  [...orders.value]
+
+/* =========================
+   HELPERS
+========================= */
+
+const money = (value: number) => {
+  return `$${value.toFixed(2)}`;
+};
+
+const getOrderTotal = (order: any) => {
+  return Number(order.total || 0);
+};
+
+/* =========================
+   STATISTICS
+========================= */
+
+const totalRevenue = computed(() => {
+  return orders.value.reduce(
+    (sum, order) => sum + getOrderTotal(order),
+    0,
+  );
+});
+
+const pendingOrders = computed(() => {
+  return orders.value.filter(
+    (order) =>
+      String(order.status || "pending").toLowerCase() ===
+      "pending",
+  );
+});
+
+const completedOrders = computed(() => {
+  return orders.value.filter(
+    (order) =>
+      String(order.status || "").toLowerCase() ===
+      "completed",
+  );
+});
+
+const recentOrders = computed(() => {
+  return [...orders.value]
     .sort(
       (a, b) =>
         new Date(b.createdAt || 0).getTime() -
         new Date(a.createdAt || 0).getTime(),
     )
-    .slice(0, 5),
-);
-const categoryBreakdown = computed(() =>
-  categories.value
-    .map((category) => ({
-      name: category.name,
-      count: books.value.filter(
+    .slice(0, 5);
+});
+
+/* =========================
+   CATEGORY
+========================= */
+
+const categoryBreakdown = computed(() => {
+  return categories.value
+    .map((category) => {
+      const count = books.value.filter(
         (book) =>
           String(book.category || "").toLowerCase() ===
-          String(category.name).toLowerCase(),
-      ).length,
-    }))
+          String(category.name || "").toLowerCase(),
+      ).length;
+
+      return {
+        name: category.name,
+        count,
+      };
+    })
     .sort((a, b) => b.count - a.count)
-    .slice(0, 5),
-);
-const maxCategoryCount = computed(() =>
-  Math.max(...categoryBreakdown.value.map((item) => item.count), 1),
-);
-const money = (value: number) => `$${value.toFixed(2)}`;
+    .slice(0, 5);
+});
+
+const maxCategoryCount = computed(() => {
+  return Math.max(
+    ...categoryBreakdown.value.map(
+      (category) => category.count,
+    ),
+    1,
+  );
+});
+
+/* =========================
+   WEEKLY SALES
+========================= */
+
+const weekDays = [
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun",
+];
+
+const weeklySales = computed(() => {
+  const today = new Date();
+
+  return weekDays.map((day, index) => {
+    const target = new Date(today);
+
+    const currentDay = target.getDay();
+    const mondayOffset =
+      currentDay === 0 ? -6 : 1 - currentDay;
+
+    target.setDate(
+      today.getDate() +
+        mondayOffset +
+        index,
+    );
+
+    const dateKey = target.toISOString().slice(0, 10);
+
+    const revenue = orders.value
+      .filter((order) => {
+        if (!order.createdAt) return false;
+
+        return (
+          new Date(order.createdAt)
+            .toISOString()
+            .slice(0, 10) === dateKey
+        );
+      })
+      .reduce(
+        (sum, order) =>
+          sum + getOrderTotal(order),
+        0,
+      );
+
+    return {
+      day,
+      revenue,
+    };
+  });
+});
+
+const maxWeeklyRevenue = computed(() => {
+  return Math.max(
+    ...weeklySales.value.map(
+      (item) => item.revenue,
+    ),
+    1,
+  );
+});
+
+/* =========================
+   DATE
+========================= */
+
+const formatDate = (date: string) => {
+  if (!date) return "-";
+
+  return new Date(date).toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    },
+  );
+};
+
+/* =========================
+   ORDER STATUS
+========================= */
+
+const statusClass = (status: string) => {
+  const value = String(status || "pending")
+    .toLowerCase();
+
+  if (value === "completed") {
+    return "bg-emerald-50 text-emerald-700";
+  }
+
+  if (value === "cancelled") {
+    return "bg-red-50 text-red-700";
+  }
+
+  if (value === "processing") {
+    return "bg-blue-50 text-blue-700";
+  }
+
+  return "bg-amber-50 text-amber-700";
+};
+
 onMounted(loadDashboard);
 </script>
 
 <template>
   <section class="space-y-6">
-    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <div
+      class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
       <div>
-        <p class="eyebrow">Admin workspace</p>
-        <h1 class="mt-2 font-serif text-4xl font-bold tracking-tight text-ink">
+        <p
+          class="text-[11px] font-bold uppercase tracking-[0.18em] text-primary"
+        >
+          Admin Workspace
+        </p>
+
+        <h1
+          class="mt-1 text-3xl font-bold tracking-tight text-gray-900"
+        >
           Dashboard
         </h1>
-        <p class="mt-2 text-sm text-gray-500">
-          A real-time view of your bookstore.
+
+        <p class="mt-1 text-sm text-gray-500">
+          Overview of your bookstore performance.
         </p>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <NuxtLink to="/admin/categories/create" class="action-secondary"
-          >+ Add category</NuxtLink
-        ><NuxtLink to="/admin/books/create" class="action-primary"
-          >+ Add new book</NuxtLink
-        >
-      </div>
+
     </div>
-    <p
+
+    <!-- =========================
+         ERROR
+    ========================== -->
+
+    <div
       v-if="errorMessage"
-      class="rounded-xl bg-red-50 p-4 text-sm text-red-700"
+      class="flex items-center justify-between gap-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
     >
-      {{ errorMessage }}
-    </p>
+      <span>{{ errorMessage }}</span>
+
+      <button
+        type="button"
+        class="font-semibold underline"
+        @click="loadDashboard"
+      >
+        Retry
+      </button>
+    </div>
+
+    <!-- =========================
+         LOADING
+    ========================== -->
+
     <div
       v-if="loading"
-      class="rounded-2xl border border-[#d9e7e2] bg-white py-24 text-center text-sm text-gray-500"
+      class="rounded-xl border border-gray-200 bg-white py-24 text-center"
     >
-      Loading dashboard...
+      <div
+        class="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-gray-200 border-t-primary"
+      ></div>
+
+      <p class="mt-3 text-sm text-gray-500">
+        Loading dashboard...
+      </p>
     </div>
+
+    <!-- =========================
+         DASHBOARD
+    ========================== -->
+
     <template v-else>
-      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <div class="metric-card">
+      <!-- =========================
+           METRICS
+      ========================== -->
+
+      <div
+        class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+      >
+        <!-- BOOKS -->
+
+        <div class="stat-card">
           <div>
-            <p class="metric-label">Total books</p>
-            <p class="metric-value">{{ books.length.toLocaleString() }}</p>
-            <p class="metric-note text-primary">+12.4% this week</p>
-          </div>
-          <span class="metric-icon bg-[#e8f1ff] text-[#3974d9]"
-            ><UiIcon name="book" class="h-5 w-5"
-          /></span>
-        </div>
-        <div class="metric-card">
-          <div>
-            <p class="metric-label">Total customers</p>
-            <p class="metric-value">{{ users.length.toLocaleString() }}</p>
-            <p class="metric-note text-primary">+5.4% new members</p>
-          </div>
-          <span class="metric-icon bg-[#e4f8f0] text-[#15936b]"
-            ><UiIcon name="users" class="h-5 w-5"
-          /></span>
-        </div>
-        <div class="metric-card">
-          <div>
-            <p class="metric-label">Total orders</p>
-            <p class="metric-value">{{ orders.length.toLocaleString() }}</p>
-            <p class="metric-note text-amber-600">
-              {{ pendingOrders.length }} pending fulfillment
+            <p class="stat-label">
+              Total Books
+            </p>
+
+            <p class="stat-value">
+              {{ books.length.toLocaleString() }}
+            </p>
+
+            <p class="stat-description">
+              Books in catalog
             </p>
           </div>
-          <span class="metric-icon bg-[#f3eaff] text-[#8b55d9]"
-            ><UiIcon name="bag" class="h-5 w-5"
-          /></span>
-        </div>
-        <div class="metric-card">
-          <div>
-            <p class="metric-label">Total revenue</p>
-            <p class="metric-value">{{ money(totalRevenue) }}</p>
-            <p class="metric-note text-primary">+14.2% vs last month</p>
+
+          <div class="stat-icon bg-blue-50 text-blue-600">
+            <UiIcon
+              name="book"
+              class="h-5 w-5"
+            />
           </div>
-          <span class="metric-icon bg-[#fff2d9] text-[#d48819]"
-            ><span class="text-lg font-bold">$</span></span
+        </div>
+
+        <!-- USERS -->
+
+        <div class="stat-card">
+          <div>
+            <p class="stat-label">
+              Customers
+            </p>
+
+            <p class="stat-value">
+              {{ users.length.toLocaleString() }}
+            </p>
+
+            <p class="stat-description">
+              Registered customers
+            </p>
+          </div>
+
+          <div
+            class="stat-icon bg-emerald-50 text-emerald-600"
           >
-        </div>
-      </div>
-      <div class="grid gap-5 xl:grid-cols-[minmax(0,1.7fr)_minmax(260px,1fr)]">
-        <div class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>Weekly sales performance</h2>
-              <p>Revenue from recent bookstore orders</p>
-            </div>
-            <span class="legend"><i class="bg-primary"></i>Revenue</span>
-          </div>
-          <div class="chart-area">
-            <div v-for="day in 7" :key="day" class="bar-column">
-              <div class="bar-track">
-                <span
-                  class="bar-fill"
-                  :style="{ height: `${day * 11 + 12}%` }"
-                ></span>
-              </div>
-              <span>{{
-                ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][day - 1]
-              }}</span>
-            </div>
-          </div>
-          <div class="panel-footer">
-            <span>Weekly revenue: {{ money(totalRevenue) }}</span
-            ><NuxtLink to="/admin/orders">View all orders -></NuxtLink>
+            <UiIcon
+              name="users"
+              class="h-5 w-5"
+            />
           </div>
         </div>
-        <div class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>Category breakdown</h2>
-              <p>Books by category</p>
-            </div>
-            <span class="status-pill">Active</span>
-          </div>
-          <div class="space-y-4 pt-5">
-            <div v-for="category in categoryBreakdown" :key="category.name">
-              <div class="mb-1 flex justify-between text-xs text-gray-600">
-                <span>{{ category.name }}</span
-                ><strong>{{ category.count }}</strong>
-              </div>
-              <div class="h-2 rounded-full bg-[#e9f1ef]">
-                <span
-                  class="block h-2 rounded-full bg-primary"
-                  :style="{
-                    width: `${Math.max((category.count / maxCategoryCount) * 100, 5)}%`,
-                  }"
-                ></span>
-              </div>
-            </div>
-            <p v-if="!categoryBreakdown.length" class="text-sm text-gray-500">
-              No categories yet.
+
+        <!-- ORDERS -->
+
+        <div class="stat-card">
+          <div>
+            <p class="stat-label">
+              Total Orders
+            </p>
+
+            <p class="stat-value">
+              {{ orders.length.toLocaleString() }}
+            </p>
+
+            <p class="stat-description">
+              <span class="font-semibold text-amber-600">
+                {{ pendingOrders.length }}
+              </span>
+              pending
             </p>
           </div>
+
+          <div
+            class="stat-icon bg-purple-50 text-purple-600"
+          >
+            <UiIcon
+              name="bag"
+              class="h-5 w-5"
+            />
+          </div>
+        </div>
+
+        <!-- REVENUE -->
+
+        <div class="stat-card">
+          <div>
+            <p class="stat-label">
+              Total Revenue
+            </p>
+
+            <p class="stat-value">
+              {{ money(totalRevenue) }}
+            </p>
+
+            <p class="stat-description">
+              From all orders
+            </p>
+          </div>
+
+          <div
+            class="stat-icon bg-amber-50 text-amber-600"
+          >
+            <span class="text-lg font-bold">
+              $
+            </span>
+          </div>
         </div>
       </div>
-      <div class="panel overflow-hidden">
-        <div class="panel-heading border-b border-[#edf2f0] pb-4">
-          <div>
-            <h2>Recent orders</h2>
-            <p>Latest customer orders awaiting fulfillment</p>
+
+      <!-- =========================
+           CHARTS
+      ========================== -->
+
+      <div
+        class="grid gap-5 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)]"
+      >
+        <!-- WEEKLY SALES -->
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                Weekly Sales
+              </h2>
+
+              <p class="card-description">
+                Revenue generated during this week
+              </p>
+            </div>
+
+            <span
+              class="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-700"
+            >
+              Revenue
+            </span>
           </div>
-          <div class="flex gap-2 text-xs">
-            <span class="tab-active">All orders</span
-            ><NuxtLink to="/admin/orders" class="tab-link"
-              >Pending {{ pendingOrders.length }}</NuxtLink
-            ><NuxtLink to="/admin/orders" class="tab-link">Completed</NuxtLink>
+
+          <div class="mt-6">
+            <div
+              class="flex h-52 items-end gap-3 border-b border-gray-100 px-2 sm:gap-5"
+            >
+              <div
+                v-for="item in weeklySales"
+                :key="item.day"
+                class="flex h-full flex-1 flex-col items-center justify-end gap-2"
+              >
+                <span
+                  class="text-[10px] font-medium text-gray-500"
+                >
+                  {{
+                    item.revenue
+                      ? money(item.revenue)
+                      : "$0"
+                  }}
+                </span>
+
+                <div
+                  class="flex h-[75%] w-full max-w-9 items-end rounded-t-lg bg-gray-100"
+                >
+                  <div
+                    class="w-full rounded-t-lg bg-primary transition-all duration-500"
+                    :style="{
+                      height: `${Math.max(
+                        (item.revenue /
+                          maxWeeklyRevenue) *
+                          100,
+                        item.revenue ? 8 : 0,
+                      )}%`,
+                    }"
+                  ></div>
+                </div>
+
+                <span
+                  class="text-[10px] font-medium text-gray-400"
+                >
+                  {{ item.day }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-4 flex items-center justify-between text-xs"
+          >
+            <span class="text-gray-400">
+              Weekly revenue
+            </span>
+
+            <span class="font-bold text-gray-800">
+              {{ money(
+                weeklySales.reduce(
+                  (sum, item) =>
+                    sum + item.revenue,
+                  0,
+                ),
+              ) }}
+            </span>
           </div>
         </div>
+
+        <!-- CATEGORY -->
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                Top Categories
+              </h2>
+
+              <p class="card-description">
+                Books by category
+              </p>
+            </div>
+
+            <span
+              class="rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500"
+            >
+              {{ categories.length }} total
+            </span>
+          </div>
+
+          <div class="mt-6 space-y-5">
+            <div
+              v-for="category in categoryBreakdown"
+              :key="category.name"
+            >
+              <div
+                class="mb-2 flex items-center justify-between"
+              >
+                <span
+                  class="text-xs font-medium text-gray-600"
+                >
+                  {{ category.name }}
+                </span>
+
+                <span
+                  class="text-xs font-bold text-gray-800"
+                >
+                  {{ category.count }}
+                </span>
+              </div>
+
+              <div
+                class="h-2 overflow-hidden rounded-full bg-gray-100"
+              >
+                <div
+                  class="h-full rounded-full bg-primary transition-all duration-500"
+                  :style="{
+                    width: `${Math.max(
+                      (category.count /
+                        maxCategoryCount) *
+                        100,
+                      4,
+                    )}%`,
+                  }"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              v-if="!categoryBreakdown.length"
+              class="py-8 text-center text-sm text-gray-400"
+            >
+              No categories available.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================
+           ORDERS
+      ========================== -->
+
+      <div class="card overflow-hidden p-0">
+        <div
+          class="flex flex-col gap-3 border-b border-gray-100 p-5 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div>
+            <h2 class="card-title">
+              Recent Orders
+            </h2>
+
+            <p class="card-description">
+              Latest customer orders
+            </p>
+          </div>
+
+        </div>
+
         <div class="overflow-x-auto">
-          <table class="w-full min-w-162.5 text-left">
+          <table
+            class="w-full min-w-[700px] text-left"
+          >
             <thead>
-              <tr class="text-[10px] uppercase tracking-[0.14em] text-gray-400">
-                <th class="px-4 py-3">Order ID</th>
-                <th class="px-4 py-3">Customer</th>
-                <th class="px-4 py-3">Items purchased</th>
-                <th class="px-4 py-3">Date</th>
-                <th class="px-4 py-3 text-right">Total</th>
+              <tr
+                class="border-b border-gray-100 bg-gray-50/70 text-[10px] uppercase tracking-wider text-gray-400"
+              >
+                <th class="px-5 py-3">
+                  Order
+                </th>
+
+                <th class="px-5 py-3">
+                  Customer
+                </th>
+
+                <th class="px-5 py-3">
+                  Items
+                </th>
+
+                <th class="px-5 py-3">
+                  Date
+                </th>
+
+                <th class="px-5 py-3">
+                  Status
+                </th>
+
+                <th class="px-5 py-3 text-right">
+                  Total
+                </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#edf2f0]">
+
+            <tbody
+              class="divide-y divide-gray-100"
+            >
               <tr
                 v-for="order in recentOrders"
                 :key="order.id"
-                class="text-sm text-gray-600"
+                class="transition hover:bg-gray-50/70"
               >
-                <td class="px-4 py-4 font-semibold text-ink">
+                <!-- ID -->
+
+                <td
+                  class="px-5 py-4 text-sm font-bold text-gray-800"
+                >
                   #{{ String(order.id).slice(-8) }}
                 </td>
-                <td class="px-4 py-4">
-                  <span class="font-medium text-ink">{{
-                    order.customerName || "Guest"
-                  }}</span
-                  ><span class="block text-xs text-gray-400">{{
-                    order.email || "No email"
-                  }}</span>
+
+                <!-- CUSTOMER -->
+
+                <td class="px-5 py-4">
+                  <p
+                    class="text-sm font-semibold text-gray-800"
+                  >
+                    {{ order.customerName || "Guest" }}
+                  </p>
+
+                  <p
+                    class="mt-0.5 text-xs text-gray-400"
+                  >
+                    {{ order.email || "No email" }}
+                  </p>
                 </td>
-                <td class="px-4 py-4">
-                  {{ order.items?.length || 0 }} book(s)
+
+                <!-- ITEMS -->
+
+                <td
+                  class="px-5 py-4 text-xs text-gray-500"
+                >
+                  {{ order.items?.length || 0 }}
+                  book(s)
                 </td>
-                <td class="px-4 py-4 text-xs">
-                  {{
-                    order.createdAt
-                      ? new Date(order.createdAt).toLocaleString()
-                      : "-"
-                  }}
+
+                <!-- DATE -->
+
+                <td
+                  class="px-5 py-4 text-xs text-gray-500"
+                >
+                  {{ formatDate(order.createdAt) }}
                 </td>
-                <td class="px-4 py-4 text-right font-bold text-ink">
-                  {{ money(Number(order.total || 0)) }}
+
+                <!-- STATUS -->
+
+                <td class="px-5 py-4">
+                  <span
+                    class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold capitalize"
+                    :class="
+                      statusClass(order.status)
+                    "
+                  >
+                    {{
+                      order.status ||
+                      "pending"
+                    }}
+                  </span>
+                </td>
+
+                <!-- TOTAL -->
+
+                <td
+                  class="px-5 py-4 text-right text-sm font-bold text-gray-900"
+                >
+                  {{ money(
+                    getOrderTotal(order),
+                  ) }}
                 </td>
               </tr>
             </tbody>
           </table>
-          <p
+
+          <div
             v-if="!recentOrders.length"
-            class="p-10 text-center text-sm text-gray-500"
+            class="px-5 py-12 text-center"
           >
-            No orders yet.
-          </p>
+            <p
+              class="text-sm font-medium text-gray-500"
+            >
+              No orders yet.
+            </p>
+
+            <p
+              class="mt-1 text-xs text-gray-400"
+            >
+              Orders will appear here once customers place them.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================
+           QUICK SUMMARY
+      ========================== -->
+
+      <div
+        class="grid gap-4 sm:grid-cols-3"
+      >
+        <div class="summary-card">
+          <span class="summary-number">
+            {{ pendingOrders.length }}
+          </span>
+
+          <div>
+            <p class="summary-title">
+              Pending Orders
+            </p>
+
+            <p class="summary-text">
+              Need fulfillment
+            </p>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-number">
+            {{ completedOrders.length }}
+          </span>
+
+          <div>
+            <p class="summary-title">
+              Completed Orders
+            </p>
+
+            <p class="summary-text">
+              Successfully delivered
+            </p>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-number">
+            {{ categories.length }}
+          </span>
+
+          <div>
+            <p class="summary-title">
+              Categories
+            </p>
+
+            <p class="summary-text">
+              Available in catalog
+            </p>
+          </div>
         </div>
       </div>
     </template>
@@ -267,172 +789,130 @@ onMounted(loadDashboard);
 </template>
 
 <style scoped>
-.eyebrow {
-  color: #0f766e;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-.action-primary,
-.action-secondary {
-  border-radius: 0.7rem;
-  padding: 0.7rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  transition: 0.2s ease;
-}
-.action-primary {
-  background: #0f766e;
-  color: white;
-  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.16);
-}
-.action-primary:hover {
-  background: #0b5f59;
-}
-.action-secondary {
-  border: 1px solid #cfe1dc;
-  background: white;
-  color: #47615c;
-}
-.action-secondary:hover {
-  border-color: #0f766e;
-  color: #0f766e;
-}
-.metric-card,
-.panel {
-  border: 1px solid #dce9e4;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 22px rgba(38, 78, 68, 0.04);
-}
-.metric-card {
+/* =========================
+   STAT CARDS
+========================= */
+
+.stat-card {
   display: flex;
-  min-height: 132px;
+  min-height: 128px;
   align-items: flex-start;
   justify-content: space-between;
-  border-radius: 1rem;
+  gap: 1rem;
+  border: 1px solid #e5ebe8;
+  border-radius: 0.9rem;
+  background: white;
   padding: 1.1rem;
+  box-shadow: 0 4px 16px rgba(38, 78, 68, 0.035);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-.metric-label {
-  color: #81928e;
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(38, 78, 68, 0.07);
+}
+
+.stat-label {
+  color: #8a9894;
   font-size: 0.65rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
-.metric-value {
-  margin-top: 0.45rem;
-  color: #14231f;
-  font-size: 1.6rem;
+
+.stat-value {
+  margin-top: 0.4rem;
+  color: #17231f;
+  font-size: 1.65rem;
   font-weight: 800;
+  letter-spacing: -0.03em;
 }
-.metric-note {
-  margin-top: 0.8rem;
+
+.stat-description {
+  margin-top: 0.55rem;
+  color: #9aa6a2;
   font-size: 0.65rem;
-  font-weight: 600;
 }
-.metric-icon {
+
+.stat-icon {
   display: flex;
   height: 2.5rem;
   width: 2.5rem;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.75rem;
-  font-weight: 800;
+  border-radius: 0.7rem;
 }
-.panel {
-  border-radius: 1rem;
-  padding: 1.1rem;
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  border: 1px solid #e5ebe8;
+  border-radius: 0.9rem;
+  background: white;
+  padding: 1.2rem;
+  box-shadow: 0 4px 16px rgba(38, 78, 68, 0.035);
 }
-.panel-heading {
+
+.card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
 }
-.panel-heading h2 {
-  color: #14231f;
+
+.card-title {
+  color: #17231f;
   font-size: 0.9rem;
   font-weight: 800;
 }
-.panel-heading p {
+
+.card-description {
   margin-top: 0.25rem;
-  color: #92a09c;
+  color: #98a39f;
   font-size: 0.65rem;
 }
-.legend,
-.status-pill {
-  color: #6e817b;
-  font-size: 0.65rem;
-  white-space: nowrap;
-}
-.legend i {
-  display: inline-block;
-  height: 0.45rem;
-  width: 0.45rem;
-  margin-right: 0.3rem;
-  border-radius: 999px;
-}
-.status-pill {
-  border-radius: 999px;
-  background: #e8f8ef;
-  padding: 0.3rem 0.55rem;
-  color: #188460;
-}
-.chart-area {
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary-card {
   display: flex;
-  height: 190px;
-  align-items: end;
-  justify-content: space-around;
-  gap: 0.8rem;
-  border-bottom: 1px solid #edf2f0;
-  padding: 1rem 0.5rem 0;
-}
-.bar-column {
-  display: flex;
-  height: 100%;
-  flex: 1;
-  flex-direction: column;
   align-items: center;
-  justify-content: end;
-  gap: 0.55rem;
-  color: #91a09c;
-  font-size: 0.65rem;
+  gap: 0.9rem;
+  border: 1px solid #e5ebe8;
+  border-radius: 0.9rem;
+  background: white;
+  padding: 1rem;
 }
-.bar-track {
+
+.summary-number {
   display: flex;
-  height: 85%;
-  width: 1.1rem;
-  align-items: end;
-  border-radius: 0.5rem 0.5rem 0 0;
-  background: #e0f6ed;
-}
-.bar-fill {
-  display: block;
-  width: 100%;
-  border-radius: 0.5rem 0.5rem 0 0;
-  background: #0f766e;
-}
-.panel-footer {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 0.9rem;
-  color: #72837e;
-  font-size: 0.65rem;
-}
-.panel-footer a,
-.tab-link {
+  height: 2.5rem;
+  min-width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.65rem;
+  background: #edf7f4;
   color: #0f766e;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.summary-title {
+  color: #26332f;
+  font-size: 0.75rem;
   font-weight: 700;
 }
-.tab-active,
-.tab-link {
-  border-radius: 0.5rem;
-  padding: 0.35rem 0.5rem;
-}
-.tab-active {
-  background: #e8f3ef;
-  color: #0f766e;
-  font-weight: 700;
+
+.summary-text {
+  margin-top: 0.15rem;
+  color: #9aa6a2;
+  font-size: 0.65rem;
 }
 </style>

@@ -180,7 +180,7 @@ onMounted(loadProfile);
           class="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]"
           @click="startEditing"
         >
-          Edit Profile
+          <UiIcon name="edit" class="mr-1.5 h-4 w-4" /> Edit Profile
         </button>
       </div>
       <div v-if="loading" class="py-24 text-center text-sm text-gray-500">

@@ -14,4 +14,8 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+  routeRules: {
+    '/admin': { ssr: false },
+    '/admin/**': { ssr: false },
+  },
 })

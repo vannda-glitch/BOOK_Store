@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "server": "json-server app/api/db.json --port 8000",
+    "server:dev": "npm run server & nuxt dev"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

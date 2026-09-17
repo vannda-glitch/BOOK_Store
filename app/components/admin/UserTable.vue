@@ -76,8 +76,9 @@ const emit = defineEmits<{
                   type="button"
                   class="text-primary hover:text-black"
                   @click="emit('delete', user.id)"
+                  aria-label="Edit user"
                 >
-                  Edit
+                  <UiIcon name="edit" class="h-4 w-4" />
                 </button>
               </div>
             </td>

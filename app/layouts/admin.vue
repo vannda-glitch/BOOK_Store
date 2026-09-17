@@ -18,7 +18,7 @@ const pageTitle = computed(() => {
     <AdminSidebar v-model:open="sidebarOpen" />
     <div class="min-h-screen lg:ml-72">
       <AdminNavbar v-model:open="sidebarOpen" />
-      <main class="p-4 sm:p-6 lg:p-8"><div class="mb-6 lg:hidden"><p class="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">ReadPlus Management</p><h1 class="mt-1 font-serif text-2xl font-bold text-ink">{{ pageTitle }}</h1></div><slot /></main>
+      <main class="p-4 pt-20 sm:p-6 sm:pt-20 lg:p-8 lg:pt-20"><div class="mb-6 lg:hidden"><p class="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">ReadPlus Management</p><h1 class="mt-1 font-serif text-2xl font-bold text-ink">{{ pageTitle }}</h1></div><slot /></main>
     </div>
   </div>
 </template>

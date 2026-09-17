@@ -6,9 +6,10 @@ const { clearWishlist } = useWishlist();
 const items = [
   { label: "Dashboard", to: "/admin", icon: "grid" },
   { label: "Books", to: "/admin/books", icon: "book" },
-  { label: "Categories", to: "/admin/categories", icon: "tag" },
+  { label: "Customers", to: "/admin/users", icon: "users" },
   { label: "Orders", to: "/admin/orders", icon: "bag" },
-  { label: "Users", to: "/admin/users", icon: "users" },
+  { label: "Profile", to: "/admin/profile", icon: "user" },
+  { label: "Settings", to: "/admin/settings", icon: "cog" },
 ];
 
 const isActive = (to: string) =>
@@ -24,7 +25,7 @@ const logout = async () => {
 
 <template>
   <aside
-    class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col border-r border-[#d9e7e2] bg-[#fbfdfc] shadow-2xl transition-transform lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col border-r border-[#e6efec] bg-white transition-transform lg:translate-x-0"
     :class="open ? 'translate-x-0' : ''"
   >
     <div
@@ -73,28 +74,10 @@ const logout = async () => {
       >
         <span
           class="flex h-7 w-7 items-center justify-center rounded-lg border border-current p-1.5"
-          ><UiIcon
-            :name="item.icon as 'grid' | 'book' | 'tag' | 'bag' | 'users'"
+          ><UiIcon :name="item.icon as 'grid'"
         /></span>
         {{ item.label }}
       </NuxtLink>
-      <p
-        class="mb-3 mt-8 px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400"
-      >
-        Account
-      </p>
-      <NuxtLink
-        to="/admin/profile"
-        class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-gray-600 hover:bg-[#eaf6f3] hover:text-primary"
-        @click="open = false"
-        ><UiIcon name="user" class="h-4 w-4" />Profile</NuxtLink
-      >
-      <NuxtLink
-        to="/admin/settings"
-        class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-gray-600 hover:bg-[#eaf6f3] hover:text-primary"
-        @click="open = false"
-        >Settings</NuxtLink
-      >
     </nav>
 
     <div class="border-t border-[#e2ece8] p-4">

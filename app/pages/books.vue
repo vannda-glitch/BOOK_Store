@@ -1138,4 +1138,3 @@ onMounted(async () => {
   </div>
 
 </template>
-```

@@ -80,12 +80,12 @@ onMounted(load);
 </script>
 <template>
   <section>
-    <AdminHeader
-      title="Books"
-      description="Search, edit, and maintain your store inventory."
-      action-label="Add book"
-      @action="openAddBook"
-    />
+    <div class="mb-8">
+      <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Catalog</p>
+      <h1 class="mt-2 font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl">Books</h1>
+      <p class="mt-2 text-sm text-gray-500">Search, edit, and maintain your store inventory.</p>
+      <button type="button" class="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]" @click="openAddBook">+ Add book</button>
+    </div>
     <div
       class="mb-5 flex flex-col gap-3 rounded-2xl border border-[#d9e7e2] bg-white p-4 sm:flex-row"
     >

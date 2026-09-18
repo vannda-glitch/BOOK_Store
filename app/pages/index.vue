@@ -15,7 +15,7 @@ const books = [
     format: 'Hardcover',
     collection: 'design',
     image:
-      'https://khbookshop.com/wp-content/uploads/2021/09/Untitled-1.jpg'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCtQ4Q3pvhKdSGjDkkUhQOuKfOma5fiT-7wH9Aqm953A&s=10'
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const books = [
     format: 'Hardcover',
     collection: 'design',
     image:
-      'https://khbookshop.com/wp-content/uploads/2022/01/%E1%9E%80%E1%9E%B6%E1%9E%9A%E1%9E%94%E1%9E%BB%E1%9E%B7%E1%9E%93%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%9F%E1%9E%94%E1%9F%8B%E1%9E%92%E1%9F%92%E1%9E%9C%E1%9E%BE%E1%9E%94%E1%9E%91%E1%9E%94%E1%9E%84%E1%9F%92%E1%9E%A0%E1%9E%B6%E1%9E%89%E1%9E%94%E1%9F%82%E1%9E%94-Steve-Jobs.jpg'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlgn6xk845ikjyBia6FiHetYQE-ilttfEVHnlOeMbgFg&s=10'
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const books = [
     format: 'Paperback',
     collection: 'design',
     image:
-      'https://khbookshop.com/wp-content/uploads/2022/12/152.jpg'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrCW8BjM7cW6BGhresk59v0luOERIMApbxUn5khNBGcA&s=10'
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ const books = [
     format: 'Paperback',
     collection: 'design',
     image:
-      'https://khbookshop.com/wp-content/uploads/2022/12/%E1%9F%A2-1.jpg'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2qGyKDBdR57SWy-L9PH9g01GvV1vnYYPqaJxTq9ye7A&s=10'
   },
 ]
 
@@ -360,7 +360,7 @@ function viewBook(book) {
 
 
           <NuxtLink
-            to="/collection"
+            to="/About"
             class="group px-5 py-6 transition hover:bg-[#f3f9f7]"
           >
 
@@ -373,7 +373,7 @@ function viewBook(book) {
             <h3
               class="mt-3 font-serif text-2xl font-bold"
             >
-              Rare Finds
+              About
             </h3>
 
             <p
@@ -909,7 +909,7 @@ function viewBook(book) {
             <p
               class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400"
             >
-              Rare Finds
+              Collection Spotlight
             </p>
 
 
@@ -938,7 +938,7 @@ function viewBook(book) {
                 to="/collection"
                 class="inline-flex items-center gap-3 bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-gray-200"
               >
-                Explore Rare Finds
+                Explore Collections
                 <span>→</span>
               </NuxtLink>
 

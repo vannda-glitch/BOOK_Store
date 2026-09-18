@@ -4,7 +4,7 @@
     <!-- Hero Section -->
     <section class="mx-auto mt-5 max-w-7xl rounded-[1.75rem] border border-[#dce9e4] bg-[#17201f] text-white shadow-[0_24px_70px_rgba(23,32,31,0.12)]">
       <div class="max-w-7xl mx-auto px-6 py-10 text-center">
-        <div class="mb-5 text-4xl">📚</div>
+        <div class="mb-5 text-4xl px-145"><img src="https://img.icons8.com/?size=100&id=9HuXC128p4_T&format=png&color=000000" alt=""></div>
 
         <h1 class="font-serif text-4xl font-bold md:text-5xl">
           Get in Touch With Us
@@ -34,7 +34,7 @@
 
             <!-- Address -->
             <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
-              <div class="text-2xl">📍</div>
+              <div class="text-2xl w-[40px] h-[40px]"><img src="https://img.icons8.com/?size=100&id=FQFxqQSmZBIv&format=png&color=000000" alt=""></div>
 
               <div>
                 <h3 class="font-semibold text-gray-900">
@@ -50,7 +50,7 @@
 
             <!-- Phone -->
             <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
-              <div class="text-2xl">📞</div>
+              <div class="text-2xl w-[40px] h-[40px]"><img src="https://img.icons8.com/?size=100&id=9659&format=png&color=000000" alt=""></div>
 
               <div>
                 <h3 class="font-semibold text-gray-900">
@@ -66,7 +66,7 @@
 
             <!-- Email -->
             <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
-              <div class="text-2xl">📧</div>
+              <div class="text-2xl w-[40px] h-[40px]"> <img src="https://img.icons8.com/?size=100&id=eBEo6FOQZ3v4&format=png&color=000000" alt=""> </div>
 
               <div>
                 <h3 class="font-semibold text-gray-900">
@@ -82,7 +82,7 @@
 
             <!-- Opening Hours -->
             <div class="flex gap-4 rounded-2xl border border-[#dce9e4] bg-white/80 p-5 shadow-sm">
-              <div class="text-2xl">🕐</div>
+              <div class="text-2xl w-[40px] h-[40px] py-4"><img src="https://img.icons8.com/?size=100&id=bDrb5MdYaEje&format=png&color=000000" alt=""></div>
 
               <div>
                 <h3 class="font-semibold text-gray-900">
@@ -309,8 +309,8 @@
 
       <div class="max-w-4xl mx-auto px-6 py-16 text-center">
 
-        <div class="text-4xl mb-4">
-          📖
+        <div class="text-4xl mb-4 px-93">
+          <img src="https://img.icons8.com/?size=100&id=43131&format=png&color=000000" alt="">
         </div>
 
         <h2 class="text-3xl font-bold mb-4">

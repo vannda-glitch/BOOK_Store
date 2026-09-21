@@ -11,7 +11,7 @@
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1C1WKpPmD4sVzLLaEdtCbtp4W_At9tEdF5KTrw9oOvw&s=10",
       "rating": 5,
       "reviews": 128,
-      "stock": 2
+      "stock": 1
     },
     {
       "id": "2",
@@ -277,6 +277,19 @@
       "category": "Self Development",
       "stock": 8,
       "quantity": 2
+    },
+    {
+      "id": "8DqunWfsMSo",
+      "productId": "1",
+      "title": "ឲ្យខ្ញុំ",
+      "shortTitle": "ឲ្យ",
+      "author": "សន រ៉ាមនា",
+      "price": 15,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1C1WKpPmD4sVzLLaEdtCbtp4W_At9tEdF5KTrw9oOvw&s=10",
+      "format": "Hardcover",
+      "category": "Programming",
+      "stock": 2,
+      "quantity": 1
     }
   ],
   "users": [
@@ -300,5 +313,6 @@
       "address": "Phnom Penh",
       "profileImage": "data:image/jpeg;base64,..."
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

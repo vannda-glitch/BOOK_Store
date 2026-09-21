@@ -155,76 +155,6 @@ onBeforeUnmount(() => {
             class="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-emerald-800"
           />
         </NuxtLink>
-<<<<<<< HEAD
-
-        <!-- Browse -->
-
-        <NuxtLink
-          to="/browse"
-          class="relative py-2 text-sm transition"
-          :class="
-            isActive('/browse')
-              ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-primary'
-          "
-        >
-          Browse
-
-          <span
-            v-if="isActive('/browse')"
-            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
-          />
-        </NuxtLink>
-
-        <!-- Collections -->
-
-        <NuxtLink
-          to="/collection"
-          class="relative py-2 text-sm transition"
-          :class="
-            isActive('/collection')
-              ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-primary'
-          "
-        >
-          Collections
-
-          <span
-            v-if="isActive('/collection')"
-            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
-          />
-        </NuxtLink>
-
-        <!-- About -->
-
-        <NuxtLink
-          to="/about"
-          class="relative py-2 text-sm transition"
-          :class="
-            isActive('/about')
-              ? 'font-bold text-gray-950'
-              : 'text-gray-600 hover:text-primary'
-          "
-        >
-          About
-
-          <span
-            v-if="isActive('/about')"
-            class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary"
-          />
-        </NuxtLink>
-
-        <!-- Admin -->
-
-        <NuxtLink
-          v-if="user?.role === 'admin'"
-          to="/admin"
-          class="relative py-2 text-sm font-semibold text-gray-700 transition hover:text-black"
-        >
-          Admin Dashboard
-        </NuxtLink>
-=======
->>>>>>> c7a6db1caddb0885b5a27066299d9d1e6fa3ffbf
       </nav>
 
       <!-- Desktop Action Group -->
@@ -478,27 +408,9 @@ onBeforeUnmount(() => {
           </NuxtLink>
         </div>
 
-<<<<<<< HEAD
-        <!-- ================================= -->
-        <!-- LOGGED IN -->
-        <!-- ================================= -->
-
-        <template v-else>
-          <NuxtLink
-            v-if="user.role !== 'admin'"
-            to="/profile"
-            class="flex items-center gap-2 text-gray-700 transition hover:text-black"
-          >
-            <!-- User Icon -->
-
-            <span
-              class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-primary text-sm font-bold text-white"
-            >
-=======
         <div v-else class="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-2.5 shadow-sm">
           <NuxtLink to="/profile" class="flex items-center gap-3" @click="closeMobileMenu">
             <span class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-emerald-800 text-xs font-bold text-white">
->>>>>>> c7a6db1caddb0885b5a27066299d9d1e6fa3ffbf
               <img
                 v-if="user.profileImage"
                 :src="user.profileImage"

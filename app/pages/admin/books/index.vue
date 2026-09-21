@@ -1,5 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ layout: "admin", middleware: "admin" });
+
 const API_URL = "http://localhost:8000";
 const books = ref<any[]>([]);
 const loading = ref(true);
@@ -9,6 +10,7 @@ const errorMessage = ref("");
 const showBookModal = ref(false);
 const editingBook = ref<any | null>(null);
 const saving = ref(false);
+
 const load = async () => {
   loading.value = true;
   try {
@@ -19,6 +21,7 @@ const load = async () => {
     loading.value = false;
   }
 };
+
 const filteredBooks = computed(() =>
   books.value.filter((book) => {
     const term = search.value.toLowerCase();
@@ -26,24 +29,29 @@ const filteredBooks = computed(() =>
       (!term || `${book.title} ${book.author}`.toLowerCase().includes(term)) &&
       (!category.value || book.category === category.value)
     );
-  }),
+  })
 );
+
 const categories = computed(() => [
   ...new Set(books.value.map((book) => book.category).filter(Boolean)),
 ]);
+
 const deleteBook = async (id: string | number) => {
   if (!confirm("Delete this book?")) return;
   await $fetch(`${API_URL}/books/${id}`, { method: "DELETE" });
   await load();
 };
+
 const openAddBook = () => {
   editingBook.value = null;
   showBookModal.value = true;
 };
+
 const openEditBook = (book: any) => {
   editingBook.value = book;
   showBookModal.value = true;
 };
+
 const changeStock = async (book: any, amount: number) => {
   const nextStock = Math.max(0, (Number(book.stock) || 0) + amount);
   try {
@@ -57,11 +65,15 @@ const changeStock = async (book: any, amount: number) => {
     errorMessage.value = "Unable to update stock.";
   }
 };
+
 const saveBook = async (book: any) => {
   saving.value = true;
   errorMessage.value = "";
+  
+  // Declared outside try block so it is accessible in catch block
+  const id = editingBook.value?.id;
+
   try {
-    const id = editingBook.value?.id;
     await $fetch(`${API_URL}/books${id ? `/${id}` : ""}`, {
       method: id ? "PUT" : "POST",
       body: { ...book, stock: Math.max(0, Number(book.stock) || 0) },
@@ -76,24 +88,32 @@ const saveBook = async (book: any) => {
     saving.value = false;
   }
 };
+
 onMounted(load);
 </script>
+
 <template>
   <section>
     <div class="mb-8">
       <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Catalog</p>
       <h1 class="mt-2 font-serif text-3xl font-bold tracking-tight text-ink sm:text-4xl">Books</h1>
       <p class="mt-2 text-sm text-gray-500">Search, edit, and maintain your store inventory.</p>
-      <button type="button" class="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]" @click="openAddBook">+ Add book</button>
+      <button 
+        type="button" 
+        class="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b5f59]" 
+        @click="openAddBook"
+      >
+        + Add book
+      </button>
     </div>
-    <div
-      class="mb-5 flex flex-col gap-3 rounded-2xl border border-[#d9e7e2] bg-white p-4 sm:flex-row"
-    >
+
+    <div class="mb-5 flex flex-col gap-3 rounded-2xl border border-[#d9e7e2] bg-white p-4 sm:flex-row">
       <input
         v-model="search"
         placeholder="Search by title or author"
         class="min-w-0 flex-1 rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-primary"
-      /><select
+      />
+      <select
         v-model="category"
         class="rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-primary"
       >
@@ -103,15 +123,15 @@ onMounted(load);
         </option>
       </select>
     </div>
-    <p
-      v-if="errorMessage"
-      class="mb-5 rounded-xl bg-red-50 p-4 text-sm text-red-700"
-    >
+
+    <p v-if="errorMessage" class="mb-5 rounded-xl bg-red-50 p-4 text-sm text-red-700">
       {{ errorMessage }}
     </p>
+
     <div v-if="loading" class="py-20 text-center text-sm text-gray-500">
       Loading books...
     </div>
+
     <AdminBookTable
       v-else
       :books="filteredBooks"
@@ -119,21 +139,16 @@ onMounted(load);
       @delete="deleteBook"
       @stock-change="changeStock"
     />
+
     <div
       v-if="showBookModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-sm"
       @click.self="showBookModal = false"
     >
-      <div
-        class="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/70 bg-white shadow-2xl"
-      >
-        <div
-          class="flex shrink-0 items-center justify-between border-b border-[#e6efec] px-5 py-4 sm:px-6"
-        >
+      <div class="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/70 bg-white shadow-2xl">
+        <div class="flex shrink-0 items-center justify-between border-b border-[#e6efec] px-5 py-4 sm:px-6">
           <div>
-            <p
-              class="text-[10px] font-bold uppercase tracking-[0.18em] text-primary"
-            >
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
               Catalog
             </p>
             <h2 class="mt-1 font-serif text-xl font-bold text-ink">

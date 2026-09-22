@@ -183,17 +183,17 @@
       "id": "14"
     },
     {
-      "title": "kak",
+      "title": "Example ",
+      "shortTitle": "Example",
       "author": "kak",
       "price": 0.99,
       "category": "Finance",
       "format": "hardcore",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnDAbyRi44jJjAgejENaW3gwz3QuLToXa203GXzP0O3A&s=10",
-      "shortTitle": "kak",
       "rating": 5,
       "reviews": 0,
-      "id": "K_0YxCtJWBk",
-      "stock": 6
+      "stock": 6,
+      "id": "K_0YxCtJWBk"
     },
     {
       "title": "bookStore",
@@ -266,7 +266,7 @@
   ],
   "cart": [
     {
-      "id": "3AfuMUFq-Qo",
+      "id": "5P93wEiZnEI",
       "productId": "2",
       "title": "គំនិតនៃភាពជោគជ័យ",
       "shortTitle": "គំនិតនៃភាពជោគជ័យ",
@@ -276,7 +276,7 @@
       "format": "Paperback",
       "category": "Design",
       "stock": 10,
-      "quantity": 2
+      "quantity": 1
     }
   ],
   "users": [
@@ -378,7 +378,7 @@
       "subtotal": 175,
       "shipping": 0,
       "total": 175,
-      "status": "pending",
+      "status": "cancelled",
       "createdAt": "2026-09-08T16:52:14.542Z",
       "id": "EcZ7BffqFOU"
     },
@@ -606,14 +606,14 @@
   ],
   "wishlist": [
     {
-      "userId": "Uf6GMoM6C0U",
+      "userId": "EA7m4cJIDQM",
       "bookId": "5",
-      "id": "i4QiqRTRha0"
+      "id": "aYeYGZnRMJA"
     },
     {
-      "userId": "Uf6GMoM6C0U",
+      "userId": "EA7m4cJIDQM",
       "bookId": "2",
-      "id": "gPOW8b3h0SA"
+      "id": "44wMXTutMvI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

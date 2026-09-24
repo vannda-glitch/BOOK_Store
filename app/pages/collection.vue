@@ -109,7 +109,7 @@ const books = [
   },
   {
     id: 3,
-    title: "The Visual Display of Quantitative Information",
+    title: "Quantitative Information",
     author: "Edward R. Tufte",
     price: 52,
     rating: 5,
@@ -121,7 +121,7 @@ const books = [
   },
   {
     id: 4,
-    title: "Thinking with Type",
+    title: "Please Thinking with Types",
     author: "Ellen Lupton",
     price: 38,
     rating: 4,
@@ -158,7 +158,7 @@ const books = [
   {
     id: 7,
     stock: 9,
-    title: "The Design of Everyday Things",
+    title: "The Design of Everyday",
     author: "Don Norman",
     price: 42,
     rating: 5,
